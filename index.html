@@ -18,8 +18,9 @@
         }
 
         body {
-            background-color: black;
-            color: rgb(249, 249, 249);
+            background-color: rgb(249, 249, 249);
+            color: #333;
+            line-height: 1.6;
         }
 
         /* HEADER */
@@ -28,12 +29,12 @@
             top: 0;
             width: 100%;
             z-index: 1000;
-            background: transparent;
+            background-color: transparent;
             transition: background-color 0.3s ease;
         }
 
         header.scrolled {
-            background-color: black;
+            background-color: #000;
         }
 
         .nav-container {
@@ -41,8 +42,8 @@
             margin: auto;
             padding: 20px;
             display: flex;
-            align-items: center;
             justify-content: space-between;
+            align-items: center;
         }
 
         .nav-left {
@@ -52,77 +53,102 @@
         }
 
         .logo {
-            font-size: 22px;
-            font-weight: 700;
             color: rgb(249, 249, 249);
+            font-weight: 700;
+            font-size: 22px;
             white-space: nowrap;
         }
 
         nav ul {
             list-style: none;
             display: flex;
-            gap: 25px;
+            gap: 30px;
         }
 
         nav a {
+            color: rgb(249, 249, 249);
             text-decoration: none;
             font-weight: 700;
             font-size: 20px;
             line-height: 14px;
-            color: rgb(249, 249, 249);
+        }
+
+        nav a:hover {
+            opacity: 0.8;
         }
 
         .login a {
+            color: rgb(249, 249, 249);
+            text-decoration: none;
             font-weight: 700;
             font-size: 20px;
             line-height: 14px;
-            color: rgb(249, 249, 249);
-            text-decoration: none;
+            border: 1px solid rgb(249, 249, 249);
+            padding: 6px 16px;
+            border-radius: 20px;
+            transition: 0.3s;
         }
 
+        .login a:hover {
+            background-color: rgb(249, 249, 249);
+            color: #000;
+        }
+
+        /* Espaço do header fixo */
         .spacer {
             height: 90px;
         }
 
-        /* SECTIONS */
+        /* SEÇÕES */
         section {
+            padding: 80px 20px;
             max-width: 1000px;
             margin: auto;
-            padding: 80px 20px;
             position: relative;
         }
 
-        /* TITLE HEADER */
-        .TitleHeader {
-            position: relative;
+        /* Title Header */
+        .title-header {
             text-align: center;
+            position: relative;
+            margin-bottom: 50px;
+        }
+
+        .title-header h2 {
             font-size: 28px;
             font-weight: 700;
-            margin-bottom: 40px;
+            z-index: 2;
+            position: relative;
+            background-color: rgb(249, 249, 249);
+            display: inline-block;
+            padding: 0 20px;
         }
 
-        .TitleHeader .line {
+        .title-header .line {
             position: absolute;
-            bottom: -15px;
+            top: 50%;
             left: 0;
             width: 100%;
             height: 1px;
-            background-color: rgb(249, 249, 249);
+            background-color: rgb(0, 0, 0);
             display: block;
             unicode-bidi: isolate;
+            z-index: 1;
         }
 
-        .content {
-            text-align: center;
-            font-size: 16px;
-            opacity: 0.9;
+        .card {
+            background: #fff;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
         }
 
         footer {
+            background-color: #000;
+            color: rgb(249, 249, 249);
             text-align: center;
-            padding: 30px 20px;
-            font-size: 14px;
-            opacity: 0.7;
+            padding: 20px;
+            margin-top: 60px;
         }
 
         @media (max-width: 768px) {
@@ -149,7 +175,6 @@
                 </ul>
             </nav>
         </div>
-
         <div class="login">
             <a href="#">Login</a>
         </div>
@@ -159,57 +184,57 @@
 <div class="spacer"></div>
 
 <section id="comunicacao">
-    <h2 class="TitleHeader">
-        Comunicação
-        <span class="line"></span>
-    </h2>
-    <div class="content">
-        Comunicados internos, campanhas institucionais e avisos corporativos.
+    <div class="title-header">
+        <span class="title-line"></span>
+        <h2>Comunicação</h2>
+    </div>
+    <div class="card">
+        Comunicados internos, campanhas institucionais e avisos importantes.
     </div>
 </section>
 
 <section id="ti">
-    <h2 class="TitleHeader">
-        Tecnologia da Informação
-        <span class="line"></span>
-    </h2>
-    <div class="content">
-        Suporte técnico, sistemas internos e infraestrutura corporativa.
+    <div class="title-header">
+        <span class="title-line"></span>
+        <h2>Tecnologia da Informação</h2>
+    </div>
+    <div class="card">
+        Suporte técnico, sistemas corporativos e infraestrutura.
     </div>
 </section>
 
 <section id="rh">
-    <h2 class="TitleHeader">
-        Recursos Humanos
-        <span class="line"></span>
-    </h2>
-    <div class="content">
-        Benefícios, holerites, políticas internas e gestão de pessoas.
+    <div class="title-header">
+        <span class="title-line"></span>
+        <h2>Recursos Humanos</h2>
+    </div>
+    <div class="card">
+        Benefícios, holerites, desenvolvimento e gestão de pessoas.
     </div>
 </section>
 
 <section id="financeiro">
-    <h2 class="TitleHeader">
-        Financeiro
-        <span class="line"></span>
-    </h2>
-    <div class="content">
-        Reembolsos, orçamentos, notas fiscais e controles financeiros.
+    <div class="title-header">
+        <span class="title-line"></span>
+        <h2>Financeiro</h2>
+    </div>
+    <div class="card">
+        Reembolsos, orçamentos e controle financeiro.
     </div>
 </section>
 
 <section id="contato">
-    <h2 class="TitleHeader">
-        Contato
-        <span class="line"></span>
-    </h2>
-    <div class="content">
-        suporte@empresa.com • Ramal 1234
+    <div class="title-header">
+        <span class="title-line"></span>
+        <h2>Contato</h2>
+    </div>
+    <div class="card">
+        suporte@empresa.com | Ramal 1234
     </div>
 </section>
 
 <footer>
-    © 2026 — Intranet Corporativa
+    © 2026 - Intranet Corporativa
 </footer>
 
 <script>
