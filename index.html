@@ -18,23 +18,23 @@
         }
 
         body {
-            background-color: #f4f6f8;
-            color: #333;
+            background-color: black;
+            color: rgb(249, 249, 249);
             line-height: 1.6;
         }
 
-        /* HEADER / NAV */
+        /* HEADER */
         header {
             position: fixed;
             top: 0;
             width: 100%;
             z-index: 1000;
-            background-color: transparent;
+            background: transparent;
             transition: background-color 0.3s ease;
         }
 
         header.scrolled {
-            background-color: #000;
+            background-color: black;
         }
 
         .nav-container {
@@ -42,21 +42,20 @@
             margin: auto;
             padding: 18px 24px;
             display: flex;
-            align-items: center;
             justify-content: space-between;
+            align-items: center;
         }
 
         .nav-left {
             display: flex;
             align-items: center;
-            gap: 32px;
+            gap: 40px;
         }
 
         .logo {
-            font-size: 22px;
             font-weight: 700;
+            font-size: 22px;
             color: rgb(249, 249, 249);
-            white-space: nowrap;
         }
 
         nav ul {
@@ -75,54 +74,65 @@
         }
 
         nav a:hover {
-            opacity: 0.85;
+            opacity: 0.8;
         }
 
         .login a {
             font-weight: 700;
-            font-size: 16px;
+            font-size: 18px;
             color: rgb(249, 249, 249);
             text-decoration: none;
             border: 1px solid rgb(249, 249, 249);
-            padding: 6px 16px;
+            padding: 6px 18px;
             border-radius: 20px;
             transition: 0.3s;
         }
 
         .login a:hover {
             background: rgb(249, 249, 249);
-            color: #000;
+            color: black;
         }
 
-        /* ESPAÇO HEADER FIXO */
         .spacer {
-            height: 84px;
+            height: 90px;
         }
 
+        /* SEÇÕES */
         section {
-            padding: 60px 20px;
             max-width: 1000px;
             margin: auto;
-        }
-
-        section h2 {
-            margin-bottom: 16px;
-            color: #1e293b;
+            padding: 80px 20px;
+            text-align: center;
         }
 
         .card {
-            background: #fff;
+            margin-top: 30px;
             padding: 24px;
-            border-radius: 8px;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            border: 1px solid rgba(249, 249, 249, 0.15);
+            border-radius: 10px;
+            color: rgba(249, 249, 249, 0.85);
+        }
+
+        /* TITLE HEADER */
+        .TitleHeader {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .sc-22016745-2.dXfgbW {
+            width: 60px;
+            height: 3px;
+            background: rgb(249, 249, 249);
+            margin: 0 auto 30px auto;
+            border-radius: 2px;
         }
 
         footer {
-            background: #000;
-            color: rgb(249, 249, 249);
+            border-top: 1px solid rgba(249, 249, 249, 0.15);
             text-align: center;
-            padding: 20px;
-            margin-top: 40px;
+            padding: 30px;
+            color: rgba(249, 249, 249, 0.7);
         }
 
         @media (max-width: 768px) {
@@ -159,32 +169,47 @@
 <div class="spacer"></div>
 
 <section id="comunicacao">
-    <h2>📢 Comunicação</h2>
-    <div class="card">Comunicados internos e avisos institucionais.</div>
+    <div class="TitleHeader">Comunicação</div>
+    <div class="sc-22016745-2 dXfgbW"></div>
+    <div class="card">
+        Comunicados internos, campanhas institucionais e avisos corporativos.
+    </div>
 </section>
 
 <section id="ti">
-    <h2>💻 Tecnologia da Informação</h2>
-    <div class="card">Suporte técnico e sistemas internos.</div>
+    <div class="TitleHeader">Tecnologia da Informação</div>
+    <div class="sc-22016745-2 dXfgbW"></div>
+    <div class="card">
+        Suporte técnico, sistemas internos e segurança da informação.
+    </div>
 </section>
 
 <section id="rh">
-    <h2>👥 Recursos Humanos</h2>
-    <div class="card">Benefícios, holerites e gestão de pessoas.</div>
+    <div class="TitleHeader">Recursos Humanos</div>
+    <div class="sc-22016745-2 dXfgbW"></div>
+    <div class="card">
+        Benefícios, folha de pagamento e desenvolvimento de pessoas.
+    </div>
 </section>
 
 <section id="financeiro">
-    <h2>💰 Financeiro</h2>
-    <div class="card">Reembolsos e controle financeiro.</div>
+    <div class="TitleHeader">Financeiro</div>
+    <div class="sc-22016745-2 dXfgbW"></div>
+    <div class="card">
+        Reembolsos, orçamentos e controle financeiro.
+    </div>
 </section>
 
 <section id="contato">
-    <h2>📬 Contato</h2>
-    <div class="card">Email: suporte@empresa.com | Ramal: 1234</div>
+    <div class="TitleHeader">Contato</div>
+    <div class="sc-22016745-2 dXfgbW"></div>
+    <div class="card">
+        suporte@empresa.com • Ramal 1234
+    </div>
 </section>
 
 <footer>
-    © 2026 - Intranet Corporativa
+    © 2026 • Intranet Corporativa
 </footer>
 
 <script>
