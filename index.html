@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Intranet Corporativa</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            background-color: #f4f6f8;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: #1e293b;
+            color: #fff;
+            padding: 20px;
+            position: sticky;
+            top: 0;
+        }
+
+        header h1 {
+            margin-bottom: 10px;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        section {
+            padding: 40px 20px;
+            max-width: 1000px;
+            margin: auto;
+        }
+
+        section h2 {
+            margin-bottom: 15px;
+            color: #1e293b;
+        }
+
+        .card {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+
+        footer {
+            background-color: #1e293b;
+            color: #fff;
+            text-align: center;
+            padding: 15px;
+            margin-top: 40px;
+        }
+
+        @media (max-width: 600px) {
+            nav ul {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>Intranet Corporativa</h1>
+    <nav>
+        <ul>
+            <li><a href="#comunicacao">Comunicação</a></li>
+            <li><a href="#ti">TI</a></li>
+            <li><a href="#rh">RH</a></li>
+            <li><a href="#financeiro">Financeiro</a></li>
+            <li><a href="#contato">Contato</a></li>
+        </ul>
+    </nav>
+</header>
+
+<section id="comunicacao">
+    <h2>📢 Comunicação</h2>
+    <div class="card">
+        <p>
+            Área responsável pelos comunicados internos, avisos importantes,
+            campanhas institucionais e atualizações gerais da empresa.
+        </p>
+        <ul>
+            <li>Comunicados internos</li>
+            <li>Eventos corporativos</li>
+            <li>Políticas e normas</li>
+        </ul>
+    </div>
+</section>
+
+<section id="ti">
+    <h2>💻 Tecnologia da Informação (TI)</h2>
+    <div class="card">
+        <p>
+            Suporte técnico, sistemas corporativos, infraestrutura e segurança da informação.
+        </p>
+        <ul>
+            <li>Abertura de chamados</li>
+            <li>Sistemas internos</li>
+            <li>Manuais e acessos</li>
+        </ul>
+    </div>
+</section>
+
+<section id="rh">
+    <h2>👥 Recursos Humanos</h2>
+    <div class="card">
+        <p>
+            Gestão de pessoas, benefícios, folha de pagamento e desenvolvimento profissional.
+        </p>
+        <ul>
+            <li>Holerites</li>
+            <li>Benefícios</li>
+            <li>Vagas internas</li>
+        </ul>
+    </div>
+</section>
+
+<section id="financeiro">
+    <h2>💰 Financeiro</h2>
+    <div class="card">
+        <p>
+            Controle financeiro, reembolsos, notas fiscais e relatórios.
+        </p>
+        <ul>
+            <li>Solicitação de reembolso</li>
+            <li>Prestação de contas</li>
+            <li>Orçamentos</li>
+        </ul>
+    </div>
+</section>
+
+<section id="contato">
+    <h2>📬 Contato</h2>
+    <div class="card">
+        <p>
+            Em caso de dúvidas, entre em contato com o setor responsável.
+        </p>
+        <p>
+            📧 Email: suporte@empresa.com<br>
+            ☎️ Ramal: 1234
+        </p>
+    </div>
+</section>
+
+<footer>
+    <p>© 2026 - Intranet Corporativa</p>
+</footer>
+
+</body>
+</html>
