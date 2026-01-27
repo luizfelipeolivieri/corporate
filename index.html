@@ -19,37 +19,81 @@
             line-height: 1.6;
         }
 
+        /* HEADER / NAV */
         header {
-            background-color: #1e293b;
-            color: #fff;
-            padding: 20px;
-            position: sticky;
+            position: fixed;
             top: 0;
+            width: 100%;
+            z-index: 1000;
+            transition: background-color 0.3s ease;
+            background-color: transparent;
         }
 
-        header h1 {
-            margin-bottom: 10px;
+        header.scrolled {
+            background-color: #000;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .logo {
+            font-size: 20px;
+            font-weight: bold;
+            color: #fff;
+            white-space: nowrap;
         }
 
         nav ul {
             list-style: none;
             display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
+            gap: 20px;
         }
 
         nav a {
-            color: #fff;
             text-decoration: none;
-            font-weight: bold;
+            color: #fff;
+            font-weight: 500;
         }
 
         nav a:hover {
-            text-decoration: underline;
+            opacity: 0.8;
         }
 
+        .login a {
+            color: #fff;
+            font-weight: bold;
+            text-decoration: none;
+            border: 1px solid #fff;
+            padding: 6px 14px;
+            border-radius: 20px;
+            transition: 0.3s;
+        }
+
+        .login a:hover {
+            background: #fff;
+            color: #000;
+        }
+
+        /* ESPAÇO PARA O HEADER FIXO */
+        .spacer {
+            height: 80px;
+        }
+
+        /* SEÇÕES */
         section {
-            padding: 40px 20px;
+            padding: 60px 20px;
             max-width: 1000px;
             margin: auto;
         }
@@ -64,20 +108,19 @@
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-            margin-bottom: 20px;
         }
 
         footer {
-            background-color: #1e293b;
+            background: #000;
             color: #fff;
             text-align: center;
-            padding: 15px;
+            padding: 20px;
             margin-top: 40px;
         }
 
-        @media (max-width: 600px) {
+        @media (max-width: 768px) {
             nav ul {
-                flex-direction: column;
+                display: none;
             }
         }
     </style>
@@ -85,92 +128,79 @@
 
 <body>
 
-<header>
-    <h1>Intranet Corporativa</h1>
-    <nav>
-        <ul>
-            <li><a href="#comunicacao">Comunicação</a></li>
-            <li><a href="#ti">TI</a></li>
-            <li><a href="#rh">RH</a></li>
-            <li><a href="#financeiro">Financeiro</a></li>
-            <li><a href="#contato">Contato</a></li>
-        </ul>
-    </nav>
+<header id="header">
+    <div class="nav-container">
+        <div class="nav-left">
+            <div class="logo">INTRANET</div>
+            <nav>
+                <ul>
+                    <li><a href="#comunicacao">Comunicação</a></li>
+                    <li><a href="#ti">TI</a></li>
+                    <li><a href="#rh">RH</a></li>
+                    <li><a href="#financeiro">Financeiro</a></li>
+                    <li><a href="#contato">Contato</a></li>
+                </ul>
+            </nav>
+        </div>
+
+        <div class="login">
+            <a href="#">Login</a>
+        </div>
+    </div>
 </header>
+
+<div class="spacer"></div>
 
 <section id="comunicacao">
     <h2>📢 Comunicação</h2>
     <div class="card">
-        <p>
-            Área responsável pelos comunicados internos, avisos importantes,
-            campanhas institucionais e atualizações gerais da empresa.
-        </p>
-        <ul>
-            <li>Comunicados internos</li>
-            <li>Eventos corporativos</li>
-            <li>Políticas e normas</li>
-        </ul>
+        Comunicados internos, avisos e campanhas institucionais.
     </div>
 </section>
 
 <section id="ti">
-    <h2>💻 Tecnologia da Informação (TI)</h2>
+    <h2>💻 Tecnologia da Informação</h2>
     <div class="card">
-        <p>
-            Suporte técnico, sistemas corporativos, infraestrutura e segurança da informação.
-        </p>
-        <ul>
-            <li>Abertura de chamados</li>
-            <li>Sistemas internos</li>
-            <li>Manuais e acessos</li>
-        </ul>
+        Suporte técnico, sistemas internos e infraestrutura.
     </div>
 </section>
 
 <section id="rh">
     <h2>👥 Recursos Humanos</h2>
     <div class="card">
-        <p>
-            Gestão de pessoas, benefícios, folha de pagamento e desenvolvimento profissional.
-        </p>
-        <ul>
-            <li>Holerites</li>
-            <li>Benefícios</li>
-            <li>Vagas internas</li>
-        </ul>
+        Benefícios, holerites e gestão de pessoas.
     </div>
 </section>
 
 <section id="financeiro">
     <h2>💰 Financeiro</h2>
     <div class="card">
-        <p>
-            Controle financeiro, reembolsos, notas fiscais e relatórios.
-        </p>
-        <ul>
-            <li>Solicitação de reembolso</li>
-            <li>Prestação de contas</li>
-            <li>Orçamentos</li>
-        </ul>
+        Reembolsos, pagamentos e relatórios financeiros.
     </div>
 </section>
 
 <section id="contato">
     <h2>📬 Contato</h2>
     <div class="card">
-        <p>
-            Em caso de dúvidas, entre em contato com o setor responsável.
-        </p>
-        <p>
-            📧 Email: suporte@empresa.com<br>
-            ☎️ Ramal: 1234
-        </p>
+        Email: suporte@empresa.com | Ramal: 1234
     </div>
 </section>
 
 <footer>
-    <p>© 2026 - Intranet Corporativa</p>
+    © 2026 - Intranet Corporativa
 </footer>
+
+<script>
+    const header = document.getElementById("header");
+
+    window.addEventListener("scroll", () => {
+        if (window.scrollY > 50) {
+            header.classList.add("scrolled");
+        } else {
+            header.classList.remove("scrolled");
+        }
+    });
+</script>
 
 </body>
 </html>
