@@ -5,12 +5,16 @@
     <title>Intranet Corporativa</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <!-- Open Sans -->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: Arial, Helvetica, sans-serif;
+            font-family: "Open Sans", sans-serif;
+            font-variant-numeric: lining-nums;
         }
 
         body {
@@ -25,8 +29,8 @@
             top: 0;
             width: 100%;
             z-index: 1000;
-            transition: background-color 0.3s ease;
             background-color: transparent;
+            transition: background-color 0.3s ease;
         }
 
         header.scrolled {
@@ -36,7 +40,7 @@
         .nav-container {
             max-width: 1200px;
             margin: auto;
-            padding: 15px 20px;
+            padding: 18px 24px;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -45,53 +49,56 @@
         .nav-left {
             display: flex;
             align-items: center;
-            gap: 30px;
+            gap: 32px;
         }
 
         .logo {
-            font-size: 20px;
-            font-weight: bold;
-            color: #fff;
+            font-size: 22px;
+            font-weight: 700;
+            color: rgb(249, 249, 249);
             white-space: nowrap;
         }
 
         nav ul {
             list-style: none;
             display: flex;
-            gap: 20px;
+            gap: 28px;
         }
 
         nav a {
+            font-weight: 700;
+            font-style: normal;
+            font-size: 20px;
+            line-height: 14px;
+            color: rgb(249, 249, 249);
             text-decoration: none;
-            color: #fff;
-            font-weight: 500;
         }
 
         nav a:hover {
-            opacity: 0.8;
+            opacity: 0.85;
         }
 
         .login a {
-            color: #fff;
-            font-weight: bold;
+            font-weight: 700;
+            font-size: 16px;
+            color: rgb(249, 249, 249);
             text-decoration: none;
-            border: 1px solid #fff;
-            padding: 6px 14px;
+            border: 1px solid rgb(249, 249, 249);
+            padding: 6px 16px;
             border-radius: 20px;
             transition: 0.3s;
         }
 
         .login a:hover {
-            background: #fff;
+            background: rgb(249, 249, 249);
             color: #000;
         }
 
-        /* ESPAÇO PARA O HEADER FIXO */
+        /* ESPAÇO HEADER FIXO */
         .spacer {
-            height: 80px;
+            height: 84px;
         }
 
-        /* SEÇÕES */
         section {
             padding: 60px 20px;
             max-width: 1000px;
@@ -99,20 +106,20 @@
         }
 
         section h2 {
-            margin-bottom: 15px;
+            margin-bottom: 16px;
             color: #1e293b;
         }
 
         .card {
             background: #fff;
-            padding: 20px;
+            padding: 24px;
             border-radius: 8px;
             box-shadow: 0 2px 6px rgba(0,0,0,0.1);
         }
 
         footer {
             background: #000;
-            color: #fff;
+            color: rgb(249, 249, 249);
             text-align: center;
             padding: 20px;
             margin-top: 40px;
@@ -153,37 +160,27 @@
 
 <section id="comunicacao">
     <h2>📢 Comunicação</h2>
-    <div class="card">
-        Comunicados internos, avisos e campanhas institucionais.
-    </div>
+    <div class="card">Comunicados internos e avisos institucionais.</div>
 </section>
 
 <section id="ti">
     <h2>💻 Tecnologia da Informação</h2>
-    <div class="card">
-        Suporte técnico, sistemas internos e infraestrutura.
-    </div>
+    <div class="card">Suporte técnico e sistemas internos.</div>
 </section>
 
 <section id="rh">
     <h2>👥 Recursos Humanos</h2>
-    <div class="card">
-        Benefícios, holerites e gestão de pessoas.
-    </div>
+    <div class="card">Benefícios, holerites e gestão de pessoas.</div>
 </section>
 
 <section id="financeiro">
     <h2>💰 Financeiro</h2>
-    <div class="card">
-        Reembolsos, pagamentos e relatórios financeiros.
-    </div>
+    <div class="card">Reembolsos e controle financeiro.</div>
 </section>
 
 <section id="contato">
     <h2>📬 Contato</h2>
-    <div class="card">
-        Email: suporte@empresa.com | Ramal: 1234
-    </div>
+    <div class="card">Email: suporte@empresa.com | Ramal: 1234</div>
 </section>
 
 <footer>
@@ -194,11 +191,7 @@
     const header = document.getElementById("header");
 
     window.addEventListener("scroll", () => {
-        if (window.scrollY > 50) {
-            header.classList.add("scrolled");
-        } else {
-            header.classList.remove("scrolled");
-        }
+        header.classList.toggle("scrolled", window.scrollY > 50);
     });
 </script>
 
