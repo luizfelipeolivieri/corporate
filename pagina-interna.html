@@ -2,76 +2,224 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <title>Área Interna</title>
+    <title>Intranet - Áreas da Empresa</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <!-- Fonte -->
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
 
     <style>
-        body {
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
             font-family: "Open Sans", sans-serif;
-            background: #f9f9f9;
         }
 
+        body {
+            background-color: #f4f6f8;
+            color: #333;
+        }
+
+        /* HEADER */
         header {
+            position: fixed;
+            top: 0;
+            width: 100%;
             background: #000;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: auto;
             padding: 20px;
-            color: #fff;
             display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+        }
+
+        .logo {
+            color: #fff;
+            font-weight: 700;
+            font-size: 22px;
+            text-decoration: none;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+        }
+
+        nav a span {
+            color: #fff;
+            font-weight: 700;
+            font-size: 18px;
+        }
+
+        .spacer {
+            height: 90px;
+        }
+
+        /* CONTEÚDO */
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 40px 20px;
+        }
+
+        h1 {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .areas {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: #fff;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
             justify-content: space-between;
         }
 
-        button {
-            background: transparent;
+        .card h2 {
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            flex: 1;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        .card button {
+            padding: 12px;
+            background: #000;
             color: #fff;
-            border: 1px solid #fff;
-            padding: 6px 16px;
+            border: none;
+            border-radius: 6px;
+            font-weight: 700;
             cursor: pointer;
         }
 
-        section {
-            padding: 100px 20px;
-            text-align: center;
+        .card button:hover {
+            background: #333;
+        }
+
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+            }
         }
     </style>
 </head>
+
 <body>
 
 <header>
-    <strong>INTRANET</strong>
-    <button onclick="logout()">Sair</button>
+    <div class="nav-container">
+        <div class="nav-left">
+            <a href="./index.html" class="logo">INTRANET</a>
+
+            <nav>
+                <ul>
+                    <li><a href="#"><span>Administrativo</span></a></li>
+                    <li><a href="#"><span>TI</span></a></li>
+                    <li><a href="#"><span>RH</span></a></li>
+                    <li><a href="#"><span>Financeiro</span></a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
 </header>
 
-<section>
-    <h1>Bem-vindo</h1>
-</section>
+<div class="spacer"></div>
 
-<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+<div class="container">
+    <h1>Áreas da Empresa</h1>
 
-<script>
-    const firebaseConfig = {
-        apiKey: "AIzaSyDByExIuGOyp5Oelr0wA_4EUnVKgq6Xiq0",
-        authDomain: "corporatelogin-305a5.firebaseapp.com",
-        projectId: "corporatelogin-305a5",
-        storageBucket: "corporatelogin-305a5.firebasestorage.app",
-        messagingSenderId: "280564137265",
-        appId: "1:280564137265:web:9a7d546136feacfde90410"
-    };
+    <div class="areas">
 
-    firebase.initializeApp(firebaseConfig);
-    const auth = firebase.auth();
+        <div class="card">
+            <h2>Administrativo</h2>
+            <p>Gestão de documentos, contratos, solicitações internas e suporte geral.</p>
+            <button onclick="alert('Acessar solicitações administrativas')">
+                Abrir Solicitações
+            </button>
+        </div>
 
-    auth.onAuthStateChanged(user => {
-        if (!user) window.location.href = "login.html";
-    });
+        <div class="card">
+            <h2>Marketing</h2>
+            <p>Campanhas, materiais de divulgação, identidade visual e comunicação.</p>
+            <button onclick="alert('Acessar campanhas de marketing')">
+                Ver Campanhas
+            </button>
+        </div>
 
-    function logout() {
-        auth.signOut().then(() => {
-            window.location.href = "login.html";
-        });
-    }
-</script>
+        <div class="card">
+            <h2>Tecnologia da Informação (TI)</h2>
+            <p>Chamados técnicos, sistemas, acessos e suporte ao usuário.</p>
+            <button onclick="alert('Abrir chamado de TI')">
+                Abrir Chamado
+            </button>
+        </div>
+
+        <div class="card">
+            <h2>Recursos Humanos (RH)</h2>
+            <p>Férias, folha de pagamento, benefícios e dados do colaborador.</p>
+            <button onclick="alert('Solicitar férias ou documentos')">
+                Solicitar RH
+            </button>
+        </div>
+
+        <div class="card">
+            <h2>Financeiro</h2>
+            <p>Reembolsos, pagamentos, notas fiscais e controle financeiro.</p>
+            <button onclick="alert('Solicitar reembolso')">
+                Solicitar Reembolso
+            </button>
+        </div>
+
+        <div class="card">
+            <h2>Comercial / Vendas</h2>
+            <p>Gestão de clientes, propostas, contratos e oportunidades.</p>
+            <button onclick="alert('Acessar oportunidades de vendas')">
+                Ver Oportunidades
+            </button>
+        </div>
+
+        <div class="card">
+            <h2>Logística</h2>
+            <p>Controle de estoque, entregas, pedidos e movimentações.</p>
+            <button onclick="alert('Consultar status de pedidos')">
+                Consultar Pedidos
+            </button>
+        </div>
+
+        <div class="card">
+            <h2>Jurídico</h2>
+            <p>Contratos, pareceres jurídicos e demandas legais.</p>
+            <button onclick="alert('Solicitar análise jurídica')">
+                Solicitar Análise
+            </button>
+        </div>
+
+    </div>
+</div>
 
 </body>
 </html>
