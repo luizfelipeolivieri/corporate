@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <title>Intranet - Áreas da Empresa</title>
+    <title>Intranet - Áreas Internas</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Fonte -->
@@ -17,16 +17,16 @@
         }
 
         body {
-            background-color: #f4f6f8;
+            background-color: rgb(249, 249, 249);
             color: #333;
         }
 
         /* HEADER */
         header {
+            background-color: #000;
             position: fixed;
             top: 0;
             width: 100%;
-            background: #000;
             z-index: 1000;
         }
 
@@ -49,7 +49,6 @@
             color: #fff;
             font-weight: 700;
             font-size: 22px;
-            text-decoration: none;
         }
 
         nav ul {
@@ -62,6 +61,28 @@
             color: #fff;
             font-weight: 700;
             font-size: 18px;
+            border-bottom: 0.3rem solid transparent;
+            padding-bottom: 4px;
+            transition: 0.3s;
+        }
+
+        nav a:hover span {
+            border-color: #fff;
+        }
+
+        .login a {
+            color: #fff;
+            text-decoration: none;
+            border: 1px solid #fff;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-weight: 700;
+            transition: 0.3s;
+        }
+
+        .login a:hover {
+            background-color: #fff;
+            color: #000;
         }
 
         .spacer {
@@ -69,31 +90,28 @@
         }
 
         /* CONTEÚDO */
-        .container {
-            max-width: 1200px;
+        section {
+            max-width: 1100px;
             margin: auto;
-            padding: 40px 20px;
+            padding: 60px 20px;
         }
 
         h1 {
-            margin-bottom: 30px;
             text-align: center;
+            margin-bottom: 40px;
         }
 
         .areas {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
         }
 
         .card {
             background: #fff;
-            border-radius: 10px;
             padding: 25px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
         }
 
         .card h2 {
@@ -101,29 +119,31 @@
         }
 
         .card p {
-            flex: 1;
-            font-size: 14px;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
 
         .card button {
-            padding: 12px;
-            background: #000;
-            color: #fff;
+            padding: 8px 15px;
             border: none;
-            border-radius: 6px;
-            font-weight: 700;
+            background-color: #000;
+            color: #fff;
+            border-radius: 20px;
             cursor: pointer;
+            font-weight: 700;
         }
 
-        .card button:hover {
-            background: #333;
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
         }
 
-        @media (max-width: 768px) {
-            nav ul {
-                display: none;
-            }
+        footer {
+            background-color: #000;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+            margin-top: 60px;
         }
     </style>
 </head>
@@ -133,93 +153,117 @@
 <header>
     <div class="nav-container">
         <div class="nav-left">
-            <a href="./index.html" class="logo">INTRANET</a>
-
+            <div class="logo">INTRANET</div>
             <nav>
                 <ul>
-                    <li><a href="#"><span>Administrativo</span></a></li>
-                    <li><a href="#"><span>TI</span></a></li>
-                    <li><a href="#"><span>RH</span></a></li>
-                    <li><a href="#"><span>Financeiro</span></a></li>
+                    <li><a href="./pagina-interna.html"><span>Início</span></a></li>
                 </ul>
             </nav>
+        </div>
+        <div class="login">
+            <a href="./login.html">Sair</a>
         </div>
     </div>
 </header>
 
 <div class="spacer"></div>
 
-<div class="container">
-    <h1>Intranet</h1>
+<section>
+    <h1>Áreas da Empresa</h1>
 
     <div class="areas">
 
         <div class="card">
             <h2>Administrativo</h2>
-            <p>Gestão de documentos, contratos, solicitações internas e suporte geral.</p>
-            <button onclick="alert('Acessar solicitações administrativas')">
-                Abrir Solicitações
-            </button>
+            <p>Gestão interna e processos administrativos.</p>
+            <button>Ver Processos</button>
         </div>
 
         <div class="card">
             <h2>Marketing</h2>
-            <p>Campanhas, materiais de divulgação, identidade visual e comunicação.</p>
-            <button onclick="alert('Acessar campanhas de marketing')">
-                Ver Campanhas
-            </button>
+            <p>Campanhas, comunicação e branding.</p>
+            <button>Criar Campanha</button>
         </div>
 
         <div class="card">
             <h2>Tecnologia da Informação (TI)</h2>
-            <p>Chamados técnicos, sistemas, acessos e suporte ao usuário.</p>
-            <button onclick="alert('Abrir chamado de TI')">
-                Abrir Chamado
-            </button>
+            <p>Suporte técnico e sistemas.</p>
+            <button>Abrir Chamado</button>
         </div>
 
         <div class="card">
             <h2>Recursos Humanos (RH)</h2>
-            <p>Férias, folha de pagamento, benefícios e dados do colaborador.</p>
-            <button onclick="alert('Solicitar férias ou documentos')">
-                Solicitar RH
-            </button>
+            <p>Gestão de pessoas e benefícios.</p>
+            <button>Consultar Benefícios</button>
         </div>
 
         <div class="card">
             <h2>Financeiro</h2>
-            <p>Reembolsos, pagamentos, notas fiscais e controle financeiro.</p>
-            <button onclick="alert('Solicitar reembolso')">
-                Solicitar Reembolso
-            </button>
+            <p>Pagamentos, reembolsos e orçamento.</p>
+            <button>Solicitar Reembolso</button>
         </div>
 
         <div class="card">
             <h2>Comercial / Vendas</h2>
-            <p>Gestão de clientes, propostas, contratos e oportunidades.</p>
-            <button onclick="alert('Acessar oportunidades de vendas')">
-                Ver Oportunidades
-            </button>
+            <p>Clientes, propostas e negociações.</p>
+            <button>Nova Proposta</button>
         </div>
 
         <div class="card">
             <h2>Logística</h2>
-            <p>Controle de estoque, entregas, pedidos e movimentações.</p>
-            <button onclick="alert('Consultar status de pedidos')">
-                Consultar Pedidos
-            </button>
+            <p>Entregas, estoque e transporte.</p>
+            <button>Consultar Estoque</button>
         </div>
 
         <div class="card">
             <h2>Jurídico</h2>
-            <p>Contratos, pareceres jurídicos e demandas legais.</p>
-            <button onclick="alert('Solicitar análise jurídica')">
-                Solicitar Análise
-            </button>
+            <p>Contratos e conformidade legal.</p>
+            <button>Ver Contratos</button>
+        </div>
+
+        <!-- GERADOR DE USUÁRIO -->
+        <div class="card">
+            <h2>Gerador de Usuário Corporativo</h2>
+            <p>Digite o nome completo do colaborador.</p>
+
+            <input type="text" id="nomeCompleto" placeholder="Ex: João da Silva">
+
+            <button onclick="gerarEmail()" style="margin-top:10px;">Gerar E-mail</button>
+
+            <p id="resultadoEmail" style="margin-top:15px; font-weight:700;"></p>
         </div>
 
     </div>
-</div>
+</section>
+
+<footer>
+    © 2026 - Intranet Corporativa
+</footer>
+
+<script>
+function gerarEmail() {
+    const nomeCompleto = document.getElementById("nomeCompleto").value.trim().toLowerCase();
+
+    if (nomeCompleto === "") {
+        alert("Digite o nome completo.");
+        return;
+    }
+
+    const partes = nomeCompleto.split(" ");
+
+    if (partes.length < 2) {
+        alert("Digite nome e sobrenome.");
+        return;
+    }
+
+    const primeiroNome = partes[0];
+    const ultimoNome = partes[partes.length - 1];
+
+    const email = `${primeiroNome}.${ultimoNome}@corporate.com`;
+
+    document.getElementById("resultadoEmail").innerText = email;
+}
+</script>
 
 </body>
 </html>
