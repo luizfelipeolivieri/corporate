@@ -35,7 +35,6 @@
             margin: auto;
             padding: 20px;
             display: flex;
-            justify-content: space-between;
             align-items: center;
         }
 
@@ -132,8 +131,13 @@
             margin-bottom: 15px;
         }
 
-        .close {
+        #recoveryMessage {
             margin-top: 10px;
+            font-size: 14px;
+        }
+
+        .close {
+            margin-top: 12px;
             font-size: 14px;
             cursor: pointer;
             color: #555;
@@ -169,13 +173,15 @@
     </div>
 </div>
 
-<!-- MODAL -->
+<!-- MODAL RECUPERAÇÃO -->
 <div class="modal-overlay" id="modal">
     <div class="modal">
         <h3>Recuperar senha</h3>
-        <p>Digite seu email corporativo. Enviaremos um link para redefinir sua senha.</p>
+        <p>Digite seu email corporativo para receber o link de redefinição.</p>
 
         <input type="email" id="recoveryEmail" placeholder="Email">
+
+        <div id="recoveryMessage"></div>
 
         <button onclick="sendRecovery()">Enviar link</button>
 
@@ -208,6 +214,8 @@
 
     function openModal() {
         document.getElementById("modal").style.display = "flex";
+        document.getElementById("recoveryMessage").innerText = "";
+        document.getElementById("recoveryEmail").value = "";
     }
 
     function closeModal() {
@@ -215,19 +223,40 @@
     }
 
     function sendRecovery() {
-        const email = document.getElementById("recoveryEmail").value;
+        const email = document.getElementById("recoveryEmail").value.trim();
+        const messageBox = document.getElementById("recoveryMessage");
+
+        messageBox.innerText = "";
+        messageBox.style.color = "#333";
 
         if (!email) {
-            alert("Digite um email válido.");
+            messageBox.innerText = "Digite um email válido.";
+            messageBox.style.color = "red";
             return;
         }
 
         auth.sendPasswordResetEmail(email)
             .then(() => {
-                alert("Link de recuperação enviado para seu email.");
-                closeModal();
+                messageBox.innerText =
+                    "Link de recuperação enviado! Verifique seu email.";
+                messageBox.style.color = "green";
+
+                setTimeout(() => {
+                    closeModal();
+                }, 3000);
             })
-            .catch(err => alert(err.message));
+            .catch(error => {
+                if (error.code === "auth/user-not-found") {
+                    messageBox.innerText =
+                        "Este email não foi encontrado em nossa base.";
+                } else if (error.code === "auth/invalid-email") {
+                    messageBox.innerText = "Email inválido.";
+                } else {
+                    messageBox.innerText =
+                        "Erro ao enviar email. Tente novamente.";
+                }
+                messageBox.style.color = "red";
+            });
     }
 </script>
 
