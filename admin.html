@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Gerador de Usuário</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body {
+    margin: 0;
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: #1f1f1f;
+    color: #eaeaea;
+}
+
+header {
+    background: #000;
+    padding: 15px 0;
+    border-bottom: 2px solid #201640;
+}
+
+.nav {
+    max-width: 900px;
+    margin: auto;
+    padding: 0 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.container {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 0 15px;
+}
+
+.card {
+    background: #2a2a2a;
+    padding: 25px;
+    border-radius: 10px;
+}
+
+label {
+    display: block;
+    margin-top: 15px;
+    font-weight: bold;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border-radius: 6px;
+    border: none;
+    background: #1b1b1b;
+    color: #fff;
+    font-size: 14px;
+}
+
+input:focus {
+    outline: 2px solid #201640;
+}
+
+.resultado {
+    margin-top: 20px;
+    padding: 15px;
+    background: #111;
+    border-radius: 8px;
+    font-size: 16px;
+    word-break: break-all;
+}
+
+button {
+    margin-top: 15px;
+    padding: 10px 15px;
+    background: #201640;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+button:hover {
+    opacity: 0.85;
+}
+
+.copy {
+    background: #0f3d1f;
+    margin-left: 10px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="nav">
+        <strong>OLIVIERI | Gerador de Usuário</strong>
+        <span>Ferramenta Web</span>
+    </div>
+</header>
+
+<div class="container">
+
+    <div class="card">
+        <h2>🔐 Gerador Automático de Usuário</h2>
+
+        <label>Nome completo</label>
+        <input type="text" id="nome" placeholder="Ex: João Carlos da Silva">
+
+        <label>Domínio (após o @)</label>
+        <input type="text" id="dominio" placeholder="Ex: empresa.com.br">
+
+        <div class="resultado" id="resultado">
+            O usuário gerado aparecerá aqui
+        </div>
+
+        <button onclick="gerarUsuario()">Gerar</button>
+        <button class="copy" onclick="copiar()">Copiar</button>
+    </div>
+
+</div>
+
+<script>
+function gerarUsuario() {
+    const nomeCompleto = document.getElementById("nome").value
+        .trim()
+        .toLowerCase()
+        .replace(/\s+/g, " ");
+
+    const dominio = document.getElementById("dominio").value
+        .trim()
+        .toLowerCase();
+
+    if (!nomeCompleto || !dominio) {
+        document.getElementById("resultado").innerText =
+            "Preencha o nome completo e o domínio.";
+        return;
+    }
+
+    const partes = nomeCompleto.split(" ");
+
+    if (partes.length < 2) {
+        document.getElementById("resultado").innerText =
+            "Informe pelo menos nome e sobrenome.";
+        return;
+    }
+
+    const primeiroNome = partes[0];
+    const ultimoNome = partes[partes.length - 1];
+
+    const usuario = `${primeiroNome}.${ultimoNome}@${dominio}`;
+
+    document.getElementById("resultado").innerText = usuario;
+}
+
+function copiar() {
+    const texto = document.getElementById("resultado").innerText;
+
+    if (!texto.includes("@")) return;
+
+    navigator.clipboard.writeText(texto);
+    alert("Usuário copiado para a área de transferência!");
+}
+</script>
+
+</body>
+</html>
