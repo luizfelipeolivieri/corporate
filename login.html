@@ -2,80 +2,66 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <title>Login - Olivieri</title>
+    <title>Login | Olivieri</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Fonte -->
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
 
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+
     <style>
         * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
             font-family: "Open Sans", sans-serif;
+            box-sizing: border-box;
         }
 
         body {
-            background-color: #f4f6f8;
-            color: #333;
+            margin: 0;
+            background: #f4f4f4;
         }
 
-        /* HEADER */
         header {
-            background-color: #000;
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 1000;
-        }
-
-        .nav-container {
-            max-width: 1200px;
-            margin: auto;
-            padding: 20px;
-            display: flex;
-            align-items: center;
-        }
-
-        .logo {
+            background: #000;
             color: #fff;
-            font-weight: 700;
-            font-size: 22px;
-            text-decoration: none;
+            padding: 20px;
         }
 
-        .spacer {
-            height: 90px;
-        }
-
-        /* LOGIN CARD */
-        .login-wrapper {
+        .nav {
+            max-width: 1100px;
+            margin: auto;
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
-            min-height: calc(100vh - 90px);
         }
 
-        .login-card {
+        .nav a {
+            color: #fff;
+            text-decoration: none;
+            margin-left: 20px;
+            font-weight: 700;
+        }
+
+        .login-box {
             background: #fff;
-            padding: 40px;
-            border-radius: 12px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            width: 340px;
-            text-align: center;
+            max-width: 400px;
+            margin: 80px auto;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,.15);
         }
 
-        .login-card h2 {
+        h2 {
+            text-align: center;
             margin-bottom: 20px;
         }
 
         input {
             width: 100%;
             padding: 12px;
-            margin: 10px 0;
-            border-radius: 8px;
-            border: 1px solid #ccc;
+            margin-bottom: 15px;
         }
 
         button {
@@ -84,68 +70,45 @@
             background: #000;
             color: #fff;
             border: none;
-            border-radius: 8px;
-            cursor: pointer;
             font-weight: 700;
-            margin-top: 10px;
-        }
-
-        button:hover {
-            background: #333;
-        }
-
-        .link {
-            margin-top: 15px;
-            display: inline-block;
-            font-size: 14px;
             cursor: pointer;
-            color: #000;
         }
 
-        /* MODAL */
-        .modal-overlay {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.6);
-            justify-content: center;
-            align-items: center;
-            z-index: 2000;
-        }
-
-        .modal {
-            background: #fff;
-            padding: 30px;
-            border-radius: 12px;
-            width: 320px;
+        .forgot {
             text-align: center;
-            animation: fadeIn 0.3s ease;
-        }
-
-        .modal h3 {
-            margin-bottom: 15px;
-        }
-
-        .modal p {
-            font-size: 14px;
-            margin-bottom: 15px;
-        }
-
-        #recoveryMessage {
-            margin-top: 10px;
-            font-size: 14px;
-        }
-
-        .close {
-            margin-top: 12px;
-            font-size: 14px;
+            margin-top: 15px;
             cursor: pointer;
             color: #555;
         }
 
-        @keyframes fadeIn {
-            from { transform: translateY(20px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,.5);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: #fff;
+            padding: 25px;
+            width: 90%;
+            max-width: 400px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .close {
+            float: right;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .msg {
+            margin-top: 10px;
+            font-size: 14px;
         }
     </style>
 </head>
@@ -153,45 +116,43 @@
 <body>
 
 <header>
-    <div class="nav-container">
-        <a href="./index.html" class="logo">OLIVIERI</a>
+    <div class="nav">
+        <strong>OLIVIERI</strong>
+        <div>
+            <a href="./index.html">Sobre</a>
+            <a href="./index.html#contato">Contato</a>
+        </div>
     </div>
 </header>
 
-<div class="spacer"></div>
+<div class="login-box">
+    <h2>Login</h2>
 
-<div class="login-wrapper">
-    <div class="login-card">
-        <h2>Login</h2>
+    <input type="email" id="email" placeholder="Email">
 
-        <input type="email" id="email" placeholder="Email corporativo">
+    <div style="position: relative;">
         <input type="password" id="password" placeholder="Senha">
-
-        <button onclick="login()">Entrar</button>
-
-        <span class="link" onclick="openModal()">Esqueci minha senha</span>
+        <span onclick="togglePassword()" style="position:absolute; right:10px; top:14px; cursor:pointer;">
+            👁
+        </span>
     </div>
+
+    <button onclick="login()">Entrar</button>
+
+    <div class="forgot" onclick="openModal()">Esqueci minha senha</div>
 </div>
 
-<!-- MODAL RECUPERAÇÃO -->
-<div class="modal-overlay" id="modal">
-    <div class="modal">
+<!-- Modal -->
+<div class="modal" id="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">✖</span>
         <h3>Recuperar senha</h3>
-        <p>Digite seu email corporativo para receber o link de redefinição.</p>
-
-        <input type="email" id="recoveryEmail" placeholder="Email">
-
-        <div id="recoveryMessage"></div>
-
-        <button onclick="sendRecovery()">Enviar link</button>
-
-        <div class="close" onclick="closeModal()">Cancelar</div>
+        <p>Digite seu email corporativo</p>
+        <input type="email" id="recoveryEmail" placeholder="email@corporate.com">
+        <button onclick="recover()">Enviar</button>
+        <div class="msg" id="recoveryMsg"></div>
     </div>
 </div>
-
-<!-- Firebase -->
-<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
 
 <script>
     const firebaseConfig = {
@@ -206,57 +167,39 @@
     firebase.initializeApp(firebaseConfig);
     const auth = firebase.auth();
 
+    function togglePassword() {
+        const p = document.getElementById("password");
+        p.type = p.type === "password" ? "text" : "password";
+    }
+
     function login() {
-        auth.signInWithEmailAndPassword(email.value, password.value)
-            .then(() => window.location.href = "./pagina-interna.html")
-            .catch(err => alert(err.message));
+        auth.signInWithEmailAndPassword(
+            email.value,
+            password.value
+        ).then(() => {
+            window.location.href = "./pagina-interna.html";
+        }).catch(() => alert("Usuário ou senha inválidos"));
     }
 
     function openModal() {
-        document.getElementById("modal").style.display = "flex";
-        document.getElementById("recoveryMessage").innerText = "";
-        document.getElementById("recoveryEmail").value = "";
+        modal.style.display = "flex";
     }
 
     function closeModal() {
-        document.getElementById("modal").style.display = "none";
+        modal.style.display = "none";
+        recoveryMsg.innerText = "";
     }
 
-    function sendRecovery() {
-        const email = document.getElementById("recoveryEmail").value.trim();
-        const messageBox = document.getElementById("recoveryMessage");
-
-        messageBox.innerText = "";
-        messageBox.style.color = "#333";
-
-        if (!email) {
-            messageBox.innerText = "Digite um email válido.";
-            messageBox.style.color = "red";
-            return;
-        }
-
-        auth.sendPasswordResetEmail(email)
-            .then(() => {
-                messageBox.innerText =
-                    "Link de recuperação enviado! Verifique seu email.";
-                messageBox.style.color = "green";
-
-                setTimeout(() => {
-                    closeModal();
-                }, 3000);
-            })
-            .catch(error => {
-                if (error.code === "auth/user-not-found") {
-                    messageBox.innerText =
-                        "Este email não foi encontrado em nossa base.";
-                } else if (error.code === "auth/invalid-email") {
-                    messageBox.innerText = "Email inválido.";
-                } else {
-                    messageBox.innerText =
-                        "Erro ao enviar email. Tente novamente.";
-                }
-                messageBox.style.color = "red";
-            });
+    function recover() {
+        auth.sendPasswordResetEmail(recoveryEmail.value)
+        .then(() => {
+            recoveryMsg.style.color = "green";
+            recoveryMsg.innerText = "Email enviado com sucesso!";
+        })
+        .catch(error => {
+            recoveryMsg.style.color = "red";
+            recoveryMsg.innerText = "Email não encontrado no sistema.";
+        });
     }
 </script>
 
