@@ -10,12 +10,17 @@
     <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
 
     <style>
+        * {
+            box-sizing: border-box;
+            font-family: "Open Sans", Arial, sans-serif;
+        }
+
         body {
             margin: 0;
-            font-family: Arial, sans-serif;
             background: #f4f4f4;
         }
 
+        /* HEADER */
         header {
             background: #000;
             color: #fff;
@@ -30,22 +35,55 @@
             align-items: center;
         }
 
+        .nav strong {
+            font-size: 20px;
+        }
+
+        .nav span {
+            font-size: 14px;
+        }
+
+        /* CONTEÚDO */
         .container {
             max-width: 1100px;
-            margin: 40px auto;
+            margin: 50px auto;
+            padding: 0 20px;
         }
 
-        .card {
+        h1 {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .areas {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 25px;
+        }
+
+        .area-btn {
             background: #fff;
-            padding: 20px;
-            margin-bottom: 20px;
-            border-radius: 6px;
+            border-radius: 10px;
+            padding: 30px 20px;
+            text-align: center;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            font-weight: 700;
+            font-size: 16px;
         }
 
-        button {
-            padding: 8px 14px;
+        .area-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 18px rgba(0,0,0,0.15);
+        }
+
+        .area-btn span {
+            display: block;
             margin-top: 10px;
-            cursor: pointer;
+            font-size: 13px;
+            font-weight: normal;
+            color: #555;
         }
     </style>
 </head>
@@ -60,47 +98,51 @@
 </header>
 
 <div class="container">
+    <h1>Áreas da Empresa</h1>
 
-    <div class="card">
-        <h3>Administrativo</h3>
-        <button>Gestão de documentos</button>
+    <div class="areas">
+
+        <div class="area-btn" onclick="goTo('administrativo.html')">
+            Administrativo
+            <span>Processos e gestão interna</span>
+        </div>
+
+        <div class="area-btn" onclick="goTo('marketing.html')">
+            Marketing
+            <span>Campanhas e comunicação</span>
+        </div>
+
+        <div class="area-btn" onclick="goTo('ti.html')">
+            Tecnologia da Informação (TI)
+            <span>Suporte e sistemas</span>
+        </div>
+
+        <div class="area-btn" onclick="goTo('rh.html')">
+            Recursos Humanos (RH)
+            <span>Pessoas e benefícios</span>
+        </div>
+
+        <div class="area-btn" onclick="goTo('financeiro.html')">
+            Financeiro
+            <span>Pagamentos e reembolsos</span>
+        </div>
+
+        <div class="area-btn" onclick="goTo('comercial.html')">
+            Comercial / Vendas
+            <span>Clientes e oportunidades</span>
+        </div>
+
+        <div class="area-btn" onclick="goTo('logistica.html')">
+            Logística
+            <span>Estoque e entregas</span>
+        </div>
+
+        <div class="area-btn" onclick="goTo('juridico.html')">
+            Jurídico
+            <span>Contratos e conformidade</span>
+        </div>
+
     </div>
-
-    <div class="card">
-        <h3>Marketing</h3>
-        <button>Campanhas</button>
-    </div>
-
-    <div class="card">
-        <h3>Tecnologia da Informação (TI)</h3>
-        <button>Abrir chamado</button>
-    </div>
-
-    <div class="card">
-        <h3>Recursos Humanos (RH)</h3>
-        <button>Holerites</button>
-    </div>
-
-    <div class="card">
-        <h3>Financeiro</h3>
-        <button>Reembolsos</button>
-    </div>
-
-    <div class="card">
-        <h3>Comercial / Vendas</h3>
-        <button>Relatórios</button>
-    </div>
-
-    <div class="card">
-        <h3>Logística</h3>
-        <button>Estoque</button>
-    </div>
-
-    <div class="card">
-        <h3>Jurídico</h3>
-        <button>Contratos</button>
-    </div>
-
 </div>
 
 <script>
@@ -120,7 +162,7 @@
         if (!user) {
             window.location.href = "./login.html";
         } else {
-            userArea.innerHTML = `
+            document.getElementById("userArea").innerHTML = `
                 👤 ${user.email}
                 <span onclick="logout()" style="cursor:pointer; margin-left:10px; text-decoration:underline;">
                     Sair
@@ -133,6 +175,10 @@
         auth.signOut().then(() => {
             window.location.href = "./login.html";
         });
+    }
+
+    function goTo(page) {
+        window.location.href = page;
     }
 </script>
 
