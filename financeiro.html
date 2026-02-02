@@ -5,110 +5,34 @@
 <title>Financeiro | Controle de Gastos</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<!-- Firebase -->
 <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
 
 <style>
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: #f4f4f4;
-}
-
-header {
-    background: #000;
-    color: #fff;
-    padding: 20px;
-}
-
-.nav {
-    max-width: 1400px;
-    margin: auto;
-    display: flex;
-    justify-content: space-between;
-}
-
-.container {
-    max-width: 1400px;
-    margin: 20px auto;
-    padding: 0 10px;
-    overflow-x: auto;
-}
-
-table {
-    border-collapse: collapse;
-    width: 100%;
-    font-size: 12px;
-    background: #fff;
-}
-
-th, td {
-    border: 1px solid #999;
-    padding: 6px;
-    text-align: center;
-    white-space: nowrap;
-}
-
-th {
-    background: #003cff;
-    color: #fff;
-}
-
-th.pagamento {
-    background: #0059ff;
-    font-size: 11px;
-}
-
-td.categoria {
-    text-align: left;
-    font-weight: bold;
-    background: #eee;
-}
-
-td.sub {
-    text-align: left;
-    padding-left: 15px;
-}
-
-input.valor {
-    width: 80px;
-    text-align: right;
-    border: none;
-    outline: none;
-}
-
-select {
-    font-size: 11px;
-}
-
-.total {
-    background: #000;
-    color: #fff;
-    font-weight: bold;
-}
-
-.renda {
-    background: #ffe766;
-    font-weight: bold;
-}
-
-.resultado {
-    background: #00a2ff;
-    color: #fff;
-    font-weight: bold;
-}
+body { margin:0; font-family:Arial; background:#f4f4f4; }
+header { background:#000; color:#fff; padding:20px; }
+.nav { max-width:1400px; margin:auto; display:flex; justify-content:space-between; }
+.container { max-width:1400px; margin:20px auto; overflow-x:auto; }
+table { border-collapse:collapse; width:100%; font-size:12px; background:#fff; }
+th,td { border:1px solid #999; padding:6px; text-align:center; }
+th { background:#003cff; color:#fff; }
+td.categoria { background:#eee; font-weight:bold; text-align:left; }
+td.sub { text-align:left; padding-left:15px; }
+input.valor { width:80px; border:none; text-align:right; }
+.total { background:#000; color:#fff; font-weight:bold; }
+.renda { background:#ffe766; font-weight:bold; }
+.resultado { background:#00a2ff; color:#fff; font-weight:bold; }
 </style>
 </head>
 
 <body>
 
 <header>
-    <div class="nav">
-        <strong>OLIVIERI | Financeiro</strong>
-        <div id="userArea">Carregando...</div>
-    </div>
+<div class="nav">
+<strong>OLIVIERI | Financeiro</strong>
+<div id="userArea"></div>
+</div>
 </header>
 
 <div class="container">
@@ -116,19 +40,11 @@ select {
 <table>
 <thead>
 <tr>
-    <th>Despesas</th>
-    <th>Jan</th><th class="pagamento">Meio</th>
-    <th>Feb</th><th class="pagamento">Meio</th>
-    <th>Mar</th><th class="pagamento">Meio</th>
-    <th>Apr</th><th class="pagamento">Meio</th>
-    <th>May</th><th class="pagamento">Meio</th>
-    <th>Jun</th><th class="pagamento">Meio</th>
-    <th>Jul</th><th class="pagamento">Meio</th>
-    <th>Aug</th><th class="pagamento">Meio</th>
-    <th>Sep</th><th class="pagamento">Meio</th>
-    <th>Oct</th><th class="pagamento">Meio</th>
-    <th>Nob</th><th class="pagamento">Meio</th>
-    <th>Dec</th><th class="pagamento">Meio</th>
+<th>Despesas</th>
+<th>Jan</th><th>Meio</th>
+<th>Fev</th><th>Meio</th>
+<th>Mar</th><th>Meio</th>
+<th>Abr</th><th>Meio</th>
 </tr>
 </thead>
 
@@ -137,19 +53,19 @@ select {
 <tr><td class="categoria">Alimentação</td><td colspan="8"></td></tr>
 <tr>
 <td class="sub">Supermercado</td>
-<td><input class="valor gasto" data-mes="jan" data-categoria="alimentacao" data-item="supermercado"></td><td><select><option>Vale</option><option>Crédito</option></select>
-<td><input class="valor gasto" data-mes="fev" data-categoria="alimentacao" data-item="supermercado"></td><td><select><option>Vale</option><option>Crédito</option></select>
-<td><input class="valor gasto" data-mes="mar" data-categoria="alimentacao" data-item="supermercado"></td><td><select><option>Vale</option><option>Crédito</option></select>
-<td><input class="valor gasto" data-mes="abr" data-categoria="alimentacao" data-item="supermercado"></td><td><select><option>Vale</option><option>Crédito</option></select>
+<td><input class="valor gasto" data-mes="jan" data-categoria="alimentacao" data-item="supermercado"></td><td></td>
+<td><input class="valor gasto" data-mes="fev" data-categoria="alimentacao" data-item="supermercado"></td><td></td>
+<td><input class="valor gasto" data-mes="mar" data-categoria="alimentacao" data-item="supermercado"></td><td></td>
+<td><input class="valor gasto" data-mes="abr" data-categoria="alimentacao" data-item="supermercado"></td><td></td>
 </tr>
 
 <tr><td class="categoria">Moradia</td><td colspan="8"></td></tr>
 <tr>
 <td class="sub">Aluguel</td>
-<td><input class="valor gasto" data-mes="jan" data-categoria="moradia" data-item="aluguel"></td><td><select><option>Crédito</option></select>
-<td><input class="valor gasto" data-mes="fev" data-categoria="moradia" data-item="aluguel"></td><td><select><option>Crédito</option></select>
-<td><input class="valor gasto" data-mes="mar" data-categoria="moradia" data-item="aluguel"></td><td><select><option>Crédito</option></select>
-<td><input class="valor gasto" data-mes="abr" data-categoria="moradia" data-item="aluguel"></td><td><select><option>Crédito</option></select>
+<td><input class="valor gasto" data-mes="jan" data-categoria="moradia" data-item="aluguel"></td><td></td>
+<td><input class="valor gasto" data-mes="fev" data-categoria="moradia" data-item="aluguel"></td><td></td>
+<td><input class="valor gasto" data-mes="mar" data-categoria="moradia" data-item="aluguel"></td><td></td>
+<td><input class="valor gasto" data-mes="abr" data-categoria="moradia" data-item="aluguel"></td><td></td>
 </tr>
 
 <tr class="total">
@@ -162,10 +78,10 @@ select {
 
 <tr class="renda">
 <td>Renda Mensal</td>
-<td colspan="2"><input class="valor renda" data-mes="jan"></td>
-<td colspan="2"><input class="valor renda" data-mes="fev"></td>
-<td colspan="2"><input class="valor renda" data-mes="mar"></td>
-<td colspan="2"><input class="valor renda" data-mes="abr"></td>
+<td colspan="2"><input class="valor renda" data-mes="jan" data-categoria="renda" data-item="mensal"></td>
+<td colspan="2"><input class="valor renda" data-mes="fev" data-categoria="renda" data-item="mensal"></td>
+<td colspan="2"><input class="valor renda" data-mes="mar" data-categoria="renda" data-item="mensal"></td>
+<td colspan="2"><input class="valor renda" data-mes="abr" data-categoria="renda" data-item="mensal"></td>
 </tr>
 
 <tr class="resultado">
@@ -178,67 +94,72 @@ select {
 
 </tbody>
 </table>
-
 </div>
 
 <script>
 const firebaseConfig = {
-    apiKey: "AIzaSyDByExIuGOyp5Oelr0wA_4EUnVKgq6Xiq0",
-    authDomain: "corporatelogin-305a5.firebaseapp.com",
-    projectId: "corporatelogin-305a5"
+  apiKey: "AIzaSyDByExIuGOyp5Oelr0wA_4EUnVKgq6Xiq0",
+  authDomain: "corporatelogin-305a5.firebaseapp.com",
+  projectId: "corporatelogin-305a5"
 };
 
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 
 firebase.auth().onAuthStateChanged(async user => {
-    if (!user) {
-        window.location.href = "./login.html";
-        return;
-    }
+  if (!user) { location.href="./login.html"; return; }
+  userArea.innerText = "👤 " + user.email;
+  const uid = user.uid;
 
-    document.getElementById("userArea").innerText = "👤 " + user.email;
-    const uid = user.uid;
-
-    document.querySelectorAll('.gasto, .renda').forEach(input => {
-        input.addEventListener('change', () => {
-            const mes = input.dataset.mes;
-            const categoria = input.dataset.categoria || 'renda';
-            const item = input.dataset.item || 'mensal';
-
-            db.collection('users')
-              .doc(uid)
-              .collection('financeiro')
-              .doc(mes)
-              .set({
-                  [categoria]: {
-                      [item]: Number(input.value) || 0
-                  }
-              }, { merge: true });
-        });
+  document.querySelectorAll("input").forEach(input => {
+    input.addEventListener("input", () => {
+      salvar(uid, input);
+      calcularTudo(input.dataset.mes);
     });
+  });
 
-    const meses = ['jan','fev','mar','abr'];
-    for (let mes of meses) {
-        const doc = await db.collection('users')
-                            .doc(uid)
-                            .collection('financeiro')
-                            .doc(mes)
-                            .get();
+  ["jan","fev","mar","abr"].forEach(async mes => {
+    const doc = await db.collection("users").doc(uid)
+      .collection("financeiro").doc(mes).get();
 
-        if (doc.exists) {
-            const dados = doc.data();
-            for (let categoria in dados) {
-                for (let item in dados[categoria]) {
-                    const campo = document.querySelector(
-                        `[data-mes="${mes}"][data-categoria="${categoria}"][data-item="${item}"]`
-                    );
-                    if (campo) campo.value = dados[categoria][item];
-                }
-            }
+    if (doc.exists) {
+      const dados = doc.data();
+      for (let cat in dados)
+        for (let item in dados[cat]) {
+          const campo = document.querySelector(
+            `[data-mes="${mes}"][data-categoria="${cat}"][data-item="${item}"]`
+          );
+          if (campo) campo.value = dados[cat][item];
         }
+      calcularTudo(mes);
     }
+  });
 });
+
+function salvar(uid, input) {
+  db.collection("users").doc(uid)
+    .collection("financeiro").doc(input.dataset.mes)
+    .set({
+      [input.dataset.categoria]: {
+        [input.dataset.item]: Number(input.value) || 0
+      }
+    }, { merge:true });
+}
+
+function calcularTudo(mes) {
+  let total = 0;
+  document.querySelectorAll(`.gasto[data-mes="${mes}"]`)
+    .forEach(i => total += Number(i.value) || 0);
+
+  document.getElementById(`total-${mes}`).innerText =
+    total.toLocaleString("pt-BR",{style:"currency",currency:"BRL"});
+
+  const renda = document.querySelector(`.renda[data-mes="${mes}"]`);
+  const r = renda ? Number(renda.value) || 0 : 0;
+
+  document.getElementById(`res-${mes}`).innerText =
+    (r - total).toLocaleString("pt-BR",{style:"currency",currency:"BRL"});
+}
 </script>
 
 </body>
