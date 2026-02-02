@@ -13,70 +13,109 @@
 <style>
 body {
     margin: 0;
-    font-family: Arial, sans-serif;
-    background: #f4f4f4;
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: #1f1f1f;
+    color: #eaeaea;
 }
+
 header {
     background: #000;
-    color: #fff;
-    padding: 20px;
+    padding: 18px 0;
+    border-bottom: 2px solid #201640;
 }
+
 .nav {
     max-width: 1600px;
     margin: auto;
+    padding: 0 15px;
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
+
 .container {
     max-width: 1600px;
-    margin: 20px auto;
+    margin: 25px auto;
     padding: 0 10px;
     overflow-x: auto;
 }
+
 table {
     border-collapse: collapse;
     width: 100%;
+    background: #2a2a2a;
     font-size: 12px;
-    background: #fff;
+    border-radius: 8px;
+    overflow: hidden;
 }
+
 th, td {
-    border: 1px solid #999;
-    padding: 6px;
+    border: 1px solid #3a3a3a;
+    padding: 8px;
     text-align: center;
     white-space: nowrap;
 }
+
 th {
-    background: #003cff;
+    background: #201640;
     color: #fff;
+    font-weight: 600;
 }
+
 td.categoria {
     text-align: left;
     font-weight: bold;
-    background: #eee;
+    background: #262626;
+    color: #fff;
 }
+
 td.sub {
     text-align: left;
-    padding-left: 15px;
+    padding-left: 18px;
+    color: #d0d0d0;
 }
+
+tr:hover td {
+    background: #303030;
+}
+
 input.valor {
-    width: 80px;
-    text-align: right;
+    width: 85px;
+    background: transparent;
     border: none;
+    border-bottom: 1px solid #555;
+    color: #fff;
+    text-align: right;
     outline: none;
 }
+
+input.valor:focus {
+    border-bottom: 1px solid #7a6cff;
+}
+
 .total {
-    background: #000;
+    background: #111;
     color: #fff;
     font-weight: bold;
 }
+
 .renda {
-    background: #ffe766;
+    background: #3b3b00;
     font-weight: bold;
 }
+
 .resultado {
-    background: #00a2ff;
-    color: #fff;
     font-weight: bold;
+}
+
+.resultado.positivo {
+    background: #0f3d1f;
+    color: #fff;
+}
+
+.resultado.negativo {
+    background: rgb(101 0 0);
+    color: #fff;
 }
 </style>
 </head>
@@ -110,13 +149,13 @@ input.valor {
 <script>
 const meses = ['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
 document.write(
-  meses.map(m =>
-    `<td>
+  meses.map(m => `
+    <td>
       <input class="valor gasto"
              data-mes="${m}"
              data-categoria="alimentacao"
              data-item="supermercado">
-     </td>`
+    </td>`
   ).join('')
 );
 </script>
@@ -127,13 +166,13 @@ document.write(
 <td class="sub">Aluguel</td>
 <script>
 document.write(
-  meses.map(m =>
-    `<td>
+  meses.map(m => `
+    <td>
       <input class="valor gasto"
              data-mes="${m}"
              data-categoria="moradia"
              data-item="aluguel">
-     </td>`
+    </td>`
   ).join('')
 );
 </script>
@@ -152,23 +191,23 @@ document.write(
 <td>Renda Mensal</td>
 <script>
 document.write(
-  meses.map(m =>
-    `<td>
+  meses.map(m => `
+    <td>
       <input class="valor renda"
              data-mes="${m}"
              data-categoria="renda"
              data-item="mensal">
-     </td>`
+    </td>`
   ).join('')
 );
 </script>
 </tr>
 
-<tr class="resultado">
-<td>Resultado Operacional</td>
+<tr>
+<td class="resultado">Resultado Operacional</td>
 <script>
 document.write(
-  meses.map(m => `<td id="res-${m}">R$ 0,00</td>`).join('')
+  meses.map(m => `<td id="res-${m}" class="resultado">R$ 0,00</td>`).join('')
 );
 </script>
 </tr>
@@ -215,7 +254,13 @@ firebase.auth().onAuthStateChanged(async user => {
     const renda = Number(rendaInput?.value) || 0;
 
     document.getElementById(`total-${mes}`).innerText = formatar(total);
-    document.getElementById(`res-${mes}`).innerText = formatar(renda - total);
+
+    const resultado = renda - total;
+    const resCell = document.getElementById(`res-${mes}`);
+    resCell.innerText = formatar(resultado);
+
+    resCell.classList.remove("positivo", "negativo");
+    resCell.classList.add(resultado < 0 ? "negativo" : "positivo");
   }
 
   document.querySelectorAll(".gasto, .renda").forEach(input => {
