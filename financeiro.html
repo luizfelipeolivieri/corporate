@@ -5,10 +5,10 @@
 <title>Financeiro | Controle de Gastos</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<!-- Firebase -->
 <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
-
 
 <style>
 body {
@@ -24,35 +24,41 @@ header {
 }
 
 .nav {
-    max-width: 95%;
+    max-width: 1400px;
     margin: auto;
     display: flex;
     justify-content: space-between;
 }
 
 .container {
-    max-width: 95%;
+    max-width: 1400px;
     margin: 20px auto;
+    padding: 0 10px;
     overflow-x: auto;
 }
 
 table {
     border-collapse: collapse;
     width: 100%;
-    table-layout: fixed;
+    font-size: 12px;
     background: #fff;
-    font-size: 11px;
 }
 
 th, td {
     border: 1px solid #999;
-    padding: 4px;
+    padding: 6px;
     text-align: center;
+    white-space: nowrap;
 }
 
 th {
     background: #003cff;
     color: #fff;
+}
+
+th.pagamento {
+    background: #0059ff;
+    font-size: 11px;
 }
 
 td.categoria {
@@ -63,19 +69,18 @@ td.categoria {
 
 td.sub {
     text-align: left;
-    padding-left: 10px;
+    padding-left: 15px;
 }
 
 input.valor {
-    width: 100%;
-    border: none;
+    width: 80px;
     text-align: right;
-    font-size: 11px;
+    border: none;
+    outline: none;
 }
 
 select {
-    width: 100%;
-    font-size: 10px;
+    font-size: 11px;
 }
 
 .total {
@@ -100,43 +105,45 @@ select {
 <body>
 
 <header>
-<div class="nav">
-    <strong>OLIVIERI | Financeiro</strong>
-    <div id="userArea">Carregando...</div>
-</div>
+    <div class="nav">
+        <strong>OLIVIERI | Financeiro</strong>
+        <div id="userArea">Carregando...</div>
+    </div>
 </header>
 
 <div class="container">
-<table id="tabela">
 
+<table>
 <thead>
 <tr>
-<th>Despesas</th>
-<th>Jan</th><th>Meio</th>
-<th>Fev</th><th>Meio</th>
-<th>Mar</th><th>Meio</th>
-<th>Abr</th><th>Meio</th>
+    <th>Despesas</th>
+    <th>Jan</th><th class="pagamento">Meio</th>
+    <th>Fev</th><th class="pagamento">Meio</th>
+    <th>Mar</th><th class="pagamento">Meio</th>
+    <th>Abr</th><th class="pagamento">Meio</th>
 </tr>
 </thead>
 
 <tbody>
 
-<!-- ALIMENTAÇÃO -->
 <tr><td class="categoria">Alimentação</td><td colspan="8"></td></tr>
-<tr><td class="sub">Supermercado</td><td><input class="valor gasto jan"></td><td><select><option>Vale</option></select><td><input class="valor gasto fev"></td><td><select><option>Vale</option></select><td><input class="valor gasto mar"></td><td><select><option>Vale</option></select><td><input class="valor gasto abr"></td><td><select><option>Vale</option></select></tr>
-<tr><td class="sub">Padaria</td><td><input class="valor gasto jan"></td><td><select></select><td><input class="valor gasto fev"></td><td><select></select><td><input class="valor gasto mar"></td><td><select></select><td><input class="valor gasto abr"></td><td><select></select></tr>
-<tr><td class="sub">Feira</td><td><input class="valor gasto jan"></td><td><select></select><td><input class="valor gasto fev"></td><td><select></select><td><input class="valor gasto mar"></td><td><select></select><td><input class="valor gasto abr"></td><td><select></select></tr>
-<tr><td class="sub">Restaurante</td><td><input class="valor gasto jan"></td><td><select></select><td><input class="valor gasto fev"></td><td><select></select><td><input class="valor gasto mar"></td><td><select></select><td><input class="valor gasto abr"></td><td><select></select></tr>
+<tr>
+<td class="sub">Supermercado</td>
+<td><input class="valor gasto" data-mes="jan" data-categoria="alimentacao" data-item="supermercado"></td><td><select><option>Vale</option><option>Crédito</option></select>
+<td><input class="valor gasto" data-mes="fev" data-categoria="alimentacao" data-item="supermercado"></td><td><select><option>Vale</option><option>Crédito</option></select>
+<td><input class="valor gasto" data-mes="mar" data-categoria="alimentacao" data-item="supermercado"></td><td><select><option>Vale</option><option>Crédito</option></select>
+<td><input class="valor gasto" data-mes="abr" data-categoria="alimentacao" data-item="supermercado"></td><td><select><option>Vale</option><option>Crédito</option></select>
+</tr>
 
-<!-- MORADIA -->
 <tr><td class="categoria">Moradia</td><td colspan="8"></td></tr>
-<tr><td class="sub">Aluguel</td><td><input class="valor gasto jan"></td><td></td><td><input class="valor gasto fev"></td><td></td><td><input class="valor gasto mar"></td><td></td><td><input class="valor gasto abr"></td><td></td></tr>
-<tr><td class="sub">Condomínio</td><td><input class="valor gasto jan"></td><td></td><td><input class="valor gasto fev"></td><td></td><td><input class="valor gasto mar"></td><td></td><td><input class="valor gasto abr"></td><td></td></tr>
-<tr><td class="sub">Água</td><td><input class="valor gasto jan"></td><td></td><td><input class="valor gasto fev"></td><td></td><td><input class="valor gasto mar"></td><td></td><td><input class="valor gasto abr"></td><td></td></tr>
-<tr><td class="sub">Luz</td><td><input class="valor gasto jan"></td><td></td><td><input class="valor gasto fev"></td><td></td><td><input class="valor gasto mar"></td><td></td><td><input class="valor gasto abr"></td><td></td></tr>
-<tr><td class="sub">IPTU</td><td><input class="valor gasto jan"></td><td></td><td><input class="valor gasto fev"></td><td></td><td><input class="valor gasto mar"></td><td></td><td><input class="valor gasto abr"></td><td></td></tr>
+<tr>
+<td class="sub">Aluguel</td>
+<td><input class="valor gasto" data-mes="jan" data-categoria="moradia" data-item="aluguel"></td><td><select><option>Crédito</option></select>
+<td><input class="valor gasto" data-mes="fev" data-categoria="moradia" data-item="aluguel"></td><td><select><option>Crédito</option></select>
+<td><input class="valor gasto" data-mes="mar" data-categoria="moradia" data-item="aluguel"></td><td><select><option>Crédito</option></select>
+<td><input class="valor gasto" data-mes="abr" data-categoria="moradia" data-item="aluguel"></td><td><select><option>Crédito</option></select>
+</tr>
 
-<!-- TOTAL -->
 <tr class="total">
 <td>Total das Despesas</td>
 <td colspan="2" id="total-jan">R$ 0,00</td>
@@ -147,10 +154,10 @@ select {
 
 <tr class="renda">
 <td>Renda Mensal</td>
-<td colspan="2"><input class="valor renda jan"></td>
-<td colspan="2"><input class="valor renda fev"></td>
-<td colspan="2"><input class="valor renda mar"></td>
-<td colspan="2"><input class="valor renda abr"></td>
+<td colspan="2"><input class="valor renda" data-mes="jan"></td>
+<td colspan="2"><input class="valor renda" data-mes="fev"></td>
+<td colspan="2"><input class="valor renda" data-mes="mar"></td>
+<td colspan="2"><input class="valor renda" data-mes="abr"></td>
 </tr>
 
 <tr class="resultado">
@@ -163,25 +170,66 @@ select {
 
 </tbody>
 </table>
+
 </div>
 
 <script>
-function calcular(mes) {
-    let gastos = document.querySelectorAll('.gasto.' + mes);
-    let renda = document.querySelector('.renda.' + mes);
-    let total = 0;
+const firebaseConfig = {
+    apiKey: "AIzaSyDByExIuGOyp5Oelr0wA_4EUnVKgq6Xiq0",
+    authDomain: "corporatelogin-305a5.firebaseapp.com",
+    projectId: "corporatelogin-305a5"
+};
 
-    gastos.forEach(i => total += parseFloat(i.value) || 0);
-    let r = parseFloat(renda.value) || 0;
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
 
-    document.getElementById('total-' + mes).innerText = total.toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
-    document.getElementById('res-' + mes).innerText = (r - total).toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
-}
+firebase.auth().onAuthStateChanged(async user => {
+    if (!user) {
+        window.location.href = "./login.html";
+        return;
+    }
 
-document.querySelectorAll('input').forEach(i => {
-    i.addEventListener('input', () => {
-        ['jan','feb','mar','apr, may, jun, jul, aug, sep, oct, nov, dec'].forEach(calcular);
+    document.getElementById("userArea").innerText = "👤 " + user.email;
+    const uid = user.uid;
+
+    document.querySelectorAll('.gasto, .renda').forEach(input => {
+        input.addEventListener('change', () => {
+            const mes = input.dataset.mes;
+            const categoria = input.dataset.categoria || 'renda';
+            const item = input.dataset.item || 'mensal';
+
+            db.collection('users')
+              .doc(uid)
+              .collection('financeiro')
+              .doc(mes)
+              .set({
+                  [categoria]: {
+                      [item]: Number(input.value) || 0
+                  }
+              }, { merge: true });
+        });
     });
+
+    const meses = ['jan','fev','mar','abr'];
+    for (let mes of meses) {
+        const doc = await db.collection('users')
+                            .doc(uid)
+                            .collection('financeiro')
+                            .doc(mes)
+                            .get();
+
+        if (doc.exists) {
+            const dados = doc.data();
+            for (let categoria in dados) {
+                for (let item in dados[categoria]) {
+                    const campo = document.querySelector(
+                        `[data-mes="${mes}"][data-categoria="${categoria}"][data-item="${item}"]`
+                    );
+                    if (campo) campo.value = dados[categoria][item];
+                }
+            }
+        }
+    }
 });
 </script>
 
