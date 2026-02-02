@@ -16,75 +16,63 @@ body {
     font-family: Arial, sans-serif;
     background: #f4f4f4;
 }
-
 header {
     background: #000;
     color: #fff;
     padding: 20px;
 }
-
 .nav {
     max-width: 1600px;
     margin: auto;
     display: flex;
     justify-content: space-between;
 }
-
 .container {
     max-width: 1600px;
     margin: 20px auto;
     padding: 0 10px;
     overflow-x: auto;
 }
-
 table {
     border-collapse: collapse;
     width: 100%;
     font-size: 12px;
     background: #fff;
 }
-
 th, td {
     border: 1px solid #999;
     padding: 6px;
     text-align: center;
     white-space: nowrap;
 }
-
 th {
     background: #003cff;
     color: #fff;
 }
-
 td.categoria {
     text-align: left;
     font-weight: bold;
     background: #eee;
 }
-
 td.sub {
     text-align: left;
     padding-left: 15px;
 }
-
 input.valor {
     width: 80px;
     text-align: right;
     border: none;
     outline: none;
 }
-
 .total {
     background: #000;
     color: #fff;
     font-weight: bold;
 }
-
 .renda {
     background: #ffe766;
     font-weight: bold;
 }
-
 .resultado {
     background: #00a2ff;
     color: #fff;
@@ -96,10 +84,10 @@ input.valor {
 <body>
 
 <header>
-    <div class="nav">
-        <strong>OLIVIERI | Financeiro</strong>
-        <div id="userArea">Carregando...</div>
-    </div>
+<div class="nav">
+    <strong>OLIVIERI | Financeiro</strong>
+    <div id="userArea">Carregando...</div>
+</div>
 </header>
 
 <div class="container">
@@ -122,7 +110,14 @@ input.valor {
 <script>
 const meses = ['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
 document.write(
-  meses.map(m => `<td><input class="valor gasto" data-mes="${m}" data-categoria="alimentacao" data-item="supermercado"></td>`).join('')
+  meses.map(m =>
+    `<td>
+      <input class="valor gasto"
+             data-mes="${m}"
+             data-categoria="alimentacao"
+             data-item="supermercado">
+     </td>`
+  ).join('')
 );
 </script>
 </tr>
@@ -132,7 +127,14 @@ document.write(
 <td class="sub">Aluguel</td>
 <script>
 document.write(
-  meses.map(m => `<td><input class="valor gasto" data-mes="${m}" data-categoria="moradia" data-item="aluguel"></td>`).join('')
+  meses.map(m =>
+    `<td>
+      <input class="valor gasto"
+             data-mes="${m}"
+             data-categoria="moradia"
+             data-item="aluguel">
+     </td>`
+  ).join('')
 );
 </script>
 </tr>
@@ -150,7 +152,14 @@ document.write(
 <td>Renda Mensal</td>
 <script>
 document.write(
-  meses.map(m => `<td><input class="valor renda" data-mes="${m}"></td>`).join('')
+  meses.map(m =>
+    `<td>
+      <input class="valor renda"
+             data-mes="${m}"
+             data-categoria="renda"
+             data-item="mensal">
+     </td>`
+  ).join('')
 );
 </script>
 </tr>
@@ -171,82 +180,83 @@ document.write(
 
 <script>
 const firebaseConfig = {
-    apiKey: "AIzaSyDByExIuGOyp5Oelr0wA_4EUnVKgq6Xiq0",
-    authDomain: "corporatelogin-305a5.firebaseapp.com",
-    projectId: "corporatelogin-305a5"
+  apiKey: "AIzaSyDByExIuGOyp5Oelr0wA_4EUnVKgq6Xiq0",
+  authDomain: "corporatelogin-305a5.firebaseapp.com",
+  projectId: "corporatelogin-305a5"
 };
 
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 
 function formatar(valor) {
-    return "R$ " + valor.toFixed(2).replace('.', ',');
+  return valor.toLocaleString("pt-BR", {
+    style: "currency",
+    currency: "BRL"
+  });
 }
 
 firebase.auth().onAuthStateChanged(async user => {
-    if (!user) {
-        window.location.href = "./login.html";
-        return;
-    }
+  if (!user) {
+    window.location.href = "./login.html";
+    return;
+  }
 
-    document.getElementById("userArea").innerText = "👤 " + user.email;
-    const uid = user.uid;
+  document.getElementById("userArea").innerText = "👤 " + user.email;
+  const uid = user.uid;
 
-    function recalcular(mes) {
-        let total = 0;
+  function recalcular(mes) {
+    let total = 0;
 
-        document.querySelectorAll(`.gasto[data-mes="${mes}"]`).forEach(i => {
-            total += Number(i.value) || 0;
-        });
+    document.querySelectorAll(`.gasto[data-mes="${mes}"]`)
+      .forEach(i => total += Number(i.value) || 0);
 
-        const rendaInput = document.querySelector(`.renda[data-mes="${mes}"]`);
-        const renda = Number(rendaInput?.value) || 0;
+    const rendaInput =
+      document.querySelector(`.renda[data-mes="${mes}"]`);
+    const renda = Number(rendaInput?.value) || 0;
 
-        document.getElementById(`total-${mes}`).innerText = formatar(total);
-        document.getElementById(`res-${mes}`).innerText = formatar(renda - total);
-    }
+    document.getElementById(`total-${mes}`).innerText = formatar(total);
+    document.getElementById(`res-${mes}`).innerText = formatar(renda - total);
+  }
 
-    document.querySelectorAll('.gasto, .renda').forEach(input => {
-        input.addEventListener('input', () => {
-            const mes = input.dataset.mes;
-            const categoria = input.dataset.categoria || 'renda';
-            const item = input.dataset.item || 'mensal';
+  document.querySelectorAll(".gasto, .renda").forEach(input => {
+    input.addEventListener("input", () => {
+      const mes = input.dataset.mes;
 
-            db.collection('users')
-              .doc(uid)
-              .collection('financeiro')
-              .doc(mes)
-              .set({
-                  [categoria]: {
-                      [item]: Number(input.value) || 0
-                  }
-              }, { merge: true });
+      db.collection("users")
+        .doc(uid)
+        .collection("financeiro")
+        .doc(mes)
+        .set({
+          [input.dataset.categoria]: {
+            [input.dataset.item]: Number(input.value) || 0
+          }
+        }, { merge: true });
 
-            recalcular(mes);
-        });
+      recalcular(mes);
     });
+  });
 
-    for (let mes of meses) {
-        const doc = await db.collection('users')
-                            .doc(uid)
-                            .collection('financeiro')
-                            .doc(mes)
-                            .get();
+  for (let mes of meses) {
+    const doc = await db.collection("users")
+      .doc(uid)
+      .collection("financeiro")
+      .doc(mes)
+      .get();
 
-        if (doc.exists) {
-            const dados = doc.data();
+    if (doc.exists) {
+      const dados = doc.data();
 
-            for (let categoria in dados) {
-                for (let item in dados[categoria]) {
-                    const campo = document.querySelector(
-                        `[data-mes="${mes}"][data-categoria="${categoria}"][data-item="${item}"]`
-                    );
-                    if (campo) campo.value = dados[categoria][item];
-                }
-            }
-            recalcular(mes);
+      for (let categoria in dados) {
+        for (let item in dados[categoria]) {
+          const campo = document.querySelector(
+            `[data-mes="${mes}"][data-categoria="${categoria}"][data-item="${item}"]`
+          );
+          if (campo) campo.value = dados[categoria][item];
         }
+      }
+      recalcular(mes);
     }
+  }
 });
 </script>
 
