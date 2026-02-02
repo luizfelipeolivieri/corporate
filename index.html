@@ -1,188 +1,255 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <title>Olivieri - Portal Corporativo</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<title>Olivieri - Portal Corporativo</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Open Sans -->
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+<!-- Open Sans -->
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
 
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: "Open Sans", sans-serif;
-            font-variant-numeric: lining-nums;
-        }
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
 
-        body {
-            background-color: rgb(179, 179, 179);
-            color: #333;
-            line-height: 1.6;
-        }
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Open Sans", sans-serif;
+}
 
-        /* HEADER */
-        header {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 1000;
-            background-color: transparent;
-            transition: background-color 0.3s ease;
-        }
+body {
+    background-color: rgb(179, 179, 179);
+    color: #333;
+}
 
-        header.scrolled {
-            background-color: #000;
-        }
+/* HEADER */
+header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    background: transparent;
+    transition: background-color .3s;
+}
 
-        .nav-container {
-            max-width: 1200px;
-            margin: auto;
-            padding: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+header.scrolled {
+    background: #000;
+}
 
-        .nav-left {
-            display: flex;
-            align-items: center;
-            gap: 40px;
-        }
+.nav-container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 
-        .logo {
-            color: rgb(249, 249, 249);
-            font-weight: 700;
-            font-size: 22px;
-            white-space: nowrap;
-        }
+.logo {
+    color: #fff;
+    font-size: 22px;
+    font-weight: 700;
+}
 
-        nav ul {
-            list-style: none;
-            display: flex;
-            gap: 30px;
-        }
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 30px;
+}
 
-        nav a {
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 20px;
-            line-height: 14px;
-        }
+nav a span {
+    color: #fff;
+    font-weight: 700;
+    border-bottom: .3rem solid transparent;
+}
 
-        nav a span {
-            color: rgb(255, 255, 255);
-            border-bottom: 0.3rem solid transparent;
-            padding-bottom: 4px;
-            transition: border-color 0.3s ease;
-        }
+nav a:hover span {
+    border-color: #fff;
+}
 
-        nav a:hover span {
-            border-color: rgb(255, 255, 255);
-        }
+.login-btn {
+    color: #fff;
+    border: 1px solid #fff;
+    padding: 6px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: 700;
+}
 
-        .login a {
-            color: rgb(249, 249, 249);
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 20px;
-            border: 1px solid rgb(249, 249, 249);
-            padding: 6px 16px;
-            border-radius: 20px;
-            transition: 0.3s;
-        }
+.login-btn:hover {
+    background: #fff;
+    color: #000;
+}
 
-        .login a:hover {
-            background-color: rgb(249, 249, 249);
-            color: #000;
-        }
+.spacer {
+    height: 90px;
+}
 
-        .spacer {
-            height: 90px;
-        }
+/* SEÇÕES */
+section {
+    padding: 80px 20px;
+    max-width: 1000px;
+    margin: auto;
+}
 
-        section {
-            padding: 80px 20px;
-            max-width: 1000px;
-            margin: auto;
-        }
+.card {
+    background: #fff;
+    padding: 25px;
+    border-radius: 8px;
+}
 
-        .card {
-            background: #fff;
-            padding: 25px;
-            border-radius: 8px;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-        }
+/* FOOTER */
+footer {
+    background: #000;
+    color: #fff;
+    text-align: center;
+    padding: 20px;
+    margin-top: 60px;
+}
 
-        footer {
-            background-color: #000;
-            color: rgb(249, 249, 249);
-            text-align: center;
-            padding: 20px;
-            margin-top: 60px;
-        }
+/* ===== MODAL LOGIN ===== */
 
-        @media (max-width: 768px) {
-            nav ul {
-                display: none;
-            }
-        }
-    </style>
+.overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.75);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+}
+
+.overlay.active {
+    display: flex;
+}
+
+.modal {
+    background: #fff;
+    width: 90%;
+    max-width: 380px;
+    padding: 30px;
+    border-radius: 10px;
+    position: relative;
+}
+
+.modal h2 {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.modal input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+}
+
+.modal button {
+    width: 100%;
+    padding: 10px;
+    background: #000;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-weight: 700;
+}
+
+.close {
+    position: absolute;
+    top: 12px;
+    right: 15px;
+    cursor: pointer;
+    font-size: 20px;
+}
+</style>
 </head>
 
 <body>
 
 <header id="header">
-    <div class="nav-container">
-        <div class="nav-left">
-            <div class="logo">OLIVIERI</div>
-            <nav>
-                <ul>
-                    <li><a href="#sobre"><span>Sobre</span></a></li>
-                    <li><a href="#contato"><span>Contato</span></a></li>
-                </ul>
-            </nav>
-        </div>
-        <div class="login">
-            <a href="./login.html">Login</a>
-        </div>
-    </div>
+<div class="nav-container">
+    <div class="logo">OLIVIERI</div>
+
+    <nav>
+        <ul>
+            <li><a href="#sobre"><span>Sobre</span></a></li>
+            <li><a href="#contato"><span>Contato</span></a></li>
+        </ul>
+    </nav>
+
+    <div class="login-btn" onclick="openLogin()">Login</div>
+</div>
 </header>
 
 <div class="spacer"></div>
 
 <section id="sobre">
-    <div class="card">
-        <h2>Sobre a Olivieri</h2>
-        <p>
-            A Olivieri é uma empresa focada em soluções corporativas, tecnologia e inovação,
-            oferecendo suporte estratégico e operacional para seus clientes e colaboradores.
-        </p>
-    </div>
+<div class="card">
+    <h2>Sobre a Olivieri</h2>
+    <p>Soluções corporativas, tecnologia e inovação.</p>
+</div>
 </section>
 
 <section id="contato">
-    <div class="card">
-        <h2>Contato</h2>
-        <p>
-            📧 suporte@empresa.com<br>
-            ☎️ Ramal 1234
-        </p>
-    </div>
+<div class="card">
+    <h2>Contato</h2>
+    <p>📧 suporte@empresa.com<br>☎️ Ramal 1234</p>
+</div>
 </section>
 
-<footer>
-    © 2026 - Olivieri
-</footer>
+<footer>© 2026 - Olivieri</footer>
+
+<!-- MODAL LOGIN -->
+<div class="overlay" id="loginModal">
+<div class="modal">
+    <span class="close" onclick="closeLogin()">✕</span>
+    <h2>Acesso Corporativo</h2>
+
+    <input type="email" id="email" placeholder="Email corporativo">
+    <input type="password" id="password" placeholder="Senha">
+
+    <button onclick="login()">Entrar</button>
+
+    <p id="error" style="color:red; margin-top:10px; text-align:center;"></p>
+</div>
+</div>
 
 <script>
-    const header = document.getElementById("header");
+/* HEADER SCROLL */
+const header = document.getElementById("header");
+window.addEventListener("scroll", () => {
+    header.classList.toggle("scrolled", window.scrollY > 50);
+});
 
-    window.addEventListener("scroll", () => {
-        header.classList.toggle("scrolled", window.scrollY > 50);
-    });
+/* MODAL */
+function openLogin() {
+    document.getElementById("loginModal").classList.add("active");
+}
+function closeLogin() {
+    document.getElementById("loginModal").classList.remove("active");
+}
+
+/* FIREBASE */
+const firebaseConfig = {
+  apiKey: "AIzaSyDByExIuGOyp5Oelr0wA_4EUnVKgq6Xiq0",
+  authDomain: "corporatelogin-305a5.firebaseapp.com",
+  projectId: "corporatelogin-305a5"
+};
+
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+
+/* LOGIN */
+function login() {
+    const email = email.value;
+    const senha = password.value;
+
+    auth.signInWithEmailAndPassword(email, senha)
+        .then(() => window.location.href = "corporate.html")
+        .catch(err => document.getElementById("error").innerText = "Login inválido");
+}
 </script>
 
 </body>
