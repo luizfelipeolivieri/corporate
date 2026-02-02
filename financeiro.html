@@ -1,82 +1,109 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <title>Financeiro | Controle de Gastos</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<title>Financeiro | Controle de Gastos</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Firebase -->
-    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
 
-    <style>
-        body {
-            margin: 0;
-            font-family: "Open Sans", Arial, sans-serif;
-            background: #f4f4f4;
-        }
+<style>
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: #f4f4f4;
+    }
 
-        header {
-            background: #000;
-            color: #fff;
-            padding: 20px;
-        }
+    header {
+        background: #000;
+        color: #fff;
+        padding: 20px;
+    }
 
-        .nav {
-            max-width: 1200px;
-            margin: auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+    .nav {
+        max-width: 1200px;
+        margin: auto;
+        display: flex;
+        justify-content: space-between;
+    }
 
-        .container {
-            max-width: 1200px;
-            margin: 40px auto;
-            padding: 0 20px;
-        }
+    .container {
+        max-width: 1400px;
+        margin: 30px auto;
+        padding: 0 10px;
+        overflow-x: auto;
+    }
 
-        h1 {
-            margin-bottom: 20px;
-        }
+    table {
+        border-collapse: collapse;
+        width: 100%;
+        min-width: 1400px;
+        font-size: 12px;
+        background: #fff;
+    }
 
-        input[type="number"] {
-            width: 100px;
-            padding: 5px;
-        }
+    th, td {
+        border: 1px solid #999;
+        padding: 5px;
+        text-align: center;
+        white-space: nowrap;
+    }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 13px;
-        }
+    th {
+        background: #003cff;
+        color: #fff;
+        font-weight: bold;
+    }
 
-        th, td {
-            border: 1px solid #ccc;
-            padding: 6px;
-            text-align: center;
-        }
+    th.mes {
+        background: #003cff;
+    }
 
-        th {
-            background: #eee;
-        }
+    th.pagamento {
+        background: #0059ff;
+        font-size: 11px;
+    }
 
-        .categoria {
-            text-align: left;
-            font-weight: 700;
-            background: #fafafa;
-        }
+    td.categoria {
+        text-align: left;
+        font-weight: bold;
+        background: #eee;
+    }
 
-        .resumo {
-            margin-top: 30px;
-            font-size: 16px;
-        }
+    td.sub {
+        text-align: left;
+        padding-left: 15px;
+    }
 
-        .resumo strong {
-            display: block;
-            margin-top: 10px;
-        }
-    </style>
+    input.valor {
+        width: 80px;
+        text-align: right;
+        border: none;
+    }
+
+    select {
+        font-size: 11px;
+    }
+
+    .total {
+        background: #000;
+        color: #fff;
+        font-weight: bold;
+    }
+
+    .renda {
+        background: #ffe766;
+        font-weight: bold;
+    }
+
+    .resultado {
+        background: #00a2ff;
+        color: #fff;
+        font-weight: bold;
+    }
+</style>
 </head>
 
 <body>
@@ -90,80 +117,90 @@
 
 <div class="container">
 
-    <h1>Controle de Gastos</h1>
+<table>
+<thead>
+<tr>
+    <th>Categoria</th>
+    <th class="mes">Jan</th><th class="pagamento">Meio</th>
+    <th class="mes">Fev</th><th class="pagamento">Meio</th>
+    <th class="mes">Mar</th><th class="pagamento">Meio</th>
+    <th class="mes">Abr</th><th class="pagamento">Meio</th>
+</tr>
+</thead>
 
-    <p>
-        <strong>Renda Mensal:</strong>
-        R$ <input type="number" id="renda" oninput="calcularTotais()">
-    </p>
+<tbody>
 
-    <table>
-        <thead>
-            <tr>
-                <th>Categoria</th>
-                <th>Jan</th><th>Fev</th><th>Mar</th><th>Abr</th>
-                <th>Mai</th><th>Jun</th><th>Jul</th><th>Ago</th>
-                <th>Set</th><th>Out</th><th>Nov</th><th>Dez</th>
-            </tr>
-        </thead>
-        <tbody>
+<tr><td class="categoria">Alimentação</td><td colspan="8"></td></tr>
+<tr>
+    <td class="sub">Supermercado</td>
+    <td><input class="valor gasto"></td><td><select><option>Vale</option><option>Crédito</option></select>
+    <td><input class="valor gasto"></td><td><select><option>Vale</option><option>Crédito</option></select>
+    <td><input class="valor gasto"></td><td><select><option>Vale</option><option>Crédito</option></select>
+    <td><input class="valor gasto"></td><td><select><option>Vale</option><option>Crédito</option></select>
+</tr>
 
-            <tr><td class="categoria">Supermercado</td><td><input type="number" class="gasto"></td><td><input class="gasto"></td><td><input class="gasto"></td><td><input class="gasto"></td><td><input class="gasto"></td><td><input class="gasto"></td><td><input class="gasto"></td><td><input class="gasto"></td><td><input class="gasto"></td><td><input class="gasto"></td><td><input class="gasto"></td><td><input class="gasto"></td></tr>
+<tr><td class="categoria">Moradia</td><td colspan="8"></td></tr>
+<tr>
+    <td class="sub">Aluguel</td>
+    <td><input class="valor gasto"></td><td><select><option>Crédito</option><option>Débito</option></select>
+    <td><input class="valor gasto"></td><td><select><option>Crédito</option><option>Débito</option></select>
+    <td><input class="valor gasto"></td><td><select><option>Crédito</option><option>Débito</option></select>
+    <td><input class="valor gasto"></td><td><select><option>Crédito</option><option>Débito</option></select>
+</tr>
 
-            <tr><td class="categoria">Aluguel</td><td colspan="12"><input type="number" class="gasto" style="width:100%"></td></tr>
+<tr><td class="categoria">Transporte</td><td colspan="8"></td></tr>
+<tr>
+    <td class="sub">Ônibus / Metrô</td>
+    <td><input class="valor gasto"></td><td><select><option>Débito</option></select>
+    <td><input class="valor gasto"></td><td><select><option>Débito</option></select>
+    <td><input class="valor gasto"></td><td><select><option>Débito</option></select>
+    <td><input class="valor gasto"></td><td><select><option>Débito</option></select>
+</tr>
 
-            <tr><td class="categoria">Água / Luz</td><td><input class="gasto"></td><td><input class="gasto"></td><td><input class="gasto"></td><td><input class="gasto"></td><td><input class="gasto"></td><td><input class="gasto"></td><td><input class="gasto"></td><td><input class="gasto"></td><td><input class="gasto"></td><td><input class="gasto"></td><td><input class="gasto"></td><td><input class="gasto"></td></tr>
+<tr class="total">
+    <td>Total das Despesas</td>
+    <td colspan="2" id="totalJan">R$ 0,00</td>
+    <td colspan="2" id="totalFev">R$ 0,00</td>
+    <td colspan="2" id="totalMar">R$ 0,00</td>
+    <td colspan="2" id="totalAbr">R$ 0,00</td>
+</tr>
 
-            <tr><td class="categoria">Educação</td><td colspan="12"><input type="number" class="gasto" style="width:100%"></td></tr>
+<tr class="renda">
+    <td>Renda Mensal</td>
+    <td colspan="2"><input class="valor" id="rendaJan"></td>
+    <td colspan="2"><input class="valor" id="rendaFev"></td>
+    <td colspan="2"><input class="valor" id="rendaMar"></td>
+    <td colspan="2"><input class="valor" id="rendaAbr"></td>
+</tr>
 
-            <tr><td class="categoria">Saúde</td><td><input class="gasto"></td><td><input class="gasto"></td><td><input class="gasto"></td><td><input class="gasto"></td><td><input class="gasto"></td><td><input class="gasto"></td><td><input class="gasto"></td><td><input class="gasto"></td><td><input class="gasto"></td><td><input class="gasto"></td><td><input class="gasto"></td><td><input class="gasto"></td></tr>
+<tr class="resultado">
+    <td>Resultado Operacional</td>
+    <td colspan="2" id="resJan">R$ 0,00</td>
+    <td colspan="2" id="resFev">R$ 0,00</td>
+    <td colspan="2" id="resMar">R$ 0,00</td>
+    <td colspan="2" id="resAbr">R$ 0,00</td>
+</tr>
 
-            <tr><td class="categoria">Transporte</td><td><input class="gasto"></td><td><input class="gasto"></td><td><input class="gasto"></td><td><input class="gasto"></td><td><input class="gasto"></td><td><input class="gasto"></td><td><input class="gasto"></td><td><input class="gasto"></td><td><input class="gasto"></td><td><input class="gasto"></td><td><input class="gasto"></td><td><input class="gasto"></td></tr>
-
-            <tr><td class="categoria">Lazer</td><td><input class="gasto"></td><td><input class="gasto"></td><td><input class="gasto"></td><td><input class="gasto"></td><td><input class="gasto"></td><td><input class="gasto"></td><td><input class="gasto"></td><td><input class="gasto"></td><td><input class="gasto"></td><td><input class="gasto"></td><td><input class="gasto"></td><td><input class="gasto"></td></tr>
-
-        </tbody>
-    </table>
-
-    <div class="resumo">
-        <strong>Total de Despesas: R$ <span id="totalDespesas">0.00</span></strong>
-        <strong>Resultado Operacional: R$ <span id="resultado">0.00</span></strong>
-    </div>
+</tbody>
+</table>
 
 </div>
 
 <script>
-    const firebaseConfig = {
-        apiKey: "AIzaSyDByExIuGOyp5Oelr0wA_4EUnVKgq6Xiq0",
-        authDomain: "corporatelogin-305a5.firebaseapp.com",
-        projectId: "corporatelogin-305a5",
-        storageBucket: "corporatelogin-305a5.firebasestorage.app",
-        messagingSenderId: "280564137265",
-        appId: "1:280564137265:web:9a7d546136feacfde90410"
-    };
+const firebaseConfig = {
+    apiKey: "AIzaSyDByExIuGOyp5Oelr0wA_4EUnVKgq6Xiq0",
+    authDomain: "corporatelogin-305a5.firebaseapp.com",
+    projectId: "corporatelogin-305a5",
+    storageBucket: "corporatelogin-305a5.firebasestorage.app",
+    messagingSenderId: "280564137265",
+    appId: "1:280564137265:web:9a7d546136feacfde90410"
+};
 
-    firebase.initializeApp(firebaseConfig);
-    const auth = firebase.auth();
-
-    auth.onAuthStateChanged(user => {
-        if (!user) window.location.href = "./login.html";
-        else document.getElementById("userArea").innerHTML = `👤 ${user.email}`;
-    });
-
-    function calcularTotais() {
-        let total = 0;
-        document.querySelectorAll(".gasto").forEach(input => {
-            total += Number(input.value) || 0;
-        });
-
-        const renda = Number(document.getElementById("renda").value) || 0;
-        document.getElementById("totalDespesas").innerText = total.toFixed(2);
-        document.getElementById("resultado").innerText = (renda - total).toFixed(2);
-    }
-
-    document.querySelectorAll(".gasto").forEach(input => {
-        input.addEventListener("input", calcularTotais);
-    });
+firebase.initializeApp(firebaseConfig);
+firebase.auth().onAuthStateChanged(user => {
+    if (!user) window.location.href = "./login.html";
+    else document.getElementById("userArea").innerText = "👤 " + user.email;
+});
 </script>
 
 </body>
