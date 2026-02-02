@@ -2,148 +2,50 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <title>Intranet - Áreas Internas</title>
+    <title>Intranet | Olivieri</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Fonte -->
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
 
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: "Open Sans", sans-serif;
-        }
-
         body {
-            background-color: rgb(249, 249, 249);
-            color: #333;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
         }
 
-        /* HEADER */
         header {
-            background-color: #000;
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 1000;
+            background: #000;
+            color: #fff;
+            padding: 20px;
         }
 
-        .nav-container {
-            max-width: 1200px;
+        .nav {
+            max-width: 1100px;
             margin: auto;
-            padding: 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
-        .nav-left {
-            display: flex;
-            align-items: center;
-            gap: 40px;
-        }
-
-        .logo {
-            color: #fff;
-            font-weight: 700;
-            font-size: 22px;
-        }
-
-        nav ul {
-            list-style: none;
-            display: flex;
-            gap: 30px;
-        }
-
-        nav a span {
-            color: #fff;
-            font-weight: 700;
-            font-size: 18px;
-            border-bottom: 0.3rem solid transparent;
-            padding-bottom: 4px;
-            transition: 0.3s;
-        }
-
-        nav a:hover span {
-            border-color: #fff;
-        }
-
-        .login a {
-            color: #fff;
-            text-decoration: none;
-            border: 1px solid #fff;
-            padding: 6px 16px;
-            border-radius: 20px;
-            font-weight: 700;
-            transition: 0.3s;
-        }
-
-        .login a:hover {
-            background-color: #fff;
-            color: #000;
-        }
-
-        .spacer {
-            height: 90px;
-        }
-
-        /* CONTEÚDO */
-        section {
+        .container {
             max-width: 1100px;
-            margin: auto;
-            padding: 60px 20px;
-        }
-
-        h1 {
-            text-align: center;
-            margin-bottom: 40px;
-        }
-
-        .areas {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
+            margin: 40px auto;
         }
 
         .card {
             background: #fff;
-            padding: 25px;
-            border-radius: 8px;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-        }
-
-        .card h2 {
-            margin-bottom: 10px;
-        }
-
-        .card p {
-            margin-bottom: 15px;
-        }
-
-        .card button {
-            padding: 8px 15px;
-            border: none;
-            background-color: #000;
-            color: #fff;
-            border-radius: 20px;
-            cursor: pointer;
-            font-weight: 700;
-        }
-
-        input {
-            width: 100%;
-            padding: 10px;
-            margin-top: 10px;
-        }
-
-        footer {
-            background-color: #000;
-            color: #fff;
-            text-align: center;
             padding: 20px;
-            margin-top: 60px;
+            margin-bottom: 20px;
+            border-radius: 6px;
+        }
+
+        button {
+            padding: 8px 14px;
+            margin-top: 10px;
+            cursor: pointer;
         }
     </style>
 </head>
@@ -151,118 +53,87 @@
 <body>
 
 <header>
-    <div class="nav-container">
-        <div class="nav-left">
-            <div class="logo">INTRANET</div>
-            <nav>
-                <ul>
-                    <li><a href="./pagina-interna.html"><span>Início</span></a></li>
-                </ul>
-            </nav>
-        </div>
-        <div class="login">
-            <a href="./login.html">Sair</a>
-        </div>
+    <div class="nav">
+        <strong>OLIVIERI</strong>
+        <div id="userArea">Carregando...</div>
     </div>
 </header>
 
-<div class="spacer"></div>
+<div class="container">
 
-<section>
-    <h1>Áreas da Empresa</h1>
-
-    <div class="areas">
-
-        <div class="card">
-            <h2>Administrativo</h2>
-            <p>Gestão interna e processos administrativos.</p>
-            <button>Ver Processos</button>
-        </div>
-
-        <div class="card">
-            <h2>Marketing</h2>
-            <p>Campanhas, comunicação e branding.</p>
-            <button>Criar Campanha</button>
-        </div>
-
-        <div class="card">
-            <h2>Tecnologia da Informação (TI)</h2>
-            <p>Suporte técnico e sistemas.</p>
-            <button>Abrir Chamado</button>
-        </div>
-
-        <div class="card">
-            <h2>Recursos Humanos (RH)</h2>
-            <p>Gestão de pessoas e benefícios.</p>
-            <button>Consultar Benefícios</button>
-        </div>
-
-        <div class="card">
-            <h2>Financeiro</h2>
-            <p>Pagamentos, reembolsos e orçamento.</p>
-            <button>Solicitar Reembolso</button>
-        </div>
-
-        <div class="card">
-            <h2>Comercial / Vendas</h2>
-            <p>Clientes, propostas e negociações.</p>
-            <button>Nova Proposta</button>
-        </div>
-
-        <div class="card">
-            <h2>Logística</h2>
-            <p>Entregas, estoque e transporte.</p>
-            <button>Consultar Estoque</button>
-        </div>
-
-        <div class="card">
-            <h2>Jurídico</h2>
-            <p>Contratos e conformidade legal.</p>
-            <button>Ver Contratos</button>
-        </div>
-
-        <!-- GERADOR DE USUÁRIO -->
-        <div class="card">
-            <h2>Gerador de Usuário Corporativo</h2>
-            <p>Digite o nome completo do colaborador.</p>
-
-            <input type="text" id="nomeCompleto" placeholder="Ex: João da Silva">
-
-            <button onclick="gerarEmail()" style="margin-top:10px;">Gerar E-mail</button>
-
-            <p id="resultadoEmail" style="margin-top:15px; font-weight:700;"></p>
-        </div>
-
+    <div class="card">
+        <h3>Administrativo</h3>
+        <button>Gestão de documentos</button>
     </div>
-</section>
 
-<footer>
-    © 2026 - Intranet Corporativa
-</footer>
+    <div class="card">
+        <h3>Marketing</h3>
+        <button>Campanhas</button>
+    </div>
+
+    <div class="card">
+        <h3>Tecnologia da Informação (TI)</h3>
+        <button>Abrir chamado</button>
+    </div>
+
+    <div class="card">
+        <h3>Recursos Humanos (RH)</h3>
+        <button>Holerites</button>
+    </div>
+
+    <div class="card">
+        <h3>Financeiro</h3>
+        <button>Reembolsos</button>
+    </div>
+
+    <div class="card">
+        <h3>Comercial / Vendas</h3>
+        <button>Relatórios</button>
+    </div>
+
+    <div class="card">
+        <h3>Logística</h3>
+        <button>Estoque</button>
+    </div>
+
+    <div class="card">
+        <h3>Jurídico</h3>
+        <button>Contratos</button>
+    </div>
+
+</div>
 
 <script>
-function gerarEmail() {
-    const nomeCompleto = document.getElementById("nomeCompleto").value.trim().toLowerCase();
+    const firebaseConfig = {
+        apiKey: "AIzaSyDByExIuGOyp5Oelr0wA_4EUnVKgq6Xiq0",
+        authDomain: "corporatelogin-305a5.firebaseapp.com",
+        projectId: "corporatelogin-305a5",
+        storageBucket: "corporatelogin-305a5.firebasestorage.app",
+        messagingSenderId: "280564137265",
+        appId: "1:280564137265:web:9a7d546136feacfde90410"
+    };
 
-    if (nomeCompleto === "") {
-        alert("Digite o nome completo.");
-        return;
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+
+    auth.onAuthStateChanged(user => {
+        if (!user) {
+            window.location.href = "./login.html";
+        } else {
+            userArea.innerHTML = `
+                👤 ${user.email}
+                <span onclick="logout()" style="cursor:pointer; margin-left:10px; text-decoration:underline;">
+                    Sair
+                </span>
+            `;
+        }
+    });
+
+    function logout() {
+        auth.signOut().then(() => {
+            window.location.href = "./login.html";
+        });
     }
-
-    const partes = nomeCompleto.split(" ");
-
-    if (partes.length < 2) {
-        alert("Digite nome e sobrenome.");
-        return;
-    }
-
-    const primeiroNome = partes[0];
-    const ultimoNome = partes[partes.length - 1];
-
-    const email = `${primeiroNome}.${ultimoNome}@corporate.com`;
-
-    document.getElementById("resultadoEmail").innerText = email;
-}
 </script>
 
 </body>
