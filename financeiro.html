@@ -5,209 +5,181 @@
 <title>Financeiro | Controle de Gastos</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<!-- Firebase -->
 <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
 
 <style>
-    body {
-        margin: 0;
-        font-family: Arial, sans-serif;
-        background: #f4f4f4;
-    }
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f4f4f4;
+}
 
-    header {
-        background: #000;
-        color: #fff;
-        padding: 20px;
-    }
+header {
+    background: #000;
+    color: #fff;
+    padding: 20px;
+}
 
-    .nav {
-        max-width: 1200px;
-        margin: auto;
-        display: flex;
-        justify-content: space-between;
-    }
+.nav {
+    max-width: 95%;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+}
 
-    .container {
-        max-width: 1400px;
-        margin: 30px auto;
-        padding: 0 10px;
-        overflow-x: auto;
-    }
+.container {
+    max-width: 95%;
+    margin: 20px auto;
+    overflow-x: auto;
+}
 
-    table {
-        border-collapse: collapse;
-        width: 100%;
-        min-width: 1400px;
-        font-size: 12px;
-        background: #fff;
-    }
+table {
+    border-collapse: collapse;
+    width: 100%;
+    table-layout: fixed;
+    background: #fff;
+    font-size: 11px;
+}
 
-    th, td {
-        border: 1px solid #999;
-        padding: 5px;
-        text-align: center;
-        white-space: nowrap;
-    }
+th, td {
+    border: 1px solid #999;
+    padding: 4px;
+    text-align: center;
+}
 
-    th {
-        background: #003cff;
-        color: #fff;
-        font-weight: bold;
-    }
+th {
+    background: #003cff;
+    color: #fff;
+}
 
-    th.mes {
-        background: #003cff;
-    }
+td.categoria {
+    text-align: left;
+    font-weight: bold;
+    background: #eee;
+}
 
-    th.pagamento {
-        background: #0059ff;
-        font-size: 11px;
-    }
+td.sub {
+    text-align: left;
+    padding-left: 10px;
+}
 
-    td.categoria {
-        text-align: left;
-        font-weight: bold;
-        background: #eee;
-    }
+input.valor {
+    width: 100%;
+    border: none;
+    text-align: right;
+    font-size: 11px;
+}
 
-    td.sub {
-        text-align: left;
-        padding-left: 15px;
-    }
+select {
+    width: 100%;
+    font-size: 10px;
+}
 
-    input.valor {
-        width: 80px;
-        text-align: right;
-        border: none;
-    }
+.total {
+    background: #000;
+    color: #fff;
+    font-weight: bold;
+}
 
-    select {
-        font-size: 11px;
-    }
+.renda {
+    background: #ffe766;
+    font-weight: bold;
+}
 
-    .total {
-        background: #000;
-        color: #fff;
-        font-weight: bold;
-    }
-
-    .renda {
-        background: #ffe766;
-        font-weight: bold;
-    }
-
-    .resultado {
-        background: #00a2ff;
-        color: #fff;
-        font-weight: bold;
-    }
+.resultado {
+    background: #00a2ff;
+    color: #fff;
+    font-weight: bold;
+}
 </style>
 </head>
 
 <body>
 
 <header>
-    <div class="nav">
-        <strong>OLIVIERI | Financeiro</strong>
-        <div id="userArea">Carregando...</div>
-    </div>
+<div class="nav">
+    <strong>OLIVIERI | Financeiro</strong>
+    <div id="userArea">Carregando...</div>
+</div>
 </header>
 
 <div class="container">
+<table id="tabela">
 
-<table>
 <thead>
 <tr>
-    <th>Despesas</th>
-    <th class="mes">Jan</th><th class="pagamento">Meio</th>
-    <th class="mes">Feb</th><th class="pagamento">Meio</th>
-    <th class="mes">Mac</th><th class="pagamento">Meio</th>
-    <th class="mes">Apr</th><th class="pagamento">Meio</th>
-    <th class="mes">May</th><th class="pagamento">Meio</th>
-    <th class="mes">Jun</th><th class="pagamento">Meio</th>
-    <th class="mes">Jul</th><th class="pagamento">Meio</th>
-    <th class="mes">Aug</th><th class="pagamento">Meio</th>
-    <th class="mes">Sep</th><th class="pagamento">Meio</th>
-    <th class="mes">Oct</th><th class="pagamento">Meio</th>
-    <th class="mes">Nov</th><th class="pagamento">Meio</th>
-    <th class="mes">Dec</th><th class="pagamento">Meio</th>
+<th>Despesas</th>
+<th>Jan</th><th>Meio</th>
+<th>Fev</th><th>Meio</th>
+<th>Mar</th><th>Meio</th>
+<th>Abr</th><th>Meio</th>
 </tr>
 </thead>
 
 <tbody>
 
+<!-- ALIMENTAÇÃO -->
 <tr><td class="categoria">Alimentação</td><td colspan="8"></td></tr>
-<tr>
-    <td class="sub">Supermercado</td>
-    <td><input class="valor gasto"></td><td><select><option>Vale</option><option>Crédito</option></select>
-    <td><input class="valor gasto"></td><td><select><option>Vale</option><option>Crédito</option></select>
-    <td><input class="valor gasto"></td><td><select><option>Vale</option><option>Crédito</option></select>
-    <td><input class="valor gasto"></td><td><select><option>Vale</option><option>Crédito</option></select>
-</tr>
+<tr><td class="sub">Supermercado</td><td><input class="valor gasto jan"></td><td><select><option>Vale</option></select><td><input class="valor gasto fev"></td><td><select><option>Vale</option></select><td><input class="valor gasto mar"></td><td><select><option>Vale</option></select><td><input class="valor gasto abr"></td><td><select><option>Vale</option></select></tr>
+<tr><td class="sub">Padaria</td><td><input class="valor gasto jan"></td><td><select></select><td><input class="valor gasto fev"></td><td><select></select><td><input class="valor gasto mar"></td><td><select></select><td><input class="valor gasto abr"></td><td><select></select></tr>
+<tr><td class="sub">Feira</td><td><input class="valor gasto jan"></td><td><select></select><td><input class="valor gasto fev"></td><td><select></select><td><input class="valor gasto mar"></td><td><select></select><td><input class="valor gasto abr"></td><td><select></select></tr>
+<tr><td class="sub">Restaurante</td><td><input class="valor gasto jan"></td><td><select></select><td><input class="valor gasto fev"></td><td><select></select><td><input class="valor gasto mar"></td><td><select></select><td><input class="valor gasto abr"></td><td><select></select></tr>
 
+<!-- MORADIA -->
 <tr><td class="categoria">Moradia</td><td colspan="8"></td></tr>
-<tr>
-    <td class="sub">Aluguel</td>
-    <td><input class="valor gasto"></td><td><select><option>Crédito</option><option>Débito</option></select>
-    <td><input class="valor gasto"></td><td><select><option>Crédito</option><option>Débito</option></select>
-    <td><input class="valor gasto"></td><td><select><option>Crédito</option><option>Débito</option></select>
-    <td><input class="valor gasto"></td><td><select><option>Crédito</option><option>Débito</option></select>
-</tr>
+<tr><td class="sub">Aluguel</td><td><input class="valor gasto jan"></td><td></td><td><input class="valor gasto fev"></td><td></td><td><input class="valor gasto mar"></td><td></td><td><input class="valor gasto abr"></td><td></td></tr>
+<tr><td class="sub">Condomínio</td><td><input class="valor gasto jan"></td><td></td><td><input class="valor gasto fev"></td><td></td><td><input class="valor gasto mar"></td><td></td><td><input class="valor gasto abr"></td><td></td></tr>
+<tr><td class="sub">Água</td><td><input class="valor gasto jan"></td><td></td><td><input class="valor gasto fev"></td><td></td><td><input class="valor gasto mar"></td><td></td><td><input class="valor gasto abr"></td><td></td></tr>
+<tr><td class="sub">Luz</td><td><input class="valor gasto jan"></td><td></td><td><input class="valor gasto fev"></td><td></td><td><input class="valor gasto mar"></td><td></td><td><input class="valor gasto abr"></td><td></td></tr>
+<tr><td class="sub">IPTU</td><td><input class="valor gasto jan"></td><td></td><td><input class="valor gasto fev"></td><td></td><td><input class="valor gasto mar"></td><td></td><td><input class="valor gasto abr"></td><td></td></tr>
 
-<tr><td class="categoria">Transporte</td><td colspan="8"></td></tr>
-<tr>
-    <td class="sub">Ônibus / Metrô</td>
-    <td><input class="valor gasto"></td><td><select><option>Débito</option></select>
-    <td><input class="valor gasto"></td><td><select><option>Débito</option></select>
-    <td><input class="valor gasto"></td><td><select><option>Débito</option></select>
-    <td><input class="valor gasto"></td><td><select><option>Débito</option></select>
-</tr>
-
+<!-- TOTAL -->
 <tr class="total">
-    <td>Total das Despesas</td>
-    <td colspan="2" id="totalJan">R$ 0,00</td>
-    <td colspan="2" id="totalFev">R$ 0,00</td>
-    <td colspan="2" id="totalMar">R$ 0,00</td>
-    <td colspan="2" id="totalAbr">R$ 0,00</td>
+<td>Total das Despesas</td>
+<td colspan="2" id="total-jan">R$ 0,00</td>
+<td colspan="2" id="total-fev">R$ 0,00</td>
+<td colspan="2" id="total-mar">R$ 0,00</td>
+<td colspan="2" id="total-abr">R$ 0,00</td>
 </tr>
 
 <tr class="renda">
-    <td>Renda Mensal</td>
-    <td colspan="2"><input class="valor" id="rendaJan"></td>
-    <td colspan="2"><input class="valor" id="rendaFev"></td>
-    <td colspan="2"><input class="valor" id="rendaMar"></td>
-    <td colspan="2"><input class="valor" id="rendaAbr"></td>
+<td>Renda Mensal</td>
+<td colspan="2"><input class="valor renda jan"></td>
+<td colspan="2"><input class="valor renda fev"></td>
+<td colspan="2"><input class="valor renda mar"></td>
+<td colspan="2"><input class="valor renda abr"></td>
 </tr>
 
 <tr class="resultado">
-    <td>Resultado Operacional</td>
-    <td colspan="2" id="resJan">R$ 0,00</td>
-    <td colspan="2" id="resFev">R$ 0,00</td>
-    <td colspan="2" id="resMar">R$ 0,00</td>
-    <td colspan="2" id="resAbr">R$ 0,00</td>
+<td>Resultado Operacional</td>
+<td colspan="2" id="res-jan">R$ 0,00</td>
+<td colspan="2" id="res-fev">R$ 0,00</td>
+<td colspan="2" id="res-mar">R$ 0,00</td>
+<td colspan="2" id="res-abr">R$ 0,00</td>
 </tr>
 
 </tbody>
 </table>
-
 </div>
 
 <script>
-const firebaseConfig = {
-    apiKey: "AIzaSyDByExIuGOyp5Oelr0wA_4EUnVKgq6Xiq0",
-    authDomain: "corporatelogin-305a5.firebaseapp.com",
-    projectId: "corporatelogin-305a5",
-    storageBucket: "corporatelogin-305a5.firebasestorage.app",
-    messagingSenderId: "280564137265",
-    appId: "1:280564137265:web:9a7d546136feacfde90410"
-};
+function calcular(mes) {
+    let gastos = document.querySelectorAll('.gasto.' + mes);
+    let renda = document.querySelector('.renda.' + mes);
+    let total = 0;
 
-firebase.initializeApp(firebaseConfig);
-firebase.auth().onAuthStateChanged(user => {
-    if (!user) window.location.href = "./login.html";
-    else document.getElementById("userArea").innerText = "👤 " + user.email;
+    gastos.forEach(i => total += parseFloat(i.value) || 0);
+    let r = parseFloat(renda.value) || 0;
+
+    document.getElementById('total-' + mes).innerText = total.toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
+    document.getElementById('res-' + mes).innerText = (r - total).toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
+}
+
+document.querySelectorAll('input').forEach(i => {
+    i.addEventListener('input', () => {
+        ['jan','fev','mar','abr'].forEach(calcular);
+    });
 });
 </script>
 
