@@ -2,32 +2,26 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Olivieri</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Olivieri | One Page</title>
 
-  <!-- Google Font -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 
   <!-- Icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Inter', sans-serif;
-    }
-
-    body {
-      background: #fff;
-      color: #000;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+    body { background: #fff; color: #000; }
 
     /* ===== HEADER ===== */
     header {
       position: fixed;
       top: 0;
+      left: 0;
       width: 100%;
       height: 70px;
       background: #000;
@@ -38,15 +32,12 @@
       z-index: 1000;
     }
 
-    .logo {
-      color: #fff;
-      font-weight: 600;
-      font-size: 20px;
-    }
+    .logo { color: #fff; font-weight: 700; font-size: 22px; }
 
-    nav {
+    nav ul {
       display: flex;
       gap: 30px;
+      list-style: none;
     }
 
     nav a {
@@ -57,19 +48,17 @@
     }
 
     nav a::after {
-      content: "";
+      content: '';
       position: absolute;
-      width: 0;
-      height: 2px;
       left: 0;
       bottom: 0;
+      width: 0;
+      height: 2px;
       background: linear-gradient(to right, #fff, #fff);
-      transition: width 0.3s;
+      transition: width 0.3s ease;
     }
 
-    nav a:hover::after {
-      width: 100%;
-    }
+    nav a:hover::after { width: 100%; }
 
     .menu-right {
       display: flex;
@@ -79,22 +68,21 @@
 
     .btn-login {
       background: #d11313;
-      color: #fff;
       border: none;
-      padding: 10px 20px;
+      padding: 10px 18px;
+      color: #fff;
       cursor: pointer;
+      border-radius: 4px;
       transition: background 0.3s;
     }
 
-    .btn-login:hover {
-      background: #E70909;
-    }
+    .btn-login:hover { background: #E70909; }
 
-    .lang-btn {
+    .lang-select {
       background: transparent;
-      border: 1px solid #fff;
       color: #fff;
-      padding: 8px 12px;
+      border: 1px solid #fff;
+      padding: 6px;
       cursor: pointer;
     }
 
@@ -111,15 +99,14 @@
     }
 
     section {
-      padding: 100px 60px;
+      padding: 100px 80px;
       display: flex;
-      gap: 40px;
+      align-items: center;
+      justify-content: space-between;
+      gap: 60px;
     }
 
-    h2 {
-      color: #d11313;
-      margin-bottom: 20px;
-    }
+    h2 { color: #d11313; margin-bottom: 20px; }
 
     /* ===== SOBRE ===== */
     .sobre img {
@@ -127,111 +114,103 @@
       filter: grayscale(100%);
     }
 
-    .sobre-left {
-      width: 50%;
+    .sobre .images {
       display: flex;
       flex-direction: column;
       gap: 15px;
-    }
-
-    .sobre-right {
       width: 50%;
     }
+
+    .sobre .text { width: 50%; }
 
     /* ===== SERVIÇOS ===== */
-    .servicos {
-      background: #000;
-      color: #fff;
+    .servicos { background: #000; color: #fff; }
+
+    .servicos img {
+      width: 100%;
+      filter: grayscale(100%);
     }
 
-    .servicos-left {
-      width: 50%;
-    }
-
-    .servicos-right {
+    .servicos .images {
       width: 50%;
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 15px;
     }
 
-    .servicos-right img {
-      width: 100%;
-      filter: grayscale(100%);
-    }
-
-    .servicos-right img:last-child {
+    .servicos .images img:last-child {
       grid-column: span 2;
     }
+
+    .servicos .text { width: 50%; }
 
     /* ===== CONTATO ===== */
     .contato iframe {
       width: 100%;
-      height: 350px;
+      height: 400px;
       filter: grayscale(100%);
       border: none;
     }
 
-    .contato-left, .contato-right {
-      width: 50%;
-    }
+    .contato .map, .contato .text { width: 50%; }
 
     /* ===== FOOTER ===== */
     footer {
       background: #000;
       color: #fff;
-      padding: 40px 60px;
+      padding: 40px 80px;
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
 
-    .socials i {
+    .socials a {
       color: #d11313;
       border: 1px solid #d11313;
+      border-radius: 50%;
       padding: 10px;
       margin-left: 10px;
-      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
     }
 
-    /* ===== MODAL ===== */
-    .overlay {
-      display: none;
+    /* ===== MODAL LOGIN ===== */
+    .modal {
       position: fixed;
       inset: 0;
-      background: rgba(0,0,0,0.7);
-      justify-content: center;
+      background: rgba(0,0,0,0.6);
+      display: none;
       align-items: center;
+      justify-content: center;
       z-index: 2000;
     }
 
-    .modal {
+    .modal-content {
       background: #fff;
-      padding: 30px;
-      width: 400px;
+      padding: 40px;
+      width: 100%;
+      max-width: 420px;
       position: relative;
+      border-radius: 6px;
     }
 
-    .modal h3 {
-      margin-bottom: 10px;
-    }
+    .modal-content h3 { margin-bottom: 10px; }
 
-    .modal input {
+    .modal-content input {
       width: 100%;
       padding: 10px;
-      margin: 10px 0;
-    }
-
-    .modal .btn-login {
-      width: 100%;
-      margin-top: 15px;
+      margin-bottom: 12px;
+      border: 1px solid #ccc;
     }
 
     .close {
       position: absolute;
-      top: 10px;
+      top: 15px;
       right: 15px;
       cursor: pointer;
+      font-size: 18px;
     }
 
   </style>
@@ -242,94 +221,101 @@
   <div class="logo">Olivieri</div>
 
   <nav>
-    <a href="#sobre">Sobre</a>
-    <a href="#servicos">Serviços</a>
-    <a href="#contato">Contato</a>
+    <ul>
+      <li><a href="#sobre">Sobre</a></li>
+      <li><a href="#servicos">Serviços</a></li>
+      <li><a href="#contato">Contato</a></li>
+    </ul>
   </nav>
 
   <div class="menu-right">
     <button class="btn-login" onclick="openModal()">Login</button>
-    <button class="lang-btn">PT | EN | ES</button>
+    <select class="lang-select">
+      <option>PT</option>
+      <option>EN</option>
+      <option>ES</option>
+    </select>
   </div>
 </header>
 
 <div class="hero">
   <video autoplay muted loop>
-    <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+    <source src="https://www.w3schools.com/howto/rain.mp4" type="video/mp4">
   </video>
 </div>
 
 <section id="sobre" class="sobre">
-  <div class="sobre-left">
-    <img src="https://images.unsplash.com/photo-1524758631624-e2822e304c36">
-    <img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e">
+  <div class="images">
+    <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d" />
+    <img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e" />
   </div>
-  <div class="sobre-right">
+  <div class="text">
     <h2>Sobre nós</h2>
-    <p>Texto institucional genérico provisório.</p>
+    <p>Texto institucional provisório sobre a empresa.</p>
   </div>
 </section>
 
 <section id="servicos" class="servicos">
-  <div class="servicos-left">
+  <div class="text">
     <h2>Serviços</h2>
-    <p>Descrição genérica dos serviços.</p>
+    <p>Texto institucional provisório sobre os serviços.</p>
   </div>
-  <div class="servicos-right">
-    <img src="https://images.unsplash.com/photo-1497366216548-37526070297c">
-    <img src="https://images.unsplash.com/photo-1487014679447-9f8336841d58">
-    <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d">
+  <div class="images">
+    <img src="https://images.unsplash.com/photo-1497366216548-37526070297c" />
+    <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d" />
+    <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c" />
   </div>
 </section>
 
 <section id="contato" class="contato">
-  <div class="contato-left">
-    <iframe src="https://www.google.com/maps?q=Rua%20Moreira%20de%20Godoi,%20653,%20Ipiranga,%20São%20Paulo&output=embed"></iframe>
+  <div class="map">
+    <iframe src="https://maps.google.com/maps?q=Rua%20Moreira%20de%20Godoi,%20653,%20Ipiranga,%20Sao%20Paulo&t=&z=15&ie=UTF8&iwloc=&output=embed"></iframe>
   </div>
-  <div class="contato-right">
+  <div class="text">
     <h2>Entre em Contato</h2>
-    <p>Rua Moreira de Godoi, 653 – Ipiranga – São Paulo</p>
-    <p>Para vagas, clique aqui.</p>
-    <p>Outros assuntos: luizgumieriolivieri@gmail.com</p>
+    <p>Rua Moreira de Godoi, 653 – Ipiranga – São Paulo<br><br>
+    Para vagas, clique aqui.<br>
+    Para outros assuntos, envie um e-mail para:<br>
+    <strong>luizgumieriolivieri@gmail.com</strong></p>
   </div>
 </section>
 
 <footer>
   <div>
-    <strong>Olivieri</strong>
-    <p>© Olivieri 2026 | Todos os direitos reservados.</p>
+    <strong>Olivieri</strong><br>
+    © Olivieri 2026 | Todos os direitos reservados.
   </div>
+
   <div class="socials">
-    <i class="fab fa-youtube"></i>
-    <i class="fab fa-instagram"></i>
-    <i class="fab fa-x-twitter"></i>
-    <i class="fab fa-linkedin"></i>
-    <i class="fab fa-spotify"></i>
-    <i class="fab fa-whatsapp"></i>
+    <a href="#"><i class="fab fa-youtube"></i></a>
+    <a href="#"><i class="fab fa-instagram"></i></a>
+    <a href="#"><i class="fab fa-x-twitter"></i></a>
+    <a href="#"><i class="fab fa-linkedin"></i></a>
+    <a href="#"><i class="fab fa-spotify"></i></a>
+    <a href="#"><i class="fab fa-whatsapp"></i></a>
   </div>
 </footer>
 
 <!-- MODAL LOGIN -->
-<div class="overlay" id="modal">
-  <div class="modal">
-    <span class="close" onclick="closeModal()">✖</span>
+<div class="modal" id="loginModal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal()">✕</span>
     <h3>Acesso à Área de Membros</h3>
-    <p>Entre com seu e-mail e senha cadastrados.</p>
-    <input type="email" placeholder="E-mail">
-    <input type="password" placeholder="Senha">
-    <label><input type="checkbox"> Lembre-se de mim</label>
-    <p><a href="#">Esqueceu a senha?</a></p>
-    <button class="btn-login">Entrar</button>
+    <p>Entre com o seu e-mail e senha cadastrados na plataforma.</p><br>
+    <input type="email" placeholder="E-mail" />
+    <input type="password" placeholder="Senha" />
+    <label><input type="checkbox" /> Lembre-se de mim</label><br><br>
+    <a href="#">Esqueceu a senha?</a><br><br>
+    <button class="btn-login" style="width:100%">Entrar</button>
   </div>
 </div>
 
 <script>
   function openModal() {
-    document.getElementById('modal').style.display = 'flex';
+    document.getElementById('loginModal').style.display = 'flex';
   }
-
   function closeModal() {
-    document.getElementById('modal').style.display = 'none';
+    document.getElementById('loginModal').style.display = 'none';
   }
 </script>
 
