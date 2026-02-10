@@ -1,290 +1,188 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Olivieri</title>
+  <meta charset="UTF-8" />
+  <title>Olivieri | One Page</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<style>
-:root {
-  --primary: #000;
-  --accent: #ff3838;
-  --text-light: #fff;
-  --text-dark: #1a1a1a;
-  --text-muted: #aaa;
-  --max-width: 1200px;
-}
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: Arial, Helvetica, sans-serif;
-}
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: Arial, Helvetica, sans-serif; }
+    body { background: #fff; color: #000; }
 
-html {
-  scroll-behavior: smooth;
-}
+    /* HEADER */
+    header {
+      position: fixed; top: 0; left: 0; width: 100%; height: 70px;
+      background: #000; color: #fff; display: flex; align-items: center;
+      justify-content: space-between; padding: 0 40px; z-index: 1000;
+    }
+    nav a {
+      color: #fff; margin-left: 25px; text-decoration: none; position: relative;
+    }
+    nav a::after {
+      content: ''; position: absolute; bottom: -5px; left: 0; width: 0; height: 2px;
+      background: linear-gradient(90deg, #d11313, #ff0000);
+      transition: width .3s;
+    }
+    nav a:hover::after { width: 100%; }
 
-body {
-  background: #fff;
-  color: var(--text-dark);
-  line-height: 1.6;
-}
+    .btn-login {
+      background: #d11313; padding: 8px 18px; border-radius: 4px;
+      margin-left: 20px; cursor: pointer;
+    }
+    .btn-login:hover { background: #E70909; }
 
-/* ===== CONTAINER ===== */
-.container {
-  max-width: var(--max-width);
-  margin: auto;
-  padding: 0 20px;
-}
+    /* HERO */
+    .hero {
+      height: 100vh; width: 100%; margin-top: 70px;
+    }
+    .hero video { width: 100%; height: 100%; object-fit: cover; }
 
-/* ===== ANIMAÇÃO DE SCROLL ===== */
-section {
-  padding: 110px 0;
-  opacity: 0;
-  transform: translateY(40px);
-  animation: fadeUp 0.8s ease forwards;
-  animation-timeline: view();
-  animation-range: entry 20% cover 30%;
-}
+    section { min-height: 100vh; padding: 80px 60px; display: flex; }
 
-@keyframes fadeUp {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
+    /* SOBRE */
+    #sobre { background: #fff; }
+    #sobre .left, #sobre .right { width: 50%; }
+    #sobre img { width: 100%; filter: grayscale(100%); margin-bottom: 10px; }
+    h2 { color: #d11313; margin-bottom: 20px; }
 
-/* ===== HEADER ===== */
-header {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  background: #000;
-  z-index: 10;
-}
+    /* SERVIÇOS */
+    #servicos { background: #000; color: #fff; flex-direction: row-reverse; }
+    #servicos img { filter: grayscale(100%); }
 
-.nav {
-  height: 70px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
+    /* CONTATO */
+    #contato iframe { width: 100%; height: 100%; filter: grayscale(100%); border: 0; }
 
-.logo {
-  color: #fff;
-  font-weight: bold;
-  font-size: 1.2rem;
-}
+    /* FOOTER */
+    footer {
+      background: #000; color: #fff; display: flex; justify-content: space-between;
+      padding: 30px 60px;
+    }
+    .social a { color: #d11313; margin-left: 15px; text-decoration: none; }
+    .social a:hover { color: #fff; }
 
-.menu {
-  display: flex;
-  align-items: center;
-}
+    /* LOGIN MODAL */
+    .modal {
+      display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,.7); align-items: center; justify-content: center;
+    }
+    .modal-content {
+      background: #fff; padding: 30px; width: 400px; border-radius: 6px;
+    }
+    .modal-content input { width: 100%; padding: 10px; margin-bottom: 10px; }
+    .modal-content button { width: 100%; padding: 10px; background: #d11313; color: #fff; border: none; }
+    .modal-content button:hover { background: #E70909; }
 
-.menu a {
-  margin-left: 24px;
-  text-decoration: none;
-  color: #fff;
-  font-size: 0.95rem;
-  position: relative;
-}
-
-.menu a::after {
-  content: "";
-  position: absolute;
-  bottom: -5px;
-  left: 0;
-  width: 0;
-  height: 2px;
-  background: #fff;
-  transition: width 0.3s ease;
-}
-
-.menu a:hover::after {
-  width: 100%;
-}
-
-/* BOTÃO LOGIN */
-.menu .login-btn {
-  margin-left: 30px;
-  padding: 10px 22px;
-  border: 1px solid #fff;
-  border-radius: 4px;
-  transition: background 0.3s ease, color 0.3s ease;
-}
-
-.menu .login-btn:hover {
-  background: #fff;
-  color: #000;
-}
-
-/* ===== HERO ===== */
-.hero {
-  padding-top: 150px;
-  text-align: center;
-}
-
-.hero h1 {
-  font-size: 2.6rem;
-  margin-bottom: 20px;
-}
-
-.hero p {
-  max-width: 700px;
-  margin: auto;
-  font-size: 1.1rem;
-  color: #555;
-}
-
-/* ===== GRID ===== */
-.grid-3 {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 30px;
-}
-
-.card {
-  border: 1px solid #333;
-  padding: 35px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 15px 30px rgba(0,0,0,0.15);
-}
-
-/* ===== SOBRE ===== */
-#about {
-  background: #fff;
-}
-
-/* ===== SERVIÇOS ===== */
-#services {
-  background: #000;
-  color: #fff;
-}
-
-#services .card {
-  border-color: #444;
-}
-
-#services p {
-  color: var(--text-muted);
-}
-
-/* ===== CONTATO ===== */
-#contact {
-  background: #000;
-  color: #fff;
-  text-align: center;
-}
-
-#contact p {
-  color: #ccc;
-  max-width: 600px;
-  margin: auto;
-}
-
-/* ===== FOOTER ===== */
-footer {
-  background: var(--accent);
-  color: #fff;
-  padding: 50px 0;
-  font-size: 0.85rem;
-}
-
-.footer-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 30px;
-}
-
-footer a {
-  color: #fff;
-  text-decoration: none;
-  display: block;
-  margin-bottom: 8px;
-}
-</style>
+    /* ÁREA LOGADA */
+    #dashboard { display: none; padding-top: 90px; }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { border: 1px solid #ccc; padding: 6px; text-align: right; }
+    th:first-child, td:first-child { text-align: left; }
+    tfoot td { font-weight: bold; }
+  </style>
 </head>
-
 <body>
 
 <header>
-  <div class="container nav">
-    <div class="logo">Olivieri</div>
-    <nav class="menu">
-      <a href="#about">Sobre</a>
-      <a href="#services">Serviços</a>
-      <a href="#contact">Contato</a>
-      <a href="#login" class="login-btn">Login</a>
-    </nav>
-  </div>
+  <div class="logo">Olivieri</div>
+  <nav>
+    <a href="#sobre">Sobre</a>
+    <a href="#servicos">Serviços</a>
+    <a href="#contato">Contato</a>
+    <span class="btn-login" onclick="openLogin()">Login</span>
+  </nav>
 </header>
 
-<main>
+<div class="hero">
+  <video autoplay muted loop>
+    <source src="hero.mp4" type="video/mp4" />
+  </video>
+</div>
 
-<section class="hero">
-  <div class="container">
-    <h1>Estratégia e crescimento digital</h1>
-    <p>Soluções personalizadas para marcas que querem crescer com consistência.</p>
+<section id="sobre">
+  <div class="left">
+    <img src="office1.jpg" />
+    <img src="office2.jpg" />
+  </div>
+  <div class="right">
+    <h2>Sobre nós</h2>
+    <p>Texto institucional placeholder.</p>
   </div>
 </section>
 
-<section id="about">
-  <div class="container">
-    <h2>Sobre</h2>
-    <p>
-      A Olivieri atua com foco em estratégia, tecnologia e posicionamento digital,
-      ajudando empresas a alcançarem resultados reais.
-    </p>
+<section id="servicos">
+  <div class="left">
+    <h2>Serviços</h2>
+    <p>Descrição genérica dos serviços.</p>
+  </div>
+  <div class="right">
+    <img src="office3.jpg" />
   </div>
 </section>
 
-<section id="services">
-  <div class="container grid-3">
-    <div class="card">
-      <h3>Estratégia Digital</h3>
-      <p>Planejamento orientado por dados e objetivos claros.</p>
-    </div>
-    <div class="card">
-      <h3>Marketing de Performance</h3>
-      <p>Campanhas focadas em conversão e crescimento.</p>
-    </div>
-    <div class="card">
-      <h3>Branding</h3>
-      <p>Posicionamento de marca forte e consistente.</p>
-    </div>
+<section id="contato">
+  <div class="left">
+    <iframe src="https://maps.google.com/maps?q=Rua%20Moreira%20de%20Godoi%20653&t=&z=15&ie=UTF8&iwloc=&output=embed"></iframe>
+  </div>
+  <div class="right">
+    <h2>Entre em Contato</h2>
+    <p>Rua Moreira de Godoi, 653 – Ipiranga – São Paulo</p>
+    <p>Email: oi@olivieri.com</p>
   </div>
 </section>
-
-<section id="contact">
-  <div class="container">
-    <h2>Contato</h2>
-    <p>Entre em contato e descubra como podemos ajudar seu negócio.</p>
-  </div>
-</section>
-
-</main>
 
 <footer>
-  <div class="container footer-grid">
-    <div>
-      <strong>Olivieri</strong>
-      <p>Estratégia e soluções digitais.</p>
-    </div>
-    <div>
-      <a href="#">Instagram</a>
-      <a href="#">LinkedIn</a>
-    </div>
-    <div>
-      <p>© 2026 - Todos os direitos reservados</p>
-    </div>
+  <div>
+    <strong>Olivieri</strong>
+    <p>© Olivieri 2026 | Todos os direitos reservados.</p>
+  </div>
+  <div class="social">
+    <a href="#">YouTube</a>
+    <a href="#">Instagram</a>
+    <a href="#">X</a>
+    <a href="#">LinkedIn</a>
+    <a href="#">Spotify</a>
+    <a href="#">WhatsApp</a>
   </div>
 </footer>
+
+<!-- LOGIN MODAL -->
+<div class="modal" id="loginModal">
+  <div class="modal-content">
+    <h3>Acesso à Área de Membros</h3>
+    <p>Entre com seu e-mail e senha</p>
+    <input type="email" id="email" placeholder="E-mail" />
+    <input type="password" id="password" placeholder="Senha" />
+    <label><input type="checkbox" /> Lembre-se de mim</label>
+    <button onclick="login()">Entrar</button>
+  </div>
+</div>
+
+<script>
+  const firebaseConfig = {
+    apiKey: "SUA_API_KEY",
+    authDomain: "SEU_DOMINIO.firebaseapp.com",
+    projectId: "SEU_PROJECT_ID",
+  };
+  firebase.initializeApp(firebaseConfig);
+
+  function openLogin() {
+    document.getElementById('loginModal').style.display = 'flex';
+  }
+
+  function login() {
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+
+    firebase.auth().signInWithEmailAndPassword(email, password)
+      .then(() => alert('Login efetuado'))
+      .catch(err => alert(err.message));
+  }
+</script>
 
 </body>
 </html>
