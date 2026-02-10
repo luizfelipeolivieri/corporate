@@ -2,186 +2,222 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <title>Olivieri | One Page</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <!-- Firebase SDK -->
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
-
+  <title>Olivieri</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: Arial, Helvetica, sans-serif; }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
     body { background: #fff; color: #000; }
 
-    /* HEADER */
+    /* Header */
     header {
-      position: fixed; top: 0; left: 0; width: 100%; height: 70px;
-      background: #000; color: #fff; display: flex; align-items: center;
-      justify-content: space-between; padding: 0 40px; z-index: 1000;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 70px;
+      background: #000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 40px;
+      z-index: 1000;
     }
+    header img { height: 40px; }
+    nav { display: flex; align-items: center; gap: 25px; }
     nav a {
-      color: #fff; margin-left: 25px; text-decoration: none; position: relative;
+      color: #fff;
+      text-decoration: none;
+      position: relative;
+      font-weight: 400;
     }
     nav a::after {
-      content: ''; position: absolute; bottom: -5px; left: 0; width: 0; height: 2px;
-      background: linear-gradient(90deg, #d11313, #ff0000);
+      content: '';
+      position: absolute;
+      left: 0; bottom: -5px;
+      width: 0; height: 2px;
+      background: linear-gradient(90deg, #d11313, #ff3b3b);
       transition: width .3s;
     }
     nav a:hover::after { width: 100%; }
 
     .btn-login {
-      background: #d11313; padding: 8px 18px; border-radius: 4px;
-      margin-left: 20px; cursor: pointer;
+      background: #d11313;
+      border: none;
+      padding: 10px 18px;
+      color: #fff;
+      cursor: pointer;
+      transition: background .3s;
     }
     .btn-login:hover { background: #E70909; }
 
-    /* HERO */
-    .hero {
-      height: 100vh; width: 100%; margin-top: 70px;
+    .lang-switch { color: #fff; cursor: pointer; font-size: 14px; }
+
+    section {
+      height: 100vh;
+      display: flex;
+      padding-top: 70px;
     }
-    .hero video { width: 100%; height: 100%; object-fit: cover; }
 
-    section { min-height: 100vh; padding: 80px 60px; display: flex; }
+    /* Home */
+    #home { justify-content: center; align-items: center; }
 
-    /* SOBRE */
-    #sobre { background: #fff; }
-    #sobre .left, #sobre .right { width: 50%; }
-    #sobre img { width: 100%; filter: grayscale(100%); margin-bottom: 10px; }
-    h2 { color: #d11313; margin-bottom: 20px; }
+    /* Sobre */
+    #sobre .left, #sobre .right { width: 50%; padding: 40px; }
+    #sobre .left {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    #sobre img { width: 100%; filter: grayscale(100%); }
+    #sobre h2 { color: #d11313; margin-bottom: 15px; }
 
-    /* SERVIÇOS */
-    #servicos { background: #000; color: #fff; flex-direction: row-reverse; }
-    #servicos img { filter: grayscale(100%); }
+    /* Serviços */
+    #servicos { background: #000; color: #fff; }
+    #servicos .left, #servicos .right { width: 50%; padding: 40px; }
+    #servicos h2 { color: #d11313; margin-bottom: 15px; }
+    #servicos .right {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto auto;
+      gap: 15px;
+    }
+    #servicos .right img {
+      width: 100%;
+      filter: grayscale(100%);
+    }
+    #servicos .right img:last-child { grid-column: span 2; }
 
-    /* CONTATO */
+    /* Contato */
+    #contato .left, #contato .right { width: 50%; padding: 40px; }
     #contato iframe { width: 100%; height: 100%; filter: grayscale(100%); border: 0; }
+    #contato h2 { color: #d11313; margin-bottom: 15px; }
 
-    /* FOOTER */
+    /* Footer */
     footer {
-      background: #000; color: #fff; display: flex; justify-content: space-between;
-      padding: 30px 60px;
+      background: #000;
+      color: #fff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 30px 40px;
     }
-    .social a { color: #d11313; margin-left: 15px; text-decoration: none; }
-    .social a:hover { color: #fff; }
+    footer .socials a {
+      color: #d11313;
+      margin-left: 15px;
+      font-size: 18px;
+      transition: color .3s;
+    }
+    footer .socials a:hover { color: #fff; }
 
-    /* LOGIN MODAL */
+    /* Modal */
     .modal {
-      display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(0,0,0,.7); align-items: center; justify-content: center;
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.7);
+      justify-content: center;
+      align-items: center;
+      z-index: 2000;
     }
     .modal-content {
-      background: #fff; padding: 30px; width: 400px; border-radius: 6px;
+      background: #fff;
+      padding: 30px;
+      width: 400px;
+      position: relative;
     }
+    .modal-content h3 { margin-bottom: 10px; }
+    .modal-content p { margin-bottom: 20px; font-size: 14px; }
     .modal-content input { width: 100%; padding: 10px; margin-bottom: 10px; }
-    .modal-content button { width: 100%; padding: 10px; background: #d11313; color: #fff; border: none; }
-    .modal-content button:hover { background: #E70909; }
-
-    /* ÁREA LOGADA */
-    #dashboard { display: none; padding-top: 90px; }
-    table { width: 100%; border-collapse: collapse; }
-    th, td { border: 1px solid #ccc; padding: 6px; text-align: right; }
-    th:first-child, td:first-child { text-align: left; }
-    tfoot td { font-weight: bold; }
+    .modal-content button { width: 100%; }
+    .close { position: absolute; top: 10px; right: 10px; cursor: pointer; }
+    .forgot { margin-top: 10px; cursor: pointer; font-size: 14px; }
   </style>
 </head>
 <body>
 
 <header>
-  <div class="logo">Olivieri</div>
+  <img src="logo.png" alt="Logo">
   <nav>
     <a href="#sobre">Sobre</a>
     <a href="#servicos">Serviços</a>
     <a href="#contato">Contato</a>
-    <span class="btn-login" onclick="openLogin()">Login</span>
+    <button class="btn-login" onclick="openModal()">Login</button>
+    <div class="lang-switch">PT | EN | ES</div>
   </nav>
 </header>
 
-<div class="hero">
-  <video autoplay muted loop>
-    <source src="hero.mp4" type="video/mp4" />
-  </video>
-</div>
+<section id="home">
+  <h1>Home</h1>
+</section>
 
 <section id="sobre">
   <div class="left">
-    <img src="office1.jpg" />
-    <img src="office2.jpg" />
+    <img src="office1.jpg">
+    <img src="office2.jpg">
   </div>
   <div class="right">
     <h2>Sobre nós</h2>
-    <p>Texto institucional placeholder.</p>
+    <p>Texto genérico sobre a empresa.</p>
   </div>
 </section>
 
 <section id="servicos">
   <div class="left">
     <h2>Serviços</h2>
-    <p>Descrição genérica dos serviços.</p>
+    <p>Descrição genérica dos serviços oferecidos.</p>
   </div>
   <div class="right">
-    <img src="office3.jpg" />
+    <img src="office3.jpg">
+    <img src="office4.jpg">
+    <img src="office5.jpg">
   </div>
 </section>
 
 <section id="contato">
   <div class="left">
-    <iframe src="https://maps.google.com/maps?q=Rua%20Moreira%20de%20Godoi%20653&t=&z=15&ie=UTF8&iwloc=&output=embed"></iframe>
+    <iframe src="https://maps.google.com/maps?q=Rua%20Moreira%20de%20Godoi,%20653&t=&z=15&ie=UTF8&iwloc=&output=embed"></iframe>
   </div>
   <div class="right">
     <h2>Entre em Contato</h2>
     <p>Rua Moreira de Godoi, 653 – Ipiranga – São Paulo</p>
-    <p>Email: oi@olivieri.com</p>
+    <p><a href="#">Para vagas, clique aqui.</a></p>
+    <p>Para outros assuntos, envie um e-mail para:<br><strong>luizgumieriolivieri@gmail.com</strong></p>
   </div>
 </section>
 
 <footer>
   <div>
-    <strong>Olivieri</strong>
-    <p>© Olivieri 2026 | Todos os direitos reservados.</p>
+    <img src="logo.png" height="30"><br>
+    © Olivieri 2026 | Todos os direitos reservados.
   </div>
-  <div class="social">
-    <a href="#">YouTube</a>
-    <a href="#">Instagram</a>
+  <div class="socials">
+    <a href="#">YT</a>
+    <a href="#">IG</a>
     <a href="#">X</a>
-    <a href="#">LinkedIn</a>
-    <a href="#">Spotify</a>
-    <a href="#">WhatsApp</a>
+    <a href="#">IN</a>
+    <a href="#">SP</a>
+    <a href="#">WA</a>
   </div>
 </footer>
 
-<!-- LOGIN MODAL -->
 <div class="modal" id="loginModal">
   <div class="modal-content">
+    <span class="close" onclick="closeModal()">×</span>
     <h3>Acesso à Área de Membros</h3>
-    <p>Entre com seu e-mail e senha</p>
-    <input type="email" id="email" placeholder="E-mail" />
-    <input type="password" id="password" placeholder="Senha" />
-    <label><input type="checkbox" /> Lembre-se de mim</label>
-    <button onclick="login()">Entrar</button>
+    <p>Entre com o seu e-mail e senha cadastrados na plataforma.</p>
+    <input type="email" placeholder="E-mail">
+    <input type="password" placeholder="Senha">
+    <label><input type="checkbox"> Lembre-se de mim</label><br><br>
+    <button class="btn-login">Entrar</button>
+    <div class="forgot">⬇ Esqueceu a senha?</div>
   </div>
 </div>
 
 <script>
-  const firebaseConfig = {
-    apiKey: "SUA_API_KEY",
-    authDomain: "SEU_DOMINIO.firebaseapp.com",
-    projectId: "SEU_PROJECT_ID",
-  };
-  firebase.initializeApp(firebaseConfig);
-
-  function openLogin() {
-    document.getElementById('loginModal').style.display = 'flex';
-  }
-
-  function login() {
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
-
-    firebase.auth().signInWithEmailAndPassword(email, password)
-      .then(() => alert('Login efetuado'))
-      .catch(err => alert(err.message));
-  }
+  function openModal() { document.getElementById('loginModal').style.display = 'flex'; }
+  function closeModal() { document.getElementById('loginModal').style.display = 'none'; }
 </script>
 
 </body>
