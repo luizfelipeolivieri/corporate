@@ -1,205 +1,271 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <title>Social Tailors</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Social Tailors</title>
 
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: Arial, Helvetica, sans-serif;
-        }
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, Helvetica, sans-serif;
+    }
 
-        body {
-            background: #000;
-            color: #fff;
-        }
+    body {
+      background: #ffffff;
+      color: #1a1a1a;
+      line-height: 1.6;
+    }
 
-        /* ===== MENU ===== */
-        header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            background: #000;
-            z-index: 1000;
-            padding: 20px 40px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: #fff;
+      border-bottom: 1px solid #eee;
+      z-index: 1000;
+    }
 
-        header h1 {
-            font-size: 20px;
-            font-weight: bold;
-        }
+    .container {
+      max-width: 1200px;
+      margin: auto;
+      padding: 0 20px;
+    }
 
-        menu {
-            display: flex;
-        }
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 70px;
+    }
 
-        menu ol {
-            display: flex;
-            gap: 25px;
-            align-items: center;
-            list-style: none;
-        }
+    .logo {
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
 
-        menu a {
-            color: #fff;
-            text-decoration: none;
-            font-size: 14px;
-        }
+    .menu a {
+      margin-left: 20px;
+      text-decoration: none;
+      color: #333;
+      font-size: 0.95rem;
+    }
 
-        .btn-login {
-            padding: 8px 18px;
-            border: 1px solid #fff;
-            border-radius: 4px;
-            transition: 0.3s;
-        }
+    main {
+      margin-top: 90px;
+    }
 
-        .btn-login:hover {
-            background: #fff;
-            color: #000;
-        }
+    section {
+      padding: 80px 0;
+    }
 
-        /* ===== SEÇÕES ===== */
-        section {
-            min-height: 100vh;
-            padding: 140px 60px 80px;
-        }
+    .hero {
+      text-align: center;
+      background: #f7f7f7;
+    }
 
-        /* HERO (onde era vídeo) */
-        .hero {
-            background: #111;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-        }
+    .hero h1 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+    }
 
-        .hero h2 {
-            font-size: 48px;
-            max-width: 800px;
-        }
+    .hero p {
+      max-width: 700px;
+      margin: auto;
+      font-size: 1.1rem;
+      color: #555;
+    }
 
-        /* BLOCO VISUAL (onde eram imagens) */
-        .visual-block {
-            background: #1a1a1a;
-            min-height: 420px;
-            margin-top: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #777;
-            font-size: 14px;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
+    .btn {
+      display: inline-block;
+      margin-top: 30px;
+      padding: 14px 32px;
+      background: #000;
+      color: #fff;
+      text-decoration: none;
+      font-size: 0.95rem;
+    }
 
-        /* SERVIÇOS / CLIENTES / CONTATO */
-        .content {
-            max-width: 1000px;
-        }
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+    }
 
-        h3 {
-            font-size: 32px;
-            margin-bottom: 20px;
-        }
+    .card {
+      border: 1px solid #eee;
+      padding: 30px;
+    }
 
-        p {
-            line-height: 1.6;
-            color: #ccc;
-        }
-    </style>
+    .card h3 {
+      margin-bottom: 15px;
+      font-size: 1.2rem;
+    }
+
+    .about {
+      background: #fafafa;
+    }
+
+    .cta {
+      background: #000;
+      color: #fff;
+      text-align: center;
+    }
+
+    .cta h2 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+    }
+
+    .cta p {
+      max-width: 600px;
+      margin: auto;
+      color: #ccc;
+    }
+
+    footer {
+      padding: 40px 0;
+      border-top: 1px solid #eee;
+      font-size: 0.85rem;
+      color: #666;
+    }
+
+    footer .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 30px;
+    }
+
+    footer a {
+      color: #666;
+      text-decoration: none;
+      display: block;
+      margin-bottom: 8px;
+    }
+  </style>
 </head>
 
 <body>
 
-<header>
-    <a href="#first"><h1>Social Tailors</h1></a>
+  <!-- HEADER -->
+  <header>
+    <div class="container nav">
+      <div class="logo">Social Tailors</div>
+      <nav class="menu">
+        <a href="#services">Serviços</a>
+        <a href="#about">Sobre</a>
+        <a href="#process">Processo</a>
+        <a href="#contact">Contato</a>
+      </nav>
+    </div>
+  </header>
 
-    <menu>
-        <ol>
-            <li><a href="#about">Sobre</a></li>
-            <li><a href="#services">Serviços</a></li>
-            <li><a href="#clients">Clientes</a></li>
-            <li><a href="#contact">Contato</a></li>
-            <li><a href="#login" class="btn-login">Login</a></li>
-        </ol>
-    </menu>
-</header>
+  <main>
 
-<!-- HERO -->
-<section class="hero" id="first">
-    <h2>Cultura, comportamento e estratégia digital</h2>
-</section>
-
-<!-- SOBRE -->
-<section id="about">
-    <div class="content">
-        <h3>Sobre</h3>
+    <!-- HERO -->
+    <section class="hero">
+      <div class="container">
+        <h1>Estratégia e crescimento para marcas digitais</h1>
         <p>
-            Somos especializados em cultura e comportamento, atuando com marketing de influência,
-            produção e gestão de conteúdo, mídia e planejamento estratégico.
+          Ajudamos empresas a crescer por meio de estratégias personalizadas,
+          marketing digital e posicionamento de marca.
         </p>
-    </div>
+        <a href="#contact" class="btn">Fale com a gente</a>
+      </div>
+    </section>
 
-    <div class="visual-block">
-        Espaço visual (imagem removida)
-    </div>
-</section>
+    <!-- SERVICES -->
+    <section id="services">
+      <div class="container">
+        <div class="grid-3">
+          <div class="card">
+            <h3>Estratégia Digital</h3>
+            <p>
+              Planejamento orientado por dados para gerar crescimento sustentável
+              e previsível.
+            </p>
+          </div>
+          <div class="card">
+            <h3>Marketing de Performance</h3>
+            <p>
+              Campanhas focadas em resultados, aquisição e retenção de clientes.
+            </p>
+          </div>
+          <div class="card">
+            <h3>Branding</h3>
+            <p>
+              Posicionamento de marca claro, consistente e alinhado ao seu público.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
 
-<!-- SERVIÇOS -->
-<section id="services">
-    <div class="content">
-        <h3>Serviços</h3>
+    <!-- ABOUT -->
+    <section id="about" class="about">
+      <div class="container">
+        <h2>Sobre nós</h2>
         <p>
-            Planejamento de campanhas, branding, social media, BI, mídia programática e produção de conteúdo.
+          Somos uma consultoria focada em conectar marcas e pessoas.
+          Trabalhamos com soluções sob medida, respeitando a identidade
+          e os objetivos de cada negócio.
         </p>
-    </div>
+      </div>
+    </section>
 
-    <div class="visual-block">
-        Espaço visual (imagem removida)
-    </div>
-</section>
+    <!-- PROCESS -->
+    <section id="process">
+      <div class="container">
+        <div class="grid-3">
+          <div class="card">
+            <h3>Diagnóstico</h3>
+            <p>Análise completa do negócio, mercado e oportunidades.</p>
+          </div>
+          <div class="card">
+            <h3>Execução</h3>
+            <p>Implementação das estratégias com acompanhamento contínuo.</p>
+          </div>
+          <div class="card">
+            <h3>Otimização</h3>
+            <p>Ajustes constantes para maximizar resultados.</p>
+          </div>
+        </div>
+      </div>
+    </section>
 
-<!-- CLIENTES -->
-<section id="clients">
-    <div class="content">
-        <h3>Clientes</h3>
+    <!-- CTA -->
+    <section id="contact" class="cta">
+      <div class="container">
+        <h2>Pronto para crescer?</h2>
         <p>
-            Trabalhamos com marcas que valorizam dados, criatividade e impacto real.
+          Entre em contato e descubra como podemos ajudar sua marca
+          a alcançar novos patamares.
         </p>
-    </div>
+        <a href="#" class="btn">Entrar em contato</a>
+      </div>
+    </section>
 
-    <div class="visual-block">
-        Espaço visual (imagem removida)
-    </div>
-</section>
+  </main>
 
-<!-- CONTATO -->
-<section id="contact">
-    <div class="content">
-        <h3>Contato</h3>
-        <p>
-            Entre em contato conosco para desenvolver projetos estratégicos e inovadores.
-        </p>
+  <!-- FOOTER -->
+  <footer>
+    <div class="container footer-grid">
+      <div>
+        <strong>Social Tailors</strong>
+        <p>Consultoria em estratégia e marketing digital.</p>
+      </div>
+      <div>
+        <a href="#">Instagram</a>
+        <a href="#">LinkedIn</a>
+        <a href="#">Contato</a>
+      </div>
+      <div>
+        <p>© 2026 - Todos os direitos reservados</p>
+      </div>
     </div>
-</section>
-
-<!-- LOGIN -->
-<section id="login">
-    <div class="content">
-        <h3>Área de Login</h3>
-        <p>
-            Acesso restrito para clientes e parceiros.
-        </p>
-    </div>
-</section>
+  </footer>
 
 </body>
 </html>
