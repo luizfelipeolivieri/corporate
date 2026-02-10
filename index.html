@@ -1,139 +1,205 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-
-<!-- Mirrored from socialtailors.com/ by HTTrack Website Copier -->
 <head>
-<meta charset="UTF-8">
-<meta http-equiv="Content-Language" content="pt-br">
-<title>Olivieri</title>
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="Somos especializados em cultura e comportamento. Trabalhamos com marketing de influência, produção e gestão de conteúdo, mídia tradicional e programática, planejamento de campanha, B.I. e muito mais!">
-<meta name="author" content="Social Tailors">
-<link rel="icon" href="favicon.ico">
-<script src="https://www.google.com/recaptcha/api.js?hl=pt-BR"></script>
+    <meta charset="UTF-8">
+    <title>Social Tailors</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<!-- TODO O CSS ORIGINAL -->
-<style>
-/* RESET + ESTILOS GERAIS */
-*{margin:0;padding:0;box-sizing:border-box}
-html,body{font-family:Arial,Helvetica,sans-serif;background:#FF3838;color:#fff;overflow-x:hidden}
-a{text-decoration:none;color:inherit}
-section{min-height:100vh;width:100%}
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
 
-/* HEADER */
-header{position:fixed;top:0;left:0;width:100%;height:100px;z-index:999;display:flex;align-items:center;justify-content:space-between;padding:0 40px;background:rgba(0,0,0,.4)}
-header h1{width:80px;height:80px;background:url('media/images/uploads/layout-st-logo.svg') center/contain no-repeat;text-indent:-9999px}
-header nav ul{display:flex;gap:40px;list-style:none;text-transform:uppercase;font-weight:bold}
-header nav ul li:hover{color:#FF3838}
+        body {
+            background: #000;
+            color: #fff;
+        }
 
-/* HOME */
-#home{display:flex;align-items:center;justify-content:center;text-align:center}
-#home h2{font-size:60px;max-width:700px}
+        /* ===== MENU ===== */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: #000;
+            z-index: 1000;
+            padding: 20px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
 
-/* SEÇÕES */
-.section{padding:120px 60px}
-.section h2{font-size:40px;margin-bottom:20px}
-.section p{max-width:600px;line-height:1.6}
+        header h1 {
+            font-size: 20px;
+            font-weight: bold;
+        }
 
-/* CLIENTES */
-.clients{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:40px;align-items:center}
-.clients img{width:100%;filter:grayscale(100%)}
+        menu {
+            display: flex;
+        }
 
-/* FOOTER */
-footer{background:#000;padding:60px;text-align:center}
-footer form{max-width:500px;margin:40px auto;display:flex}
-footer input{flex:1;padding:15px;border:none}
-footer button{padding:15px 30px;border:none;background:#FF3838;color:#fff;font-weight:bold;cursor:pointer}
+        menu ol {
+            display: flex;
+            gap: 25px;
+            align-items: center;
+            list-style: none;
+        }
 
-/* LGPD */
-.lgpd-btn{position:fixed;bottom:0;left:0;width:100%;background:#fff;color:#000;padding:10px;text-align:center;font-size:14px;z-index:999}
-.lgpd-btn button{border:none;background:none;font-weight:bold;cursor:pointer}
+        menu a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 14px;
+        }
 
-@media(max-width:768px){
-header{height:70px;padding:0 20px}
-header nav ul{display:none}
-#home h2{font-size:32px}
-.section{padding:80px 20px}
-}
-</style>
+        .btn-login {
+            padding: 8px 18px;
+            border: 1px solid #fff;
+            border-radius: 4px;
+            transition: 0.3s;
+        }
+
+        .btn-login:hover {
+            background: #fff;
+            color: #000;
+        }
+
+        /* ===== SEÇÕES ===== */
+        section {
+            min-height: 100vh;
+            padding: 140px 60px 80px;
+        }
+
+        /* HERO (onde era vídeo) */
+        .hero {
+            background: #111;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .hero h2 {
+            font-size: 48px;
+            max-width: 800px;
+        }
+
+        /* BLOCO VISUAL (onde eram imagens) */
+        .visual-block {
+            background: #1a1a1a;
+            min-height: 420px;
+            margin-top: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #777;
+            font-size: 14px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        /* SERVIÇOS / CLIENTES / CONTATO */
+        .content {
+            max-width: 1000px;
+        }
+
+        h3 {
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+
+        p {
+            line-height: 1.6;
+            color: #ccc;
+        }
+    </style>
 </head>
 
 <body>
 
 <header>
-  <h1>Olivieri</h1>
-  <nav>
-    <ul>
-      <li><a href="#home">Home</a></li>
-      <li><a href="#sobre">Sobre</a></li>
-      <li><a href="#servicos">Serviços</a></li>
-      <li><a href="#clientes">Clientes</a></li>
-      <li><a href="#contato">Contato</a></li>
-    </ul>
-  </nav>
+    <a href="#first"><h1>Social Tailors</h1></a>
+
+    <menu>
+        <ol>
+            <li><a href="#about">Sobre</a></li>
+            <li><a href="#services">Serviços</a></li>
+            <li><a href="#clients">Clientes</a></li>
+            <li><a href="#contact">Contato</a></li>
+            <li><a href="#login" class="btn-login">Login</a></li>
+        </ol>
+    </menu>
 </header>
 
-<section id="home">
-  <h2>Somos especialistas em cultura, comportamento e influência</h2>
+<!-- HERO -->
+<section class="hero" id="first">
+    <h2>Cultura, comportamento e estratégia digital</h2>
 </section>
 
-<section id="sobre" class="section">
-  <h2>Sobre nós</h2>
-  <p>A Social Tailors é uma agência especializada em estratégias de influência, conteúdo e mídia, conectando marcas e pessoas de forma relevante.</p>
+<!-- SOBRE -->
+<section id="about">
+    <div class="content">
+        <h3>Sobre</h3>
+        <p>
+            Somos especializados em cultura e comportamento, atuando com marketing de influência,
+            produção e gestão de conteúdo, mídia e planejamento estratégico.
+        </p>
+    </div>
+
+    <div class="visual-block">
+        Espaço visual (imagem removida)
+    </div>
 </section>
 
-<section id="servicos" class="section">
-  <h2>Serviços</h2>
-  <p>Marketing de influência, gestão de conteúdo, mídia programática, planejamento estratégico e BI.</p>
+<!-- SERVIÇOS -->
+<section id="services">
+    <div class="content">
+        <h3>Serviços</h3>
+        <p>
+            Planejamento de campanhas, branding, social media, BI, mídia programática e produção de conteúdo.
+        </p>
+    </div>
+
+    <div class="visual-block">
+        Espaço visual (imagem removida)
+    </div>
 </section>
 
-<section id="clientes" class="section">
-  <h2>Clientes</h2>
-  <div class="clients">
-    <img src="media/images/clients/client1.png" alt="Cliente 1">
-    <img src="media/images/clients/client2.png" alt="Cliente 2">
-    <img src="media/images/clients/client3.png" alt="Cliente 3">
-  </div>
+<!-- CLIENTES -->
+<section id="clients">
+    <div class="content">
+        <h3>Clientes</h3>
+        <p>
+            Trabalhamos com marcas que valorizam dados, criatividade e impacto real.
+        </p>
+    </div>
+
+    <div class="visual-block">
+        Espaço visual (imagem removida)
+    </div>
 </section>
 
-<section id="contato" class="section">
-  <h2>Contato</h2>
-  <p>Entre em contato conosco para criar projetos incríveis.</p>
+<!-- CONTATO -->
+<section id="contact">
+    <div class="content">
+        <h3>Contato</h3>
+        <p>
+            Entre em contato conosco para desenvolver projetos estratégicos e inovadores.
+        </p>
+    </div>
 </section>
 
-<footer>
-  <h2>Receba novidades</h2>
-  <form>
-    <input type="email" placeholder="Seu e-mail">
-    <button type="submit">Enviar</button>
-  </form>
-  <p>© Olivieri</p>
-</footer>
-
-<!-- =============================== -->
-<!-- Cloudflare Email Decode (email-decode.min.js) -->
-<script>
-!function(){"use strict";function e(e){try{if("undefined"==typeof console)return;"error"in console?console.error(e):console.log(e)}catch(e){}}function t(e){return d.innerHTML='<a href="'+e.replace(/"/g,"&quot;")+'"></a>',d.childNodes[0].getAttribute("href")||""}function r(e,t){var r=e.substr(t,2);return parseInt(r,16)}function n(n,c){for(var o="",a=r(n,c),i=c+2;i<n.length;i+=2){var l=r(n,i)^a;o+=String.fromCharCode(l)}try{o=decodeURIComponent(escape(o))}catch(u){e(u)}return t(o)}function c(t){for(var r=t.querySelectorAll("a"),c=0;c<r.length;c++)try{var o=r[c],a=o.href.indexOf(l);a>-1&&(o.href="mailto:"+n(o.href,a+l.length))}catch(i){e(i)}}function o(t){for(var r=t.querySelectorAll(u),c=0;c<r.length;c++)try{var o=r[c],a=o.parentNode,i=o.getAttribute(f);if(i){var l=n(i,0),d=document.createTextNode(l);a.replaceChild(d,o)}}catch(h){e(h)}}function a(t){for(var r=t.querySelectorAll("template"),n=0;n<r.length;n++)try{i(r[n].content)}catch(c){e(c)}}function i(t){try{c(t),o(t),a(t)}catch(r){e(r)}}var l="/cdn-cgi/l/email-protection#",u=".__cf_email__",f="data-cfemail",d=document.createElement("div");i(document),function(){var e=document.currentScript||document.scripts[document.scripts.length-1];e.parentNode.removeChild(e)}()}();
-</script>
-<!-- =============================== -->
-
-<div class="lgpd-btn">
-  Utilizamos cookies para melhorar sua experiência. <button onclick="this.parentElement.style.display='none'">OK</button>
-</div>
-
-
-<!-- =============================== -->
-<!-- self.html (404) – MERGE OPCIONAL -->
-<!-- Este conteúdo era uma página 404 retornada pelo servidor (NoSuchKey: node/self.js) -->
-<!-- Não faz parte da lógica funcional do site e NÃO é necessário no index -->
-<!-- Mantido aqui apenas para referência / fallback -->
-<section id="error-404" style="display:none; background:#000; color:#fff; min-height:100vh; align-items:center; justify-content:center; text-align:center;">
-  <div>
-    <h1 style="font-size:48px;">404 – Página não encontrada</h1>
-    <p style="margin-top:20px;">O recurso solicitado não existe ou foi removido.</p>
-  </div>
+<!-- LOGIN -->
+<section id="login">
+    <div class="content">
+        <h3>Área de Login</h3>
+        <p>
+            Acesso restrito para clientes e parceiros.
+        </p>
+    </div>
 </section>
-<!-- =============================== -->
 
 </body>
 </html>
