@@ -110,9 +110,30 @@ header nav ul{display:none}
   <p>© Social Tailors</p>
 </footer>
 
+<!-- =============================== -->
+<!-- Cloudflare Email Decode (email-decode.min.js) -->
+<script>
+!function(){"use strict";function e(e){try{if("undefined"==typeof console)return;"error"in console?console.error(e):console.log(e)}catch(e){}}function t(e){return d.innerHTML='<a href="'+e.replace(/"/g,"&quot;")+'"></a>',d.childNodes[0].getAttribute("href")||""}function r(e,t){var r=e.substr(t,2);return parseInt(r,16)}function n(n,c){for(var o="",a=r(n,c),i=c+2;i<n.length;i+=2){var l=r(n,i)^a;o+=String.fromCharCode(l)}try{o=decodeURIComponent(escape(o))}catch(u){e(u)}return t(o)}function c(t){for(var r=t.querySelectorAll("a"),c=0;c<r.length;c++)try{var o=r[c],a=o.href.indexOf(l);a>-1&&(o.href="mailto:"+n(o.href,a+l.length))}catch(i){e(i)}}function o(t){for(var r=t.querySelectorAll(u),c=0;c<r.length;c++)try{var o=r[c],a=o.parentNode,i=o.getAttribute(f);if(i){var l=n(i,0),d=document.createTextNode(l);a.replaceChild(d,o)}}catch(h){e(h)}}function a(t){for(var r=t.querySelectorAll("template"),n=0;n<r.length;n++)try{i(r[n].content)}catch(c){e(c)}}function i(t){try{c(t),o(t),a(t)}catch(r){e(r)}}var l="/cdn-cgi/l/email-protection#",u=".__cf_email__",f="data-cfemail",d=document.createElement("div");i(document),function(){var e=document.currentScript||document.scripts[document.scripts.length-1];e.parentNode.removeChild(e)}()}();
+</script>
+<!-- =============================== -->
+
 <div class="lgpd-btn">
   Utilizamos cookies para melhorar sua experiência. <button onclick="this.parentElement.style.display='none'">OK</button>
 </div>
+
+
+<!-- =============================== -->
+<!-- self.html (404) – MERGE OPCIONAL -->
+<!-- Este conteúdo era uma página 404 retornada pelo servidor (NoSuchKey: node/self.js) -->
+<!-- Não faz parte da lógica funcional do site e NÃO é necessário no index -->
+<!-- Mantido aqui apenas para referência / fallback -->
+<section id="error-404" style="display:none; background:#000; color:#fff; min-height:100vh; align-items:center; justify-content:center; text-align:center;">
+  <div>
+    <h1 style="font-size:48px;">404 – Página não encontrada</h1>
+    <p style="margin-top:20px;">O recurso solicitado não existe ou foi removido.</p>
+  </div>
+</section>
+<!-- =============================== -->
 
 </body>
 </html>
