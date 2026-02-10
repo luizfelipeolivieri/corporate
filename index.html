@@ -1,225 +1,118 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
+
+<!-- Mirrored from socialtailors.com/ by HTTrack Website Copier -->
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Olivieri | One Page + Área Restrita</title>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Language" content="pt-br">
+<title>Social Tailors</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Somos especializados em cultura e comportamento. Trabalhamos com marketing de influência, produção e gestão de conteúdo, mídia tradicional e programática, planejamento de campanha, B.I. e muito mais!">
+<meta name="author" content="Social Tailors">
+<link rel="icon" href="favicon.ico">
+<script src="https://www.google.com/recaptcha/api.js?hl=pt-BR"></script>
 
-  <!-- Firebase -->
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+<!-- TODO O CSS ORIGINAL -->
+<style>
+/* RESET + ESTILOS GERAIS */
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{font-family:Arial,Helvetica,sans-serif;background:#FF3838;color:#fff;overflow-x:hidden}
+a{text-decoration:none;color:inherit}
+section{min-height:100vh;width:100%}
 
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
-    body { background: #fff; }
+/* HEADER */
+header{position:fixed;top:0;left:0;width:100%;height:100px;z-index:999;display:flex;align-items:center;justify-content:space-between;padding:0 40px;background:rgba(0,0,0,.4)}
+header h1{width:80px;height:80px;background:url('media/images/uploads/layout-st-logo.svg') center/contain no-repeat;text-indent:-9999px}
+header nav ul{display:flex;gap:40px;list-style:none;text-transform:uppercase;font-weight:bold}
+header nav ul li:hover{color:#FF3838}
 
-    /* HEADER */
-    header {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 70px;
-      background: #000;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 40px;
-      z-index: 1000;
-    }
-    header nav a {
-      color: #fff;
-      margin: 0 15px;
-      text-decoration: none;
-      position: relative;
-    }
-    header nav a:hover::after {
-      content: "";
-      position: absolute;
-      bottom: -5px; left: 0;
-      width: 100%; height: 2px;
-      background: linear-gradient(to right, #fff, #fff);
-    }
+/* HOME */
+#home{display:flex;align-items:center;justify-content:center;text-align:center}
+#home h2{font-size:60px;max-width:700px}
 
-    .btn-login {
-      background: #d11313;
-      color: #fff;
-      border: none;
-      padding: 10px 20px;
-      cursor: pointer;
-    }
-    .btn-login:hover { background: #E70909; }
+/* SEÇÕES */
+.section{padding:120px 60px}
+.section h2{font-size:40px;margin-bottom:20px}
+.section p{max-width:600px;line-height:1.6}
 
-    /* HERO */
-    .hero {
-      height: 100vh;
-      margin-top: 70px;
-    }
-    .hero video {
-      width: 100%; height: 100%; object-fit: cover;
-    }
+/* CLIENTES */
+.clients{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:40px;align-items:center}
+.clients img{width:100%;filter:grayscale(100%)}
 
-    /* SECTIONS */
-    section { padding: 100px 60px; }
-    .two-cols { display: flex; }
-    .col { width: 50%; padding: 20px; }
+/* FOOTER */
+footer{background:#000;padding:60px;text-align:center}
+footer form{max-width:500px;margin:40px auto;display:flex}
+footer input{flex:1;padding:15px;border:none}
+footer button{padding:15px 30px;border:none;background:#FF3838;color:#fff;font-weight:bold;cursor:pointer}
 
-    h2 { color: #d11313; margin-bottom: 20px; }
+/* LGPD */
+.lgpd-btn{position:fixed;bottom:0;left:0;width:100%;background:#fff;color:#000;padding:10px;text-align:center;font-size:14px;z-index:999}
+.lgpd-btn button{border:none;background:none;font-weight:bold;cursor:pointer}
 
-    .black { background: #000; color: #fff; }
-
-    /* LOGIN MODAL */
-    .overlay {
-      display: none;
-      position: fixed; top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0,0,0,0.7);
-      justify-content: center;
-      align-items: center;
-      z-index: 2000;
-    }
-    .modal {
-      background: #fff;
-      padding: 30px;
-      width: 350px;
-    }
-    .modal input {
-      width: 100%; padding: 10px; margin: 10px 0;
-    }
-
-    /* RESTRICTED */
-    #restricted { display: none; padding: 120px 40px; }
-
-    table {
-      width: 100%; border-collapse: collapse;
-    }
-    th, td {
-      border: 1px solid #ccc;
-      padding: 6px;
-      text-align: center;
-    }
-    th { background: #f5f5f5; }
-
-    .positive { background: #1ed760; }
-    .negative { background: #650000; color: #000; }
-
-    footer {
-      background: #000;
-      color: #fff;
-      display: flex;
-      justify-content: space-between;
-      padding: 30px 40px;
-    }
-    footer i { color: #d11313; margin-left: 10px; cursor: pointer; }
-    footer i:hover { color: #fff; }
-  </style>
+@media(max-width:768px){
+header{height:70px;padding:0 20px}
+header nav ul{display:none}
+#home h2{font-size:32px}
+.section{padding:80px 20px}
+}
+</style>
 </head>
+
 <body>
 
 <header>
-  <div class="logo">LOGO</div>
+  <h1>Social Tailors</h1>
   <nav>
-    <a href="#sobre">Sobre</a>
-    <a href="#servicos">Serviços</a>
-    <a href="#contato">Contato</a>
+    <ul>
+      <li><a href="#home">Home</a></li>
+      <li><a href="#sobre">Sobre</a></li>
+      <li><a href="#servicos">Serviços</a></li>
+      <li><a href="#clientes">Clientes</a></li>
+      <li><a href="#contato">Contato</a></li>
+    </ul>
   </nav>
-  <button class="btn-login" onclick="openLogin()">Login</button>
 </header>
 
-<!-- HERO -->
-<div class="hero">
-  <video autoplay muted loop>
-    <source src="video.mp4" type="video/mp4" />
-  </video>
-</div>
+<section id="home">
+  <h2>Somos especialistas em cultura, comportamento e influência</h2>
+</section>
 
-<!-- SOBRE -->
-<section id="sobre" class="two-cols">
-  <div class="col">
-    <img src="img1.jpg" width="100%" />
-    <img src="img2.jpg" width="100%" style="margin-top:10px" />
-  </div>
-  <div class="col">
-    <h2>Sobre nós</h2>
-    <p>Texto institucional placeholder.</p>
+<section id="sobre" class="section">
+  <h2>Sobre nós</h2>
+  <p>A Social Tailors é uma agência especializada em estratégias de influência, conteúdo e mídia, conectando marcas e pessoas de forma relevante.</p>
+</section>
+
+<section id="servicos" class="section">
+  <h2>Serviços</h2>
+  <p>Marketing de influência, gestão de conteúdo, mídia programática, planejamento estratégico e BI.</p>
+</section>
+
+<section id="clientes" class="section">
+  <h2>Clientes</h2>
+  <div class="clients">
+    <img src="media/images/clients/client1.png" alt="Cliente 1">
+    <img src="media/images/clients/client2.png" alt="Cliente 2">
+    <img src="media/images/clients/client3.png" alt="Cliente 3">
   </div>
 </section>
 
-<!-- SERVIÇOS -->
-<section id="servicos" class="two-cols black">
-  <div class="col">
-    <h2>Serviços</h2>
-    <p>Texto institucional placeholder.</p>
-  </div>
-  <div class="col">
-    <img src="img3.jpg" width="100%" />
-  </div>
+<section id="contato" class="section">
+  <h2>Contato</h2>
+  <p>Entre em contato conosco para criar projetos incríveis.</p>
 </section>
-
-<!-- CONTATO -->
-<section id="contato" class="two-cols">
-  <div class="col">
-    <iframe src="https://maps.google.com/maps?q=Ipiranga%20SP&t=&z=15&ie=UTF8&iwloc=&output=embed" width="100%" height="300"></iframe>
-  </div>
-  <div class="col">
-    <h2>Entre em Contato</h2>
-    <p>Rua Moreira de Godoi, 653<br>Ipiranga – São Paulo</p>
-  </div>
-</section>
-
-<!-- LOGIN MODAL -->
-<div class="overlay" id="loginModal">
-  <div class="modal">
-    <h3>Acesso à Área de Membros</h3>
-    <input type="email" id="email" placeholder="E-mail" />
-    <input type="password" id="password" placeholder="Senha" />
-    <button class="btn-login" onclick="login()">Entrar</button>
-  </div>
-</div>
-
-<!-- ÁREA RESTRITA -->
-<div id="restricted">
-  <h2>Financeiro - 2026</h2>
-  <table>
-    <tr><th>Despesas</th><th>Jan</th><th>Feb</th><th>Mar</th></tr>
-    <tr><td>Alimentação</td><td contenteditable></td><td contenteditable></td><td contenteditable></td></tr>
-    <tr><td>Moradia</td><td contenteditable></td><td contenteditable></td><td contenteditable></td></tr>
-    <tr><th>Total</th><th id="t1"></th><th id="t2"></th><th id="t3"></th></tr>
-  </table>
-</div>
 
 <footer>
-  <div>© Olivieri 2026 | Todos os direitos reservados.</div>
-  <div>
-    <i>YouTube</i><i>Instagram</i><i>X</i><i>LinkedIn</i><i>Spotify</i><i>WhatsApp</i>
-  </div>
+  <h2>Receba novidades</h2>
+  <form>
+    <input type="email" placeholder="Seu e-mail">
+    <button type="submit">Enviar</button>
+  </form>
+  <p>© Social Tailors</p>
 </footer>
 
-<script>
-  // Firebase Config
-  const firebaseConfig = {
-    apiKey: "SUA_API_KEY",
-    authDomain: "SEU_DOMINIO",
-    projectId: "SEU_PROJECT_ID"
-  };
-  firebase.initializeApp(firebaseConfig);
-  const auth = firebase.auth();
-
-  function openLogin() {
-    document.getElementById('loginModal').style.display = 'flex';
-  }
-
-  function login() {
-    const email = email.value;
-    const password = password.value;
-    auth.signInWithEmailAndPassword(email, password)
-      .then(() => {
-        document.getElementById('loginModal').style.display = 'none';
-        document.getElementById('restricted').style.display = 'block';
-        window.scrollTo(0,0);
-      })
-      .catch(err => alert(err.message));
-  }
-</script>
+<div class="lgpd-btn">
+  Utilizamos cookies para melhorar sua experiência. <button onclick="this.parentElement.style.display='none'">OK</button>
+</div>
 
 </body>
 </html>
