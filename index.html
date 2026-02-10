@@ -1,271 +1,296 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Social Tailors</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Social Tailors</title>
 
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: Arial, Helvetica, sans-serif;
-    }
+<style>
+:root {
+  --bg-light: #f7f7f7;
+  --text-dark: #1a1a1a;
+  --text-muted: #555;
+  --primary: #000;
+  --max-width: 1200px;
+}
 
-    body {
-      background: #ffffff;
-      color: #1a1a1a;
-      line-height: 1.6;
-    }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
 
-    header {
-      position: fixed;
-      top: 0;
-      width: 100%;
-      background: #fff;
-      border-bottom: 1px solid #eee;
-      z-index: 1000;
-    }
+html {
+  scroll-behavior: smooth;
+}
 
-    .container {
-      max-width: 1200px;
-      margin: auto;
-      padding: 0 20px;
-    }
+body {
+  color: var(--text-dark);
+  background: #fff;
+  line-height: 1.6;
+}
 
-    .nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      height: 70px;
-    }
+/* ===== LAYOUT ===== */
+.container {
+  max-width: var(--max-width);
+  margin: auto;
+  padding: 0 20px;
+}
 
-    .logo {
-      font-weight: bold;
-      font-size: 1.2rem;
-    }
+section {
+  padding: 100px 0;
+  opacity: 0;
+  transform: translateY(40px);
+  animation: fadeUp 0.8s ease forwards;
+  animation-timeline: view();
+  animation-range: entry 20% cover 30%;
+}
 
-    .menu a {
-      margin-left: 20px;
-      text-decoration: none;
-      color: #333;
-      font-size: 0.95rem;
-    }
+@keyframes fadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
-    main {
-      margin-top: 90px;
-    }
+/* ===== HEADER ===== */
+header {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  background: #fff;
+  border-bottom: 1px solid #eee;
+  z-index: 10;
+}
 
-    section {
-      padding: 80px 0;
-    }
+.nav {
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
 
-    .hero {
-      text-align: center;
-      background: #f7f7f7;
-    }
+.logo {
+  font-weight: bold;
+  font-size: 1.2rem;
+}
 
-    .hero h1 {
-      font-size: 2.5rem;
-      margin-bottom: 20px;
-    }
+.menu a {
+  margin-left: 20px;
+  text-decoration: none;
+  color: #333;
+  font-size: 0.95rem;
+  position: relative;
+}
 
-    .hero p {
-      max-width: 700px;
-      margin: auto;
-      font-size: 1.1rem;
-      color: #555;
-    }
+.menu a::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: #000;
+  transition: width 0.3s ease;
+}
 
-    .btn {
-      display: inline-block;
-      margin-top: 30px;
-      padding: 14px 32px;
-      background: #000;
-      color: #fff;
-      text-decoration: none;
-      font-size: 0.95rem;
-    }
+.menu a:hover::after {
+  width: 100%;
+}
 
-    .grid-3 {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 30px;
-    }
+/* ===== HERO ===== */
+.hero {
+  background: var(--bg-light);
+  text-align: center;
+  padding-top: 140px;
+}
 
-    .card {
-      border: 1px solid #eee;
-      padding: 30px;
-    }
+.hero h1 {
+  font-size: 2.6rem;
+  margin-bottom: 20px;
+}
 
-    .card h3 {
-      margin-bottom: 15px;
-      font-size: 1.2rem;
-    }
+.hero p {
+  max-width: 700px;
+  margin: auto;
+  font-size: 1.1rem;
+  color: var(--text-muted);
+}
 
-    .about {
-      background: #fafafa;
-    }
+.btn {
+  display: inline-block;
+  margin-top: 35px;
+  padding: 14px 36px;
+  background: var(--primary);
+  color: #fff;
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: transform 0.3s ease, background 0.3s ease;
+}
 
-    .cta {
-      background: #000;
-      color: #fff;
-      text-align: center;
-    }
+.btn:hover {
+  transform: translateY(-3px);
+  background: #222;
+}
 
-    .cta h2 {
-      font-size: 2rem;
-      margin-bottom: 20px;
-    }
+/* ===== GRID ===== */
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 30px;
+}
 
-    .cta p {
-      max-width: 600px;
-      margin: auto;
-      color: #ccc;
-    }
+.card {
+  border: 1px solid #eee;
+  padding: 35px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
 
-    footer {
-      padding: 40px 0;
-      border-top: 1px solid #eee;
-      font-size: 0.85rem;
-      color: #666;
-    }
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.05);
+}
 
-    footer .footer-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 30px;
-    }
+.card h3 {
+  margin-bottom: 15px;
+}
 
-    footer a {
-      color: #666;
-      text-decoration: none;
-      display: block;
-      margin-bottom: 8px;
-    }
-  </style>
+/* ===== ABOUT ===== */
+.about {
+  background: #fafafa;
+}
+
+.about h2 {
+  margin-bottom: 20px;
+}
+
+/* ===== CTA ===== */
+.cta {
+  background: #000;
+  color: #fff;
+  text-align: center;
+}
+
+.cta p {
+  color: #ccc;
+  max-width: 600px;
+  margin: auto;
+}
+
+/* ===== FOOTER ===== */
+footer {
+  padding: 50px 0;
+  border-top: 1px solid #eee;
+  font-size: 0.85rem;
+  color: #666;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 30px;
+}
+
+footer a {
+  text-decoration: none;
+  color: #666;
+  margin-bottom: 8px;
+  display: block;
+}
+</style>
 </head>
 
 <body>
 
-  <!-- HEADER -->
-  <header>
-    <div class="container nav">
-      <div class="logo">Social Tailors</div>
-      <nav class="menu">
-        <a href="#services">Serviços</a>
-        <a href="#about">Sobre</a>
-        <a href="#process">Processo</a>
-        <a href="#contact">Contato</a>
-      </nav>
+<header>
+  <div class="container nav">
+    <div class="logo">Social Tailors</div>
+    <nav class="menu">
+      <a href="#services">Serviços</a>
+      <a href="#about">Sobre</a>
+      <a href="#process">Processo</a>
+      <a href="#contact">Contato</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<section class="hero">
+  <div class="container">
+    <h1>Estratégia e crescimento para marcas digitais</h1>
+    <p>Desenvolvemos soluções personalizadas para marcas que querem crescer de forma consistente.</p>
+    <a href="#contact" class="btn">Fale com a gente</a>
+  </div>
+</section>
+
+<section id="services">
+  <div class="container grid-3">
+    <div class="card">
+      <h3>Estratégia Digital</h3>
+      <p>Planejamento orientado por dados e objetivos claros.</p>
     </div>
-  </header>
-
-  <main>
-
-    <!-- HERO -->
-    <section class="hero">
-      <div class="container">
-        <h1>Estratégia e crescimento para marcas digitais</h1>
-        <p>
-          Ajudamos empresas a crescer por meio de estratégias personalizadas,
-          marketing digital e posicionamento de marca.
-        </p>
-        <a href="#contact" class="btn">Fale com a gente</a>
-      </div>
-    </section>
-
-    <!-- SERVICES -->
-    <section id="services">
-      <div class="container">
-        <div class="grid-3">
-          <div class="card">
-            <h3>Estratégia Digital</h3>
-            <p>
-              Planejamento orientado por dados para gerar crescimento sustentável
-              e previsível.
-            </p>
-          </div>
-          <div class="card">
-            <h3>Marketing de Performance</h3>
-            <p>
-              Campanhas focadas em resultados, aquisição e retenção de clientes.
-            </p>
-          </div>
-          <div class="card">
-            <h3>Branding</h3>
-            <p>
-              Posicionamento de marca claro, consistente e alinhado ao seu público.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ABOUT -->
-    <section id="about" class="about">
-      <div class="container">
-        <h2>Sobre nós</h2>
-        <p>
-          Somos uma consultoria focada em conectar marcas e pessoas.
-          Trabalhamos com soluções sob medida, respeitando a identidade
-          e os objetivos de cada negócio.
-        </p>
-      </div>
-    </section>
-
-    <!-- PROCESS -->
-    <section id="process">
-      <div class="container">
-        <div class="grid-3">
-          <div class="card">
-            <h3>Diagnóstico</h3>
-            <p>Análise completa do negócio, mercado e oportunidades.</p>
-          </div>
-          <div class="card">
-            <h3>Execução</h3>
-            <p>Implementação das estratégias com acompanhamento contínuo.</p>
-          </div>
-          <div class="card">
-            <h3>Otimização</h3>
-            <p>Ajustes constantes para maximizar resultados.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- CTA -->
-    <section id="contact" class="cta">
-      <div class="container">
-        <h2>Pronto para crescer?</h2>
-        <p>
-          Entre em contato e descubra como podemos ajudar sua marca
-          a alcançar novos patamares.
-        </p>
-        <a href="#" class="btn">Entrar em contato</a>
-      </div>
-    </section>
-
-  </main>
-
-  <!-- FOOTER -->
-  <footer>
-    <div class="container footer-grid">
-      <div>
-        <strong>Social Tailors</strong>
-        <p>Consultoria em estratégia e marketing digital.</p>
-      </div>
-      <div>
-        <a href="#">Instagram</a>
-        <a href="#">LinkedIn</a>
-        <a href="#">Contato</a>
-      </div>
-      <div>
-        <p>© 2026 - Todos os direitos reservados</p>
-      </div>
+    <div class="card">
+      <h3>Marketing de Performance</h3>
+      <p>Campanhas focadas em conversão e crescimento.</p>
     </div>
-  </footer>
+    <div class="card">
+      <h3>Branding</h3>
+      <p>Posicionamento de marca forte e consistente.</p>
+    </div>
+  </div>
+</section>
+
+<section id="about" class="about">
+  <div class="container">
+    <h2>Sobre nós</h2>
+    <p>Somos uma consultoria focada em criar conexões reais entre marcas e pessoas.</p>
+  </div>
+</section>
+
+<section id="process">
+  <div class="container grid-3">
+    <div class="card">
+      <h3>Diagnóstico</h3>
+      <p>Análise profunda do negócio.</p>
+    </div>
+    <div class="card">
+      <h3>Execução</h3>
+      <p>Implementação estratégica.</p>
+    </div>
+    <div class="card">
+      <h3>Otimização</h3>
+      <p>Ajustes contínuos baseados em dados.</p>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="cta">
+  <div class="container">
+    <h2>Pronto para crescer?</h2>
+    <p>Entre em contato e descubra como podemos ajudar.</p>
+    <a href="#" class="btn">Entrar em contato</a>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="container footer-grid">
+    <div>
+      <strong>Social Tailors</strong>
+      <p>Consultoria em marketing e estratégia digital.</p>
+    </div>
+    <div>
+      <a href="#">Instagram</a>
+      <a href="#">LinkedIn</a>
+    </div>
+    <div>
+      <p>© 2026 - Todos os direitos reservados</p>
+    </div>
+  </div>
+</footer>
 
 </body>
 </html>
