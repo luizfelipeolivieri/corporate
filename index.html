@@ -1,300 +1,173 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Olivieri</title>
-
-<!-- Font Awesome -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+<title>Meu Site One Page</title>
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Arial, Helvetica, sans-serif;}
-html{scroll-behavior:smooth;}
-body{background:#fff;color:#000}
-
-/* ================= HEADER ================= */
-header{
-  position:fixed;
-  top:0;left:0;
-  width:100%;
-  height:70px;
-  background:#000;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:0 40px;
-  z-index:1000;
-}
-.logo{color:#fff;font-weight:bold;font-size:22px}
-nav a{
-  color:#fff;
-  margin:0 15px;
-  text-decoration:none;
-  position:relative;
-}
-nav a::after{
-  content:'';
-  position:absolute;
-  left:0;bottom:-5px;
-  width:0;height:2px;
-  background:linear-gradient(90deg,#d11313,#ff4b4b);
-  transition:.3s;
-}
-nav a:hover::after{width:100%}
-
-.header-actions{
-  display:flex;
-  align-items:center;
-  gap:10px;
-}
-.btn-login{
-  background:#d11313;
-  border:none;
-  color:#fff;
-  padding:8px 16px;
-  cursor:pointer;
-}
-.btn-login:hover{background:#E70909}
-select{padding:6px}
-
-/* ================= SECTIONS ================= */
-section{
-  height:100vh;
-  display:flex;
-  padding-top:70px;
-}
-#home{
-  justify-content:center;
-  align-items:center;
-  font-size:40px;
-}
-.two-col{
-  display:flex;
-  width:100%;
-}
-.col{
-  width:50%;
-  padding:40px;
-}
-h2{color:#d11313;margin-bottom:20px}
-
-/* IMAGES */
-.img-col img{
-  width:100%;
-  height:calc(50% - 10px);
-  object-fit:cover;
-  filter:grayscale(100%);
-}
-.img-col img:first-child{margin-bottom:20px}
-
-.services-img{
-  display:flex;
-  flex-wrap:wrap;
-  gap:20px;
-}
-.services-img img{
-  width:calc(50% - 10px);
-  height:45%;
-  object-fit:cover;
-  filter:grayscale(100%);
-}
-.services-img img:last-child{
-  width:100%;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
 }
 
-/* SERVIÇOS */
-#services{
-  background:#000;
-  color:#fff;
+body {
+  scroll-behavior: smooth;
 }
 
-/* CONTATO */
-iframe{width:100%;height:100%;filter:grayscale(100%);border:0}
+header {
+  position: fixed;
+  width: 100%;
+  background: #111;
+  padding: 15px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+  z-index: 1000;
+}
 
-/* ================= FOOTER ================= */
-footer{
-  background:#000;
-  color:#fff;
-  display:flex;
-  justify-content:space-between;
-  padding:30px 40px;
+header button {
+  padding: 8px 15px;
+  background: #00c853;
+  border: none;
+  color: white;
+  cursor: pointer;
+  border-radius: 4px;
 }
-.social a{
-  color:#d11313;
-  margin-left:15px;
-  font-size:20px;
-}
-.social a:hover{color:#fff}
 
-/* ================= MODAL LOGIN ================= */
-.modal{
-  display:none;
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.7);
-  justify-content:center;
-  align-items:center;
-  z-index:2000;
+section {
+  height: 100vh;
+  padding: 100px 40px;
 }
-.modal-content{
-  background:#fff;
-  padding:30px;
-  width:350px;
-  position:relative;
+
+#home {
+  background: linear-gradient(135deg, #000428, #004e92);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }
-.close{
-  position:absolute;
-  top:10px;right:10px;
-  cursor:pointer;
+
+#sobre {
+  background: #f4f4f4;
 }
-.modal-content input{
-  width:100%;
-  padding:8px;
-  margin:8px 0;
+
+#contato {
+  background: #ddd;
 }
-.remember{
-  display:flex;
-  align-items:center;
-  gap:5px;
+
+/* Modal */
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.7);
+  justify-content: center;
+  align-items: center;
 }
-.forgot{
-  margin-top:10px;
-  cursor:pointer;
-  color:#d11313;
+
+.modal-content {
+  background: white;
+  padding: 30px;
+  border-radius: 8px;
+  width: 300px;
 }
-.reset{
-  display:none;
-  margin-top:10px;
+
+.modal-content input {
+  width: 100%;
+  margin: 10px 0;
+  padding: 8px;
+}
+
+.modal-content button {
+  width: 100%;
+  padding: 8px;
+  background: #004e92;
+  color: white;
+  border: none;
+  cursor: pointer;
 }
 </style>
 </head>
-
 <body>
 
 <header>
-  <div class="logo">OLIVIERI</div>
-  <nav>
-    <a href="#about">Sobre</a>
-    <a href="#services">Serviços</a>
-    <a href="#contact">Contato</a>
-  </nav>
-  <div class="header-actions">
-    <button class="btn-login" onclick="openModal()">Login</button>
-    <select onchange="changeLang(this.value)">
-      <option value="pt">PT</option>
-      <option value="en">EN</option>
-      <option value="es">ES</option>
-    </select>
-  </div>
+  <h2>MeuSite</h2>
+  <button onclick="openModal()">Login</button>
 </header>
 
-<section id="home">HOME</section>
-
-<section id="about">
-  <div class="two-col">
-    <div class="col img-col">
-      <img src="https://images.unsplash.com/photo-1497366216548-37526070297c">
-      <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d">
-    </div>
-    <div class="col">
-      <h2>Sobre nós</h2>
-      <p>Texto genérico sobre a empresa.</p>
-    </div>
-  </div>
-</section>
-
-<section id="services">
-  <div class="two-col">
-    <div class="col">
-      <h2>Serviços</h2>
-      <p>Texto genérico sobre serviços.</p>
-    </div>
-    <div class="col services-img">
-      <img src="https://images.unsplash.com/photo-1524758631624-e2822e304c36">
-      <img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72">
-      <img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e">
-    </div>
-  </div>
-</section>
-
-<section id="contact">
-  <div class="two-col">
-    <div class="col">
-      <iframe src="https://maps.google.com/maps?q=Rua%20Moreira%20de%20Godoi%20653&t=&z=15&ie=UTF8&iwloc=&output=embed"></iframe>
-    </div>
-    <div class="col">
-      <h2>Entre em Contato</h2>
-      <p>Rua Moreira de Godoi, 653</p>
-      <p>CEP 04266-060</p>
-      <p>Ipiranga – São Paulo</p>
-      <p><strong>E-mail:</strong> luizgumieriolivieri@gmail.com</p>
-    </div>
-  </div>
-</section>
-
-<footer>
+<section id="home">
   <div>
-    <div class="logo">OLIVIERI</div>
-    <p>© Olivieri 2026 | Todos os direitos reservados.</p>
+    <h1>Bem-vindo ao Meu Site</h1>
+    <p>Site One Page com Firebase Authentication</p>
   </div>
-  <div class="social">
-    <a><i class="fab fa-youtube"></i></a>
-    <a><i class="fab fa-instagram"></i></a>
-    <a><i class="fab fa-x-twitter"></i></a>
-    <a><i class="fab fa-linkedin"></i></a>
-    <a><i class="fab fa-spotify"></i></a>
-    <a><i class="fab fa-whatsapp"></i></a>
-  </div>
-</footer>
+</section>
 
-<!-- MODAL -->
+<section id="sobre">
+  <h2>Sobre</h2>
+  <p>Conteúdo sobre a empresa.</p>
+</section>
+
+<section id="contato">
+  <h2>Contato</h2>
+  <p>Informações de contato.</p>
+</section>
+
+<!-- Modal Login -->
 <div class="modal" id="loginModal">
   <div class="modal-content">
-    <span class="close" onclick="closeModal()">✖</span>
-    <h3>Acesso à Área de Membros</h3>
-    <p>Entre com o seu e-mail e senha cadastrados.</p>
-    <input id="email" type="email" placeholder="E-mail">
-    <input id="password" type="password" placeholder="Senha">
-    <div class="remember">
-      <input type="checkbox" id="remember"> Lembre-se de mim
-    </div>
-    <button class="btn-login" onclick="login()">Entrar</button>
-    <div class="forgot" onclick="toggleReset()">⬇ Esqueceu a senha?</div>
-    <div class="reset">
-      <input type="email" placeholder="Seu e-mail">
-      <button class="btn-login">Enviar redefinição</button>
-    </div>
+    <h3>Login</h3>
+    <input type="email" id="email" placeholder="Usuário (Email)">
+    <input type="password" id="password" placeholder="Senha">
+    <button onclick="login()">Entrar</button>
   </div>
 </div>
 
+<!-- Firebase -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+const firebaseConfig = {
+  apiKey: "SUA_API_KEY",
+  authDomain: "SEU_AUTH_DOMAIN",
+  projectId: "SEU_PROJECT_ID",
+  storageBucket: "SEU_BUCKET",
+  messagingSenderId: "SEU_ID",
+  appId: "SEU_APP_ID"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+window.login = function() {
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+
+  signInWithEmailAndPassword(auth, email, password)
+    .then(() => {
+      window.location.href = "intranet.html";
+    })
+    .catch(error => {
+      alert("Erro: " + error.message);
+    });
+}
+</script>
+
 <script>
-function openModal(){loginModal.style.display='flex'}
-function closeModal(){loginModal.style.display='none'}
-function toggleReset(){
-  document.querySelector('.reset').style.display =
-  document.querySelector('.reset').style.display === 'block' ? 'none' : 'block'
+function openModal() {
+  document.getElementById("loginModal").style.display = "flex";
 }
 
-/* Lembre-se de mim */
-window.onload=()=>{
-  if(localStorage.email){
-    email.value=localStorage.email;
-    password.value=localStorage.password;
-    remember.checked=true;
+window.onclick = function(e) {
+  const modal = document.getElementById("loginModal");
+  if (e.target == modal) {
+    modal.style.display = "none";
   }
-}
-function login(){
-  if(remember.checked){
-    localStorage.email=email.value;
-    localStorage.password=password.value;
-  }
-  alert("Firebase Authentication aqui");
-}
-
-/* Idioma */
-function changeLang(lang){
-  alert("Idioma alterado para: "+lang);
 }
 </script>
 
