@@ -1,175 +1,159 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Meu Site One Page</title>
-
-<style>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: Arial, sans-serif;
-}
-
-body {
-  scroll-behavior: smooth;
-}
-
-header {
-  position: fixed;
-  width: 100%;
-  background: #111;
-  padding: 15px 40px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  color: white;
-  z-index: 1000;
-}
-
-header button {
-  padding: 8px 15px;
-  background: #00c853;
-  border: none;
-  color: white;
-  cursor: pointer;
-  border-radius: 4px;
-}
-
-section {
-  height: 100vh;
-  padding: 100px 40px;
-}
-
-#home {
-  background: linear-gradient(135deg, #000428, #004e92);
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-}
-
-#sobre {
-  background: #f4f4f4;
-}
-
-#contato {
-  background: #ddd;
-}
-
-/* Modal */
-.modal {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.7);
-  justify-content: center;
-  align-items: center;
-}
-
-.modal-content {
-  background: white;
-  padding: 30px;
-  border-radius: 8px;
-  width: 300px;
-}
-
-.modal-content input {
-  width: 100%;
-  margin: 10px 0;
-  padding: 8px;
-}
-
-.modal-content button {
-  width: 100%;
-  padding: 8px;
-  background: #004e92;
-  color: white;
-  border: none;
-  cursor: pointer;
-}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OnePage Firebase Login</title>
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
+<body class="bg-gray-50 text-gray-800">
 
-<header>
-  <h2>MeuSite</h2>
-  <button onclick="openModal()">Login</button>
-</header>
+  <!-- NAVBAR -->
+  <header class="fixed w-full bg-white shadow z-40">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+      <h1 class="text-xl font-bold">Minha Empresa</h1>
+      <button id="openLogin" class="bg-blue-600 text-white px-5 py-2 rounded-xl hover:bg-blue-700 transition">
+        Login
+      </button>
+    </div>
+  </header>
 
-<section id="home">
-  <div>
-    <h1>Bem-vindo ao Meu Site</h1>
-    <p>Site One Page com Firebase Authentication</p>
+  <!-- HERO -->
+  <section class="min-h-screen flex items-center justify-center text-center px-6 pt-32">
+    <div>
+      <h2 class="text-4xl md:text-6xl font-bold mb-6">Bem-vindo ao Nosso Sistema</h2>
+      <p class="text-lg md:text-xl text-gray-600 mb-8">Site 100% responsivo com autenticação via Firebase.</p>
+      <button id="heroLogin" class="bg-blue-600 text-white px-8 py-3 rounded-2xl text-lg hover:bg-blue-700 transition">
+        Acessar Intranet
+      </button>
+    </div>
+  </section>
+
+  <!-- SOBRE -->
+  <section class="py-20 bg-white px-6">
+    <div class="max-w-5xl mx-auto text-center">
+      <h3 class="text-3xl font-bold mb-6">Sobre</h3>
+      <p class="text-gray-600">Este é um exemplo de site onepage totalmente adaptável para desktop, tablet e celular, utilizando Firebase Authentication.</p>
+    </div>
+  </section>
+
+  <!-- CONTATO -->
+  <section class="py-20 bg-gray-100 px-6">
+    <div class="max-w-5xl mx-auto text-center">
+      <h3 class="text-3xl font-bold mb-6">Contato</h3>
+      <p class="text-gray-600">contato@empresa.com</p>
+    </div>
+  </section>
+
+  <!-- LOGIN MODAL -->
+  <div id="loginModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+    <div class="bg-white rounded-2xl p-8 w-full max-w-md shadow-2xl relative">
+      <button id="closeLogin" class="absolute top-4 right-4 text-gray-500 hover:text-gray-700">✕</button>
+      <h2 class="text-2xl font-bold mb-6 text-center">Login</h2>
+      <form id="loginForm" class="space-y-4">
+        <input type="email" id="email" placeholder="Usuário (email)" required class="w-full px-4 py-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500" />
+        <input type="password" id="password" placeholder="Senha" required class="w-full px-4 py-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500" />
+        <button type="submit" class="w-full bg-blue-600 text-white py-3 rounded-xl hover:bg-blue-700 transition">Entrar</button>
+      </form>
+      <p id="error" class="text-red-500 text-sm mt-4 text-center"></p>
+    </div>
   </div>
-</section>
 
-<section id="sobre">
-  <h2>Sobre</h2>
-  <p>Conteúdo sobre a empresa.</p>
-</section>
+  <!-- FIREBASE -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
-<section id="contato">
-  <h2>Contato</h2>
-  <p>Informações de contato.</p>
-</section>
+    const firebaseConfig = {
+      apiKey: "AIzaSyA1B2C3D4E5F6G7H8I9J0",
+      authDomain: "meu-projeto.firebaseapp.com",
+      projectId: "meu-projeto",
+      storageBucket: "meu-projeto.appspot.com",
+      messagingSenderId: "123456789000",
+      appId: "1:123456789000:web:abcdef1234567890"
+    };
 
-<!-- Modal Login -->
-<div class="modal" id="loginModal">
-  <div class="modal-content">
-    <h3>Login</h3>
-    <input type="email" id="email" placeholder="Usuário (Email)">
-    <input type="password" id="password" placeholder="Senha">
-    <button onclick="login()">Entrar</button>
-  </div>
-</div>
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
 
-<!-- Firebase -->
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+    const modal = document.getElementById("loginModal");
+    const openLogin = document.getElementById("openLogin");
+    const heroLogin = document.getElementById("heroLogin");
+    const closeLogin = document.getElementById("closeLogin");
+    const loginForm = document.getElementById("loginForm");
+    const errorMsg = document.getElementById("error");
 
-const firebaseConfig = {
-  apiKey: "AIzaSyDByExIuGOyp5Oelr0wA_4EUnVKgq6Xiq0",
-  authDomain: "corporatelogin-305a5.firebaseapp.com",
-  projectId: "corporatelogin-305a5",
-  storageBucket: "corporatelogin-305a5.firebasestorage.app",
-  messagingSenderId: "280564137265",
-  appId: "1:280564137265:web:9a7d546136feacfde90410"
-};
+    openLogin.onclick = () => modal.classList.remove("hidden");
+    heroLogin.onclick = () => modal.classList.remove("hidden");
+    closeLogin.onclick = () => modal.classList.add("hidden");
 
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-
-window.login = function() {
-  const email = document.getElementById("email").value;
-  const password = document.getElementById("password").value;
-
-  signInWithEmailAndPassword(auth, email, password)
-    .then(() => {
-      window.location.href = "intranet.html";
-    })
-    .catch(error => {
-      alert("Erro: " + error.message);
+    loginForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+      try {
+        await signInWithEmailAndPassword(auth, email, password);
+        window.location.href = "intranet.html";
+      } catch (error) {
+        errorMsg.textContent = "Usuário ou senha inválidos.";
+      }
     });
-}
-</script>
 
-<script>
-function openModal() {
-  document.getElementById("loginModal").style.display = "flex";
-}
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        window.location.href = "intranet.html";
+      }
+    });
+  </script>
 
-window.onclick = function(e) {
-  const modal = document.getElementById("loginModal");
-  if (e.target == modal) {
-    modal.style.display = "none";
-  }
-}
-</script>
+</body>
+</html>
+
+<!-- CRIE UM ARQUIVO intranet.html -->
+<!-- PROTEÇÃO BÁSICA DE ROTA -->
+<!-- intranet.html -->
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Intranet</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+
+  <div class="bg-white p-10 rounded-2xl shadow-xl text-center">
+    <h1 class="text-3xl font-bold mb-6">Bem-vindo à Intranet</h1>
+    <button id="logout" class="bg-red-500 text-white px-6 py-3 rounded-xl hover:bg-red-600 transition">Sair</button>
+  </div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getAuth, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyA1B2C3D4E5F6G7H8I9J0",
+      authDomain: "meu-projeto.firebaseapp.com",
+      projectId: "meu-projeto",
+      storageBucket: "meu-projeto.appspot.com",
+      messagingSenderId: "123456789000",
+      appId: "1:123456789000:web:abcdef1234567890"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    onAuthStateChanged(auth, (user) => {
+      if (!user) {
+        window.location.href = "index.html";
+      }
+    });
+
+    document.getElementById("logout").onclick = async () => {
+      await signOut(auth);
+      window.location.href = "index.html";
+    };
+  </script>
 
 </body>
 </html>
