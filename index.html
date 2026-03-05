@@ -1,159 +1,76 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html>
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>OnePage Firebase Login</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+<meta charset="UTF-8">
+<title>Olivieri Private Area</title>
+
+<style>
+
+body{
+font-family:Arial;
+text-align:center;
+margin-top:100px;
+}
+
+</style>
+
 </head>
-<body class="bg-gray-50 text-gray-800">
 
-  <!-- NAVBAR -->
-  <header class="fixed w-full bg-white shadow z-40">
-    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-      <h1 class="text-xl font-bold">Minha Empresa</h1>
-      <button id="openLogin" class="bg-blue-600 text-white px-5 py-2 rounded-xl hover:bg-blue-700 transition">
-        Login
-      </button>
-    </div>
-  </header>
+<body>
 
-  <!-- HERO -->
-  <section class="min-h-screen flex items-center justify-center text-center px-6 pt-32">
-    <div>
-      <h2 class="text-4xl md:text-6xl font-bold mb-6">Bem-vindo ao Nosso Sistema</h2>
-      <p class="text-lg md:text-xl text-gray-600 mb-8">Site 100% responsivo com autenticação via Firebase.</p>
-      <button id="heroLogin" class="bg-blue-600 text-white px-8 py-3 rounded-2xl text-lg hover:bg-blue-700 transition">
-        Acessar Intranet
-      </button>
-    </div>
-  </section>
+<h1>Welcome Olivieri</h1>
+<p>You are logged in.</p>
 
-  <!-- SOBRE -->
-  <section class="py-20 bg-white px-6">
-    <div class="max-w-5xl mx-auto text-center">
-      <h3 class="text-3xl font-bold mb-6">Sobre</h3>
-      <p class="text-gray-600">Este é um exemplo de site onepage totalmente adaptável para desktop, tablet e celular, utilizando Firebase Authentication.</p>
-    </div>
-  </section>
+<button onclick="logout()">Logout</button>
 
-  <!-- CONTATO -->
-  <section class="py-20 bg-gray-100 px-6">
-    <div class="max-w-5xl mx-auto text-center">
-      <h3 class="text-3xl font-bold mb-6">Contato</h3>
-      <p class="text-gray-600">contato@empresa.com</p>
-    </div>
-  </section>
 
-  <!-- LOGIN MODAL -->
-  <div id="loginModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
-    <div class="bg-white rounded-2xl p-8 w-full max-w-md shadow-2xl relative">
-      <button id="closeLogin" class="absolute top-4 right-4 text-gray-500 hover:text-gray-700">✕</button>
-      <h2 class="text-2xl font-bold mb-6 text-center">Login</h2>
-      <form id="loginForm" class="space-y-4">
-        <input type="email" id="email" placeholder="Usuário (email)" required class="w-full px-4 py-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500" />
-        <input type="password" id="password" placeholder="Senha" required class="w-full px-4 py-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500" />
-        <button type="submit" class="w-full bg-blue-600 text-white py-3 rounded-xl hover:bg-blue-700 transition">Entrar</button>
-      </form>
-      <p id="error" class="text-red-500 text-sm mt-4 text-center"></p>
-    </div>
-  </div>
+<script type="module">
 
-  <!-- FIREBASE -->
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-    import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getAuth, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
-    const firebaseConfig = {
-      apiKey: "AIzaSyA1B2C3D4E5F6G7H8I9J0",
-      authDomain: "meu-projeto.firebaseapp.com",
-      projectId: "meu-projeto",
-      storageBucket: "meu-projeto.appspot.com",
-      messagingSenderId: "123456789000",
-      appId: "1:123456789000:web:abcdef1234567890"
-    };
 
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
+const firebaseConfig = { 
+apiKey: "AIzaSyBL4Hy0VNHm-GJV0ItAwqJUugetksmvujM", 
+authDomain: "olivieri-site.firebaseapp.com", 
+projectId: "olivieri-site", 
+storageBucket: "olivieri-site.firebasestorage.app", 
+messagingSenderId: "759268911996", 
+appId: "1:759268911996:web:ff78c89893857423d1d2f9", 
+measurementId: "G-N09GMDHLCJ"
+};
 
-    const modal = document.getElementById("loginModal");
-    const openLogin = document.getElementById("openLogin");
-    const heroLogin = document.getElementById("heroLogin");
-    const closeLogin = document.getElementById("closeLogin");
-    const loginForm = document.getElementById("loginForm");
-    const errorMsg = document.getElementById("error");
 
-    openLogin.onclick = () => modal.classList.remove("hidden");
-    heroLogin.onclick = () => modal.classList.remove("hidden");
-    closeLogin.onclick = () => modal.classList.add("hidden");
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
 
-    loginForm.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      const email = document.getElementById("email").value;
-      const password = document.getElementById("password").value;
-      try {
-        await signInWithEmailAndPassword(auth, email, password);
-        window.location.href = "intranet.html";
-      } catch (error) {
-        errorMsg.textContent = "Usuário ou senha inválidos.";
-      }
-    });
 
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        window.location.href = "intranet.html";
-      }
-    });
-  </script>
+// PROTECT PAGE
 
-</body>
-</html>
+onAuthStateChanged(auth, (user) => {
 
-<!-- CRIE UM ARQUIVO intranet.html -->
-<!-- PROTEÇÃO BÁSICA DE ROTA -->
-<!-- intranet.html -->
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Intranet</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+if (!user){
 
-  <div class="bg-white p-10 rounded-2xl shadow-xl text-center">
-    <h1 class="text-3xl font-bold mb-6">Bem-vindo à Intranet</h1>
-    <button id="logout" class="bg-red-500 text-white px-6 py-3 rounded-xl hover:bg-red-600 transition">Sair</button>
-  </div>
+window.location.href="index.html"
 
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-    import { getAuth, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+}
 
-    const firebaseConfig = {
-      apiKey: "AIzaSyA1B2C3D4E5F6G7H8I9J0",
-      authDomain: "meu-projeto.firebaseapp.com",
-      projectId: "meu-projeto",
-      storageBucket: "meu-projeto.appspot.com",
-      messagingSenderId: "123456789000",
-      appId: "1:123456789000:web:abcdef1234567890"
-    };
+})
 
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
 
-    onAuthStateChanged(auth, (user) => {
-      if (!user) {
-        window.location.href = "index.html";
-      }
-    });
+// LOGOUT
 
-    document.getElementById("logout").onclick = async () => {
-      await signOut(auth);
-      window.location.href = "index.html";
-    };
-  </script>
+window.logout = function(){
+
+signOut(auth).then(() => {
+
+window.location.href="index.html"
+
+})
+
+}
+
+</script>
 
 </body>
 </html>
