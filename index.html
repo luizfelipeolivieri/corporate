@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-
 <meta charset="UTF-8">
 <title>Olivieri</title>
 
@@ -9,12 +8,11 @@
 
 body{
 margin:0;
-background:white;
 font-family:Arial, Helvetica, sans-serif;
+background:white;
 }
 
 .menu{
-
 position:fixed;
 top:0;
 width:100%;
@@ -24,74 +22,58 @@ display:flex;
 align-items:center;
 justify-content:space-between;
 padding:0 30px;
-box-sizing:border-box;
 border-bottom:1px solid #1f1f1f;
-
 }
 
-.logo{
-font-size:18px;
-font-weight:500;
-}
-
-.login{
-
-border:none;
+.login-btn{
 background:#1a73e8;
 color:white;
-padding:8px 18px;
+border:none;
+padding:8px 20px;
 border-radius:20px;
 cursor:pointer;
 }
 
 .container{
-
 margin-top:120px;
 text-align:center;
-
 }
 
 .popup{
-
-display:none;
 position:fixed;
 top:0;
 left:0;
 width:100%;
 height:100%;
 background:rgba(0,0,0,0.35);
-justify-content:center;
+display:none;
 align-items:center;
-
+justify-content:center;
 }
 
-.box{
-
+.popup-box{
 background:white;
 padding:35px;
 width:320px;
-border-radius:10px;
-
+border-radius:12px;
+box-shadow:0 10px 30px rgba(0,0,0,0.2);
 }
 
 input{
-
 width:100%;
 padding:10px;
 margin:8px 0;
 box-sizing:border-box;
-
 }
 
 .enter{
-
 background:#1a73e8;
 color:white;
 border:none;
 padding:10px;
 width:100%;
 cursor:pointer;
-
+border-radius:6px;
 }
 
 </style>
@@ -100,25 +82,17 @@ cursor:pointer;
 <body>
 
 <div class="menu">
-
-<div class="logo">Olivieri</div>
-
-<button class="login" onclick="openLogin()">Login</button>
-
+<div>Olivieri</div>
+<button class="login-btn" onclick="openLogin()">Login</button>
 </div>
-
 
 <div class="container">
-
 <h1>Welcome</h1>
-<p>Faça login para continuar</p>
-
 </div>
-
 
 <div id="popup" class="popup">
 
-<div class="box">
+<div class="popup-box">
 
 <h3>Login</h3>
 
@@ -133,85 +107,74 @@ cursor:pointer;
 <button onclick="register()">Criar conta</button>
 
 </div>
-
 </div>
-
-
 
 <script type="module">
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
-import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword }
+import {
+getAuth,
+signInWithEmailAndPassword,
+createUserWithEmailAndPassword
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
-from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import {
+getFirestore,
+doc,
+setDoc
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-
-const firebaseConfig = {
-
-apiKey: "AIzaSyBL4Hy0VNHm-GJV0ItAwqJUugetksmvujM",
-
-authDomain: "olivieri-site.firebaseapp.com",
-
-projectId: "olivieri-site",
-
-storageBucket: "olivieri-site.firebasestorage.app",
-
-messagingSenderId: "759268911996",
-
-appId: "1:759268911996:web:ff78c89893857423d1d2f9",
-
-measurementId: "G-N09GMDHLCJ"
-
+const firebaseConfig={
+apiKey:"AIzaSyBL4Hy0VNHm-GJV0ItAwqJUugetksmvujM",
+authDomain:"olivieri-site.firebaseapp.com",
+projectId:"olivieri-site",
+storageBucket:"olivieri-site.firebasestorage.app",
+messagingSenderId:"759268911996",
+appId:"1:759268911996:web:ff78c89893857423d1d2f9"
 };
 
-const app = initializeApp(firebaseConfig);
-
-const auth = getAuth(app);
-
-
+const app=initializeApp(firebaseConfig);
+const auth=getAuth(app);
+const db=getFirestore(app);
 
 window.openLogin=function(){
-
-document.getElementById("popup").style.display="flex";
-
+popup.style.display="flex";
 }
-
-
 
 window.login=function(){
 
-const email=email.value;
-const password=password.value;
-
-signInWithEmailAndPassword(auth,email,password)
+signInWithEmailAndPassword(auth,email.value,password.value)
 
 .then(()=>{
-
 window.location="olivieri.html";
-
 })
 
 .catch(e=>alert(e.message));
 
 }
 
+window.register=async function(){
 
+const userCredential=await createUserWithEmailAndPassword(
+auth,
+email.value,
+password.value
+);
 
-window.register=function(){
+const user=userCredential.user;
 
-const email=email.value;
-const password=password.value;
+await setDoc(doc(db,"users",user.uid),{
+email:user.email,
+name:"User",
+photo:"",
+created:new Date()
+});
 
-createUserWithEmailAndPassword(auth,email,password)
-
-.then(()=>alert("Conta criada"))
-
-.catch(e=>alert(e.message));
+alert("Conta criada!");
 
 }
 
 </script>
-
 </body>
 </html>
