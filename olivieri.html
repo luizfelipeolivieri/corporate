@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title>Perfil</title>
+
+<style>
+
+body{
+margin:0;
+font-family:Arial;
+}
+
+.menu{
+
+position:fixed;
+top:0;
+width:100%;
+background:#222;
+color:white;
+display:flex;
+justify-content:space-between;
+padding:15px 30px;
+box-sizing:border-box;
+
+}
+
+.profile{
+
+width:40px;
+height:40px;
+border-radius:50%;
+cursor:pointer;
+
+}
+
+.popup{
+
+display:none;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.6);
+justify-content:center;
+align-items:center;
+
+}
+
+.popup-content{
+
+background:white;
+padding:30px;
+border-radius:10px;
+text-align:center;
+width:300px;
+
+}
+
+img{
+
+width:80px;
+height:80px;
+border-radius:50%;
+object-fit:cover;
+
+}
+
+input{
+
+margin:10px 0;
+padding:8px;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+
+<div class="menu">
+
+<div>Área do Usuário</div>
+
+<img id="profileIcon" class="profile" src="https://i.imgur.com/6VBx3io.png" onclick="openProfile()">
+
+</div>
+
+
+<div style="margin-top:120px;text-align:center;">
+
+<h1>Bem-vindo!</h1>
+
+</div>
+
+
+<!-- POPUP PERFIL -->
+
+<div id="profilePopup" class="popup">
+
+<div class="popup-content">
+
+<img id="profilePic">
+
+<br><br>
+
+<input type="file" id="photoInput">
+
+<br>
+
+<input id="nameInput" placeholder="Seu nome">
+
+<p id="userEmail"></p>
+
+<button onclick="saveProfile()">Salvar</button>
+
+</div>
+
+</div>
+
+
+
+<script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+import { getAuth, onAuthStateChanged, updateProfile }
+
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+import { getStorage, ref, uploadBytes, getDownloadURL }
+
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
+
+
+// CONFIG
+
+const firebaseConfig = {
+
+apiKey: "AIzaSyBL4Hy0VNHm-GJV0ItAwqJUugetksmvujM",
+
+authDomain: "olivieri-site.firebaseapp.com",
+
+projectId: "olivieri-site",
+
+storageBucket: "olivieri-site.firebasestorage.app",
+
+messagingSenderId: "759268911996",
+
+appId: "1:759268911996:web:ff78c89893857423d1d2f9",
+
+measurementId: "G-N09GMDHLCJ"
+
+};
+
+const app=initializeApp(firebaseConfig);
+
+const auth=getAuth(app);
+
+const storage=getStorage(app);
+
+let currentUser;
+
+
+// USER
+
+onAuthStateChanged(auth,user=>{
+
+if(user){
+
+currentUser=user;
+
+document.getElementById("userEmail").innerText=user.email;
+
+document.getElementById("nameInput").value=user.displayName || "";
+
+document.getElementById("profilePic").src=user.photoURL || "https://i.imgur.com/6VBx3io.png";
+
+document.getElementById("profileIcon").src=user.photoURL || "https://i.imgur.com/6VBx3io.png";
+
+}else{
+
+window.location="index.html";
+
+}
+
+});
+
+
+// POPUP
+
+window.openProfile=function(){
+
+document.getElementById("profilePopup").style.display="flex";
+
+}
+
+
+// SAVE
+
+window.saveProfile=async function(){
+
+const name=document.getElementById("nameInput").value;
+
+const file=document.getElementById("photoInput").files[0];
+
+let photoURL=currentUser.photoURL;
+
+if(file){
+
+const storageRef=ref(storage,"profiles/"+currentUser.uid);
+
+await uploadBytes(storageRef,file);
+
+photoURL=await getDownloadURL(storageRef);
+
+}
+
+await updateProfile(currentUser,{
+
+displayName:name,
+
+photoURL:photoURL
+
+});
+
+alert("Perfil atualizado");
+
+location.reload();
+
+}
+
+</script>
+
+</body>
+</html>
