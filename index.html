@@ -1,72 +1,190 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-br">
 <head>
 <meta charset="UTF-8">
-<title>Olivieri Private Area</title>
+<title>Olivieri Site</title>
 
 <style>
 
 body{
+margin:0;
 font-family:Arial;
+}
+
+/* MENU */
+
+.menu{
+position:fixed;
+top:0;
+width:100%;
+background:#222;
+color:white;
+display:flex;
+justify-content:space-between;
+padding:15px 30px;
+box-sizing:border-box;
+}
+
+.login-btn{
+background:#ff9800;
+border:none;
+padding:8px 16px;
+cursor:pointer;
+color:white;
+border-radius:5px;
+}
+
+/* POPUP */
+
+.popup{
+display:none;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.6);
+justify-content:center;
+align-items:center;
+}
+
+.popup-content{
+background:white;
+padding:30px;
+border-radius:8px;
+width:300px;
 text-align:center;
-margin-top:100px;
+}
+
+input{
+width:90%;
+padding:10px;
+margin:8px 0;
+}
+
+button{
+padding:10px 20px;
+cursor:pointer;
 }
 
 </style>
-
 </head>
 
 <body>
 
-<h1>Welcome Olivieri</h1>
-<p>You are logged in.</p>
+<div class="menu">
+<div>Olivieri Site</div>
+<button class="login-btn" onclick="openLogin()">Login</button>
+</div>
 
-<button onclick="logout()">Logout</button>
+<div style="margin-top:100px;text-align:center;">
+<h1>Bem-vindo</h1>
+<p>Faça login para acessar sua área</p>
+</div>
+
+
+<!-- POPUP LOGIN -->
+
+<div id="loginPopup" class="popup">
+
+<div class="popup-content">
+
+<h3>Login</h3>
+
+<input type="email" id="email" placeholder="Email">
+
+<input type="password" id="password" placeholder="Senha">
+
+<button onclick="login()">Entrar</button>
+
+<br><br>
+
+<button onclick="register()">Criar Conta</button>
+
+</div>
+
+</div>
 
 
 <script type="module">
 
+// Firebase SDK
+
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getAuth, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword }
+
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
 
-const firebaseConfig = { 
-apiKey: "AIzaSyBL4Hy0VNHm-GJV0ItAwqJUugetksmvujM", 
-authDomain: "olivieri-site.firebaseapp.com", 
-projectId: "olivieri-site", 
-storageBucket: "olivieri-site.firebasestorage.app", 
-messagingSenderId: "759268911996", 
-appId: "1:759268911996:web:ff78c89893857423d1d2f9", 
+// CONFIG
+
+const firebaseConfig = {
+
+apiKey: "AIzaSyBL4Hy0VNHm-GJV0ItAwqJUugetksmvujM",
+
+authDomain: "olivieri-site.firebaseapp.com",
+
+projectId: "olivieri-site",
+
+storageBucket: "olivieri-site.firebasestorage.app",
+
+messagingSenderId: "759268911996",
+
+appId: "1:759268911996:web:ff78c89893857423d1d2f9",
+
 measurementId: "G-N09GMDHLCJ"
+
 };
 
-
 const app = initializeApp(firebaseConfig);
+
 const auth = getAuth(app);
 
 
-// PROTECT PAGE
+// POPUP
 
-onAuthStateChanged(auth, (user) => {
+window.openLogin = function(){
 
-if (!user){
-
-window.location.href="index.html"
+document.getElementById("loginPopup").style.display="flex";
 
 }
 
+
+// LOGIN
+
+window.login = function(){
+
+const email=document.getElementById("email").value;
+
+const password=document.getElementById("password").value;
+
+signInWithEmailAndPassword(auth,email,password)
+
+.then(()=>{
+
+window.location="olivieri.html";
+
 })
 
+.catch(e=>alert(e.message));
 
-// LOGOUT
+}
 
-window.logout = function(){
 
-signOut(auth).then(() => {
+// REGISTER
 
-window.location.href="index.html"
+window.register=function(){
 
-})
+const email=document.getElementById("email").value;
+
+const password=document.getElementById("password").value;
+
+createUserWithEmailAndPassword(auth,email,password)
+
+.then(()=>alert("Conta criada! Faça login"))
+
+.catch(e=>alert(e.message));
 
 }
 
