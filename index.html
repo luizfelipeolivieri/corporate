@@ -2,69 +2,108 @@
 <html lang="pt-br">
 <head>
 <meta charset="UTF-8">
-<title>Olivieri Site</title>
+<title>Olivieri</title>
 
 <style>
 
-body{
+*{
 margin:0;
-font-family:Arial;
+padding:0;
+box-sizing:border-box;
+font-family:Arial, Helvetica, sans-serif;
 }
 
-/* MENU */
+body{
+background:#0f172a;
+color:white;
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+}
 
-.menu{
+header{
 position:fixed;
 top:0;
+left:0;
 width:100%;
-background:#222;
-color:white;
 display:flex;
 justify-content:space-between;
-padding:15px 30px;
-box-sizing:border-box;
+align-items:center;
+padding:18px 40px;
+background:rgba(0,0,0,0.4);
+backdrop-filter:blur(10px);
+}
+
+.logo{
+font-size:20px;
+font-weight:bold;
 }
 
 .login-btn{
-background:#ff9800;
+background:#3b82f6;
 border:none;
-padding:8px 16px;
-cursor:pointer;
+padding:10px 18px;
+border-radius:8px;
 color:white;
-border-radius:5px;
+cursor:pointer;
 }
 
-/* POPUP */
+.hero{
+text-align:center;
+}
 
 .popup{
-display:none;
 position:fixed;
 top:0;
 left:0;
 width:100%;
 height:100%;
-background:rgba(0,0,0,0.6);
+display:none;
 justify-content:center;
 align-items:center;
+background:rgba(0,0,0,0.6);
 }
 
-.popup-content{
-background:white;
-padding:30px;
-border-radius:8px;
-width:300px;
-text-align:center;
+.popup-box{
+background:#1e293b;
+padding:35px;
+border-radius:12px;
+width:320px;
+position:relative;
+box-shadow:0 10px 40px rgba(0,0,0,0.4);
 }
 
-input{
-width:90%;
-padding:10px;
-margin:8px 0;
-}
-
-button{
-padding:10px 20px;
+.close{
+position:absolute;
+right:15px;
+top:10px;
 cursor:pointer;
+font-size:18px;
+}
+
+.popup input{
+width:100%;
+padding:12px;
+margin:10px 0;
+border:none;
+border-radius:6px;
+}
+
+.popup button{
+width:100%;
+padding:12px;
+background:#3b82f6;
+border:none;
+border-radius:6px;
+color:white;
+cursor:pointer;
+}
+
+.error{
+color:#f87171;
+margin-top:8px;
+font-size:14px;
 }
 
 </style>
@@ -72,119 +111,86 @@ cursor:pointer;
 
 <body>
 
-<div class="menu">
-<div>Olivieri Site</div>
+<header>
+
+<div class="logo">Olivieri</div>
+
 <button class="login-btn" onclick="openLogin()">Login</button>
-</div>
 
-<div style="margin-top:100px;text-align:center;">
+</header>
+
+<div class="hero">
 <h1>Bem-vindo</h1>
-<p>Faça login para acessar sua área</p>
+<p>Sistema com Firebase Authentication</p>
 </div>
 
+<div class="popup" id="loginPopup">
 
-<!-- POPUP LOGIN -->
+<div class="popup-box">
 
-<div id="loginPopup" class="popup">
+<span class="close" onclick="closeLogin()">✕</span>
 
-<div class="popup-content">
+<h2>Login</h2>
 
-<h3>Login</h3>
+<input id="email" type="email" placeholder="Email">
 
-<input type="email" id="email" placeholder="Email">
-
-<input type="password" id="password" placeholder="Senha">
+<input id="password" type="password" placeholder="Senha">
 
 <button onclick="login()">Entrar</button>
 
-<br><br>
-
-<button onclick="register()">Criar Conta</button>
+<p id="error" class="error"></p>
 
 </div>
 
 </div>
-
 
 <script type="module">
 
-// Firebase SDK
-
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
-import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword }
+import {
+getAuth,
+signInWithEmailAndPassword
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
-from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-
-
-// CONFIG
 
 const firebaseConfig = {
-
 apiKey: "AIzaSyBL4Hy0VNHm-GJV0ItAwqJUugetksmvujM",
-
 authDomain: "olivieri-site.firebaseapp.com",
-
 projectId: "olivieri-site",
-
 storageBucket: "olivieri-site.firebasestorage.app",
-
 messagingSenderId: "759268911996",
-
 appId: "1:759268911996:web:ff78c89893857423d1d2f9",
-
 measurementId: "G-N09GMDHLCJ"
-
 };
 
 const app = initializeApp(firebaseConfig);
 
 const auth = getAuth(app);
 
-
-// POPUP
-
-window.openLogin = function(){
-
+window.openLogin = () =>{
 document.getElementById("loginPopup").style.display="flex";
-
 }
 
+window.closeLogin = () =>{
+document.getElementById("loginPopup").style.display="none";
+}
 
-// LOGIN
+window.login = ()=>{
 
-window.login = function(){
+const email = document.getElementById("email").value;
 
-const email=document.getElementById("email").value;
-
-const password=document.getElementById("password").value;
+const password = document.getElementById("password").value;
 
 signInWithEmailAndPassword(auth,email,password)
 
 .then(()=>{
-
-window.location="olivieri.html";
-
+window.location.href="olivieri.html";
 })
 
-.catch(e=>alert(e.message));
-
-}
-
-
-// REGISTER
-
-window.register=function(){
-
-const email=document.getElementById("email").value;
-
-const password=document.getElementById("password").value;
-
-createUserWithEmailAndPassword(auth,email,password)
-
-.then(()=>alert("Conta criada! Faça login"))
-
-.catch(e=>alert(e.message));
+.catch(()=>{
+document.getElementById("error").innerText="Email ou senha inválidos";
+})
 
 }
 
