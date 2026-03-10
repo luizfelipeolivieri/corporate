@@ -1,0 +1,40 @@
+
+import { app } from "../firebase/config.js";
+import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+const auth = getAuth(app);
+
+onAuthStateChanged(auth,(user)=>{
+
+if(user){
+
+const nome = user.email.split("@")[0];
+
+document.getElementById("welcomeMessage").innerText = `Olá, ${nome}. É bom te ver!`;
+
+}else{
+
+window.location.href="index.html";
+
+}
+
+});
+
+document.getElementById("logoutBtn").onclick=()=>{
+
+signOut(auth).then(()=>window.location.href="index.html");
+
+};
+
+const ctx = document.getElementById("areaChart");
+
+new Chart(ctx,{
+type:"line",
+data:{
+labels:["Jan","Fev","Mar","Abr","Mai","Jun","Jul","Ago","Set","Out","Nov","Dez"],
+datasets:[
+{label:"Receita",data:[0,0,0,0,0,0,0,0,0,0,0,0],borderColor:"green",fill:true},
+{label:"Despesas",data:[0,0,0,0,0,0,0,0,0,0,0,0],borderColor:"red",fill:true}
+]
+}
+});

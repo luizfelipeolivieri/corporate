@@ -1,0 +1,14 @@
+
+document.querySelectorAll('[contenteditable]').forEach(cell=>{
+
+cell.addEventListener("blur",()=>{
+
+let v = cell.innerText.replace(/\./g,'').replace(',','.');
+
+let n = parseFloat(v)||0;
+
+cell.innerText = n.toLocaleString('pt-BR',{minimumFractionDigits:2});
+
+});
+
+});
