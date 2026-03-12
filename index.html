@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>MBX Login</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Inter',sans-serif;
+}
+
+body{
+background:#f4f4f4;
+display:flex;
+flex-direction:column;
+min-height:100vh;
+}
+
+/* NAVBAR */
+
+.navbar{
+height:70px;
+background:white;
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:0 40px;
+border-bottom:1px solid #ddd;
+}
+
+.logo{
+font-size:28px;
+font-weight:600;
+color:#777;
+}
+
+.logo span{
+font-weight:400;
+font-size:16px;
+}
+
+.menu{
+display:flex;
+gap:30px;
+font-size:15px;
+color:#444;
+}
+
+.menu a{
+text-decoration:none;
+color:#444;
+}
+
+.right-area{
+display:flex;
+align-items:center;
+gap:15px;
+}
+
+.login-btn{
+background:#1f4ed8;
+color:white;
+border:none;
+padding:8px 16px;
+border-radius:6px;
+cursor:pointer;
+}
+
+/* LANGUAGE */
+
+.lang{
+position:relative;
+cursor:pointer;
+background:#f1f1f1;
+padding:6px 10px;
+border-radius:6px;
+font-size:14px;
+}
+
+.lang-dropdown{
+position:absolute;
+top:40px;
+right:0;
+background:white;
+border-radius:8px;
+box-shadow:0 4px 10px rgba(0,0,0,0.1);
+display:none;
+flex-direction:column;
+width:120px;
+}
+
+.lang-dropdown div{
+padding:10px;
+cursor:pointer;
+}
+
+.lang-dropdown div:hover{
+background:#f2f2f2;
+}
+
+/* MAIN */
+
+.main{
+flex:1;
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+}
+
+/* LOGO */
+
+.mbx{
+font-size:70px;
+font-weight:800;
+margin-bottom:20px;
+}
+
+/* FORM */
+
+.login-box{
+width:380px;
+}
+
+label{
+font-size:14px;
+color:#333;
+margin-bottom:6px;
+display:block;
+}
+
+.input{
+position:relative;
+margin-bottom:18px;
+}
+
+.input input{
+width:100%;
+padding:14px 40px 14px 14px;
+border-radius:10px;
+border:1px solid #ccc;
+font-size:14px;
+}
+
+.input span{
+position:absolute;
+right:12px;
+top:50%;
+transform:translateY(-50%);
+cursor:pointer;
+color:#888;
+}
+
+/* CHECKBOX */
+
+.remember{
+display:flex;
+align-items:center;
+gap:8px;
+margin-bottom:20px;
+font-size:14px;
+}
+
+/* BUTTON */
+
+.submit{
+width:100%;
+padding:14px;
+background:#222;
+border:none;
+color:white;
+border-radius:10px;
+font-size:15px;
+cursor:pointer;
+}
+
+.submit:hover{
+background:#000;
+}
+
+/* LINK */
+
+.forgot{
+text-align:center;
+margin-top:20px;
+font-size:14px;
+color:#444;
+cursor:pointer;
+}
+
+/* FOOTER */
+
+.footer{
+height:60px;
+background:#e9e9e9;
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:0 40px;
+font-size:14px;
+color:#333;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+
+<div class="navbar">
+
+<div class="logo">
+O <span>Olivieri</span>
+</div>
+
+<div class="menu">
+<a href="#">Home</a>
+<a href="#">Sobre</a>
+<a href="#">Parcerias</a>
+<a href="#">Serviços</a>
+<a href="#">Contato</a>
+</div>
+
+<div class="right-area">
+
+<button class="login-btn">Login</button>
+
+<div class="lang" onclick="toggleLang()">
+🇧🇷 PT | BR
+
+<div class="lang-dropdown" id="langMenu">
+<div>🇧🇷 PT | BR</div>
+<div>🇺🇸 EN | US</div>
+<div>🇪🇸 ES | ES</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- MAIN -->
+
+<div class="main">
+
+<div class="mbx">MBX</div>
+
+<div class="login-box">
+
+<label>E-mail</label>
+
+<div class="input">
+<input type="email" placeholder="E-mail">
+</div>
+
+<label>Senha</label>
+
+<div class="input">
+<input type="password" id="senha" placeholder="Senha">
+<span onclick="toggleSenha()">👁</span>
+</div>
+
+<div class="remember">
+<input type="checkbox">
+<span>Mantenha-me conectado</span>
+</div>
+
+<button class="submit">
+Iniciar sessão
+</button>
+
+<div class="forgot">
+Esqueceu sua senha?
+</div>
+
+</div>
+
+</div>
+
+<!-- FOOTER -->
+
+<div class="footer">
+
+<div>
+Todos os direitos reservados – 2026
+</div>
+
+<div>
+Desenvolvido por: <b>Pecege</b>
+</div>
+
+</div>
+
+<script>
+
+/* MOSTRAR SENHA */
+
+function toggleSenha(){
+
+let campo=document.getElementById("senha");
+
+if(campo.type==="password"){
+campo.type="text";
+}else{
+campo.type="password";
+}
+
+}
+
+/* DROPDOWN IDIOMA */
+
+function toggleLang(){
+
+let menu=document.getElementById("langMenu");
+
+menu.style.display=
+menu.style.display==="flex"
+? "none"
+: "flex";
+
+}
+
+</script>
+
+</body>
+</html>
