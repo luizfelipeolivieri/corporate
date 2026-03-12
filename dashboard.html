@@ -22,9 +22,10 @@ font-family:'Inter',sans-serif;
 }
 
 body{
-display:flex;
 height:100vh;
+display:flex;
 background:#f5f6f8;
+overflow:hidden;
 }
 
 /* SIDEBAR */
@@ -32,20 +33,28 @@ background:#f5f6f8;
 .sidebar{
 width:240px;
 background:#fff;
-border-right:1px solid #e5e7eb;
-padding-top:25px;
+display:flex;
+flex-direction:column;
+height:100vh;
 }
 
 .logo{
-font-size:28px;
+height:70px;
+display:flex;
+align-items:center;
+padding:0 25px;
+font-size:26px;
 font-weight:700;
-padding:0 25px 30px 25px;
 letter-spacing:2px;
 }
+
+/* MENU */
 
 .menu{
 display:flex;
 flex-direction:column;
+padding-top:10px;
+flex:1;
 }
 
 .menu a{
@@ -77,6 +86,7 @@ stroke:#555;
 flex:1;
 display:flex;
 flex-direction:column;
+height:100vh;
 }
 
 /* HEADER */
@@ -84,13 +94,15 @@ flex-direction:column;
 .header{
 height:70px;
 background:#fff;
-border-bottom:1px solid #e5e7eb;
 display:flex;
 align-items:center;
 justify-content:flex-end;
 padding:0 25px;
 gap:20px;
+flex-shrink:0;
 }
+
+/* ICONS */
 
 .icon{
 width:36px;
@@ -114,8 +126,12 @@ background-size:cover;
 /* CONTENT */
 
 .content{
+flex:1;
+overflow-y:auto;
 padding:30px;
 }
+
+/* TEXT */
 
 .welcome{
 font-size:26px;
@@ -258,8 +274,6 @@ Biblioteca Digital
 Olá, Luiz. É bom te ver!
 </div>
 
-<!-- AREA CHART -->
-
 <div class="card">
 
 <h3>Receita x Despesas</h3>
@@ -267,8 +281,6 @@ Olá, Luiz. É bom te ver!
 <canvas id="areaChart"></canvas>
 
 </div>
-
-<!-- DONUT CHARTS -->
 
 <div class="donut-grid">
 
@@ -381,8 +393,6 @@ const colors=[
 const valoresMes=[320,120,80,400,150,70,90,60,40,30];
 const valoresAno=[22,15,9,25,8,5,7,4,3,2];
 
-/* MONTH DONUT */
-
 new Chart(document.getElementById("monthDonut"),{
 
 type:"doughnut",
@@ -400,8 +410,6 @@ plugins:{legend:{position:"right"}}
 }
 
 });
-
-/* YEAR DONUT */
 
 new Chart(document.getElementById("yearDonut"),{
 
