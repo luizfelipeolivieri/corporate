@@ -435,7 +435,7 @@ plugins:{legend:{position:"right"}}
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { getAuth,onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-import { getFirestore,doc,setDoc,getDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+import { getFirestore,doc,getDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
 const firebaseConfig = {
 apiKey: "AIzaSyBL4Hy0VNHm-GJV0ItAwqJUugetksmvujM",
@@ -451,19 +451,201 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth();
 const db = getFirestore(app);
 
-let uid = null;
+let uid=null;
 
-onAuthStateChanged(auth,(user)=>{
+onAuthStateChanged(auth,async(user)=>{
 
 if(user){
 
-uid = user.uid;
+uid=user.uid;
 
-loadFinance();
+loadDashboard();
 
 }
 
 });
+
+async function loadDashboard(){
+
+const ref=doc(db,"finance",uid);
+
+const snap=await getDoc(ref);
+
+if(!snap.exists()) return;
+
+const values=snap.data().values.map(v=>parseFloat(v)||0);
+
+processData(values);
+
+}
+
+function processData(values){
+
+const months=12;
+
+const categorias=[
+"Moradia",
+"Educação",
+"Saúde",
+"Transporte",
+"Pessoal",
+"Lazer",
+"Presentes"
+];
+
+let index=0;
+
+function sumRows(rows){
+
+let total=0;
+
+for(let r=0;r<rows;r++){
+
+for(let m=0;m<months;m++){
+
+total+=values[index++]||0;
+
+}
+
+}
+
+return total;
+
+}
+
+const moradia=sumRows(6);
+const educacao=sumRows(1);
+const saude=sumRows(2);
+const transporte=sumRows(2);
+const pessoal=sumRows(2);
+const lazer=sumRows(2);
+const presentes=sumRows(2);
+
+const categoriasValores=[
+moradia,
+educacao,
+saude,
+transporte,
+pessoal,
+lazer,
+presentes
+];
+
+const totalAno=categoriasValores.reduce((a,b)=>a+b,0);
+
+const totalMes=values.slice(-12).reduce((a,b)=>a+b,0);
+
+document.getElementById("monthValue").innerText="R$ "+totalMes.toFixed(0);
+document.getElementById("yearValue").innerText="R$ "+totalAno.toFixed(0);
+
+renderCharts(categorias,categoriasValores);
+
+}
+
+function renderCharts(categorias,valores){
+
+const colors=[
+"#f6d365",
+"#c471ed",
+"#e056fd",
+"#74b9ff",
+"#00cec9",
+"#55efc4",
+"#badc58"
+];
+
+new Chart(document.getElementById("monthDonut"),{
+
+type:"doughnut",
+
+data:{
+labels:categorias,
+datasets:[{
+data:valores,
+backgroundColor:colors
+}]
+},
+
+options:{
+plugins:{legend:{position:"right"}}
+}
+
+});
+
+new Chart(document.getElementById("yearDonut"),{
+
+type:"doughnut",
+
+data:{
+labels:categorias,
+datasets:[{
+data:valores,
+backgroundColor:colors
+}]
+},
+
+options:{
+plugins:{legend:{position:"right"}}
+}
+
+});
+
+/* AREA CHART */
+
+new Chart(document.getElementById("areaChart"),{
+
+type:"line",
+
+data:{
+labels:["Jan","Fev","Mar","Abr","Mai","Jun","Jul","Ago","Set","Out","Nov","Dez"],
+
+datasets:[
+
+{
+label:"Receita",
+data:[1000,1000,1000,1000,1000,1000,1000,1000,1000,1000,1000,1000],
+borderColor:"#2ecc71",
+backgroundColor:"rgba(46,204,113,0.2)",
+fill:true,
+tension:.4
+},
+
+{
+label:"Despesas",
+data:generateMonthly(values),
+borderColor:"#e74c3c",
+backgroundColor:"rgba(231,76,60,0.2)",
+fill:true,
+tension:.4
+}
+
+]
+
+}
+
+});
+
+}
+
+function generateMonthly(values){
+
+let months=[0,0,0,0,0,0,0,0,0,0,0,0];
+
+let i=0;
+
+while(i<values.length){
+
+for(let m=0;m<12;m++){
+
+months[m]+=values[i++]||0;
+
+}
+
+}
+
+return months;
+
+}
 
 </script>
   
