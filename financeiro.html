@@ -678,6 +678,100 @@ const db = getFirestore(app);
 
 let uid = null;
 
+const table = document.querySelector("#financeTable");
+const inputs = table.querySelectorAll("input");
+
+function calculateTotals(){
+
+const rows = table.querySelectorAll("tbody tr");
+
+rows.forEach(row=>{
+
+const cells = row.querySelectorAll("input");
+
+if(cells.length){
+
+let total = 0;
+
+cells.forEach(input=>{
+const v = parseFloat(input.value) || 0;
+total += v;
+});
+
+row.querySelector(".total").innerText = total.toFixed(2);
+
+}
+
+});
+
+}
+
+function getFinanceData(){
+
+let data = [];
+
+inputs.forEach((input,index)=>{
+data[index] = input.value;
+});
+
+return data;
+
+}
+
+function setFinanceData(data){
+
+if(!data) return;
+
+inputs.forEach((input,index)=>{
+
+if(data[index]){
+input.value = data[index];
+}
+
+});
+
+calculateTotals();
+
+}
+
+async function saveFinance(){
+
+if(!uid) return;
+
+const financeRef = doc(db,"finance",uid);
+
+await setDoc(financeRef,{
+values:getFinanceData()
+});
+
+}
+
+async function loadFinance(){
+
+const financeRef = doc(db,"finance",uid);
+
+const snap = await getDoc(financeRef);
+
+if(snap.exists()){
+
+setFinanceData(snap.data().values);
+
+}
+
+}
+
+inputs.forEach(input=>{
+
+input.addEventListener("input",()=>{
+
+calculateTotals();
+
+saveFinance();
+
+});
+
+});
+
 onAuthStateChanged(auth,(user)=>{
 
 if(user){
