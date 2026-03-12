@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Olivieri Dashboard</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Inter',sans-serif;
+}
+
+body{
+display:flex;
+height:100vh;
+background:#f5f6f8;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+width:240px;
+background:#fff;
+border-right:1px solid #e5e7eb;
+padding-top:25px;
+}
+
+.logo{
+font-size:28px;
+font-weight:700;
+padding:0 25px 30px;
+}
+
+/* MAIN */
+
+.main{
+flex:1;
+display:flex;
+flex-direction:column;
+}
+
+.header{
+height:70px;
+background:#fff;
+border-bottom:1px solid #e5e7eb;
+display:flex;
+align-items:center;
+justify-content:flex-end;
+padding:0 20px;
+}
+
+.content{
+padding:30px;
+}
+
+.welcome{
+font-size:26px;
+font-weight:600;
+margin-bottom:25px;
+}
+
+/* CARDS */
+
+.card{
+background:white;
+border-radius:14px;
+padding:25px;
+box-shadow:0 2px 8px rgba(0,0,0,0.05);
+margin-bottom:25px;
+}
+
+/* GRID ROSCAS */
+
+.donut-grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:25px;
+}
+
+.donut-container{
+position:relative;
+}
+
+.center-value{
+position:absolute;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+font-size:20px;
+font-weight:600;
+text-align:center;
+pointer-events:none;
+}
+
+canvas{
+max-height:340px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="sidebar">
+<div class="logo">MBX</div>
+</div>
+
+<div class="main">
+
+<div class="header"></div>
+
+<div class="content">
+
+<div class="welcome">
+Olá, Luiz. É bom te ver!
+</div>
+
+
+<!-- AREA CHART -->
+
+<div class="card">
+
+<h3>Receita x Despesas</h3>
+
+<canvas id="areaChart"></canvas>
+
+</div>
+
+
+<!-- DONUT CHARTS -->
+
+<div class="donut-grid">
+
+<div class="card">
+
+<h3>Gastos do Mês % por categoria</h3>
+
+<div class="donut-container">
+
+<canvas id="monthDonut"></canvas>
+
+<div id="monthValue" class="center-value"></div>
+
+</div>
+
+</div>
+
+
+<div class="card">
+
+<h3>Gastos do Ano % por categoria</h3>
+
+<div class="donut-container">
+
+<canvas id="yearDonut"></canvas>
+
+<div id="yearValue" class="center-value"></div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+/* AREA CHART */
+
+new Chart(document.getElementById("areaChart"),{
+
+type:"line",
+
+data:{
+labels:["Jan","Fev","Mar","Abr","Mai","Jun","Jul","Ago","Set","Out","Nov","Dez"],
+
+datasets:[
+
+{
+label:"Receita",
+data:[800,900,850,950,1000,1200,1300,1250,1400,1500,1600,1700],
+borderColor:"#2ecc71",
+backgroundColor:"rgba(46,204,113,0.2)",
+fill:true,
+tension:.4
+},
+
+{
+label:"Despesas",
+data:[600,700,650,700,800,900,950,900,1000,1100,1200,1300],
+borderColor:"#e74c3c",
+backgroundColor:"rgba(231,76,60,0.2)",
+fill:true,
+tension:.4
+}
+
+]
+},
+
+options:{
+scales:{
+y:{
+beginAtZero:true,
+ticks:{stepSize:100}
+}
+}
+}
+
+});
+
+
+/* CATEGORIAS */
+
+const categorias=[
+"Supermercado",
+"Padaria/Restaurante",
+"Utilidades",
+"Moradia",
+"Educação",
+"Saúde",
+"Transporte",
+"Lazer",
+"Pessoal",
+"Presentes"
+];
+
+const colors=[
+"#f6d365",
+"#fda085",
+"#f7797d",
+"#c471ed",
+"#f093fb",
+"#e056fd",
+"#74b9ff",
+"#55efc4",
+"#00cec9",
+"#badc58"
+];
+
+const valoresMes=[320,120,80,400,150,70,90,60,40,30];
+const valoresAno=[22,15,9,25,8,5,7,4,3,2];
+
+
+/* MONTH DONUT */
+
+const monthChart=new Chart(document.getElementById("monthDonut"),{
+
+type:"doughnut",
+
+data:{
+labels:categorias,
+datasets:[{
+data:valoresMes,
+backgroundColor:colors
+}]
+},
+
+options:{
+plugins:{
+legend:{position:"right"}
+},
+
+onClick:(evt,item)=>{
+
+if(item.length){
+
+let i=item[0].index;
+
+document.getElementById("monthValue").innerHTML=
+
+categorias[i]+"<br>"+valoresMes[i];
+
+}
+
+}
+
+}
+
+});
+
+
+/* YEAR DONUT */
+
+const yearChart=new Chart(document.getElementById("yearDonut"),{
+
+type:"doughnut",
+
+data:{
+labels:categorias,
+datasets:[{
+data:valoresAno,
+backgroundColor:colors
+}]
+},
+
+options:{
+plugins:{
+legend:{position:"right"}
+},
+
+onClick:(evt,item)=>{
+
+if(item.length){
+
+let i=item[0].index;
+
+document.getElementById("yearValue").innerHTML=
+
+categorias[i]+"<br>"+valoresAno[i]+"%";
+
+}
+
+}
+
+}
+
+});
+
+</script>
+
+</body>
+</html>
