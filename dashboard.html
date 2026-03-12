@@ -39,7 +39,44 @@ padding-top:25px;
 .logo{
 font-size:28px;
 font-weight:700;
-padding:0 25px 30px;
+padding:0 25px 30px 25px;
+letter-spacing:2px;
+}
+
+.menu{
+display:flex;
+flex-direction:column;
+}
+
+.menu a{
+display:flex;
+align-items:center;
+gap:12px;
+padding:12px 25px;
+text-decoration:none;
+color:#444;
+font-size:14px;
+border-radius:8px;
+margin:3px 10px;
+transition:.2s;
+}
+
+.menu a:hover{
+background:#f2f3f6;
+}
+
+.menu svg{
+width:18px;
+height:18px;
+stroke:#555;
+}
+
+/* MAIN */
+
+.main{
+flex:1;
+display:flex;
+flex-direction:column;
 }
 
 /* MAIN */
@@ -125,6 +162,17 @@ max-height:340px;
 
 <div class="welcome">
 Olá, Luiz. É bom te ver!
+</div>
+
+<div class="card">
+
+<div class="dashboard-top">
+<h3>Dashboard</h3>
+
+<select class="year">
+<option>2026</option>
+<option>2025</option>
+</select>
 </div>
 
 
