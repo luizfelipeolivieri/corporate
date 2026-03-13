@@ -150,13 +150,15 @@ border:1px solid #ccc;
 font-size:14px;
 }
 
-.input span{
+/* OLHO */
+
+.eye{
 position:absolute;
 right:12px;
 top:50%;
 transform:translateY(-50%);
 cursor:pointer;
-color:#888;
+font-size:18px;
 }
 
 /* CHECKBOX */
@@ -219,7 +221,7 @@ color:#333;
 <div class="navbar">
 
 <div class="logo">
-O <span>Olivieri</span>
+MBA <span>USP ESALQ</span>
 </div>
 
 <div class="menu">
@@ -267,7 +269,7 @@ O <span>Olivieri</span>
 
 <div class="input">
 <input type="password" id="senha" placeholder="Senha">
-<span onclick="toggleSenha()">👁</span>
+<span class="eye" id="eyeIcon" onclick="toggleSenha()">👁️</span>
 </div>
 
 <div class="remember">
@@ -303,16 +305,23 @@ Desenvolvido por: <b>Pecege</b>
 
 <script>
 
-/* MOSTRAR SENHA */
+/* MOSTRAR / OCULTAR SENHA COM TROCA DE ÍCONE */
 
 function toggleSenha(){
 
 let campo=document.getElementById("senha");
+let icone=document.getElementById("eyeIcon");
 
 if(campo.type==="password"){
+
 campo.type="text";
+icone.textContent="🙈";
+
 }else{
+
 campo.type="password";
+icone.textContent="👁️";
+
 }
 
 }
