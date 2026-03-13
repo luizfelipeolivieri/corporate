@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>MBX Login</title>
+<title>Olivieri Login</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
@@ -144,13 +145,13 @@ margin-bottom:18px;
 
 .input input{
 width:100%;
-padding:14px 40px 14px 14px;
+padding:14px 45px 14px 14px;
 border-radius:10px;
 border:1px solid #ccc;
 font-size:14px;
 }
 
-/* OLHO */
+/* SVG ICON */
 
 .eye{
 position:absolute;
@@ -158,7 +159,9 @@ right:12px;
 top:50%;
 transform:translateY(-50%);
 cursor:pointer;
-font-size:18px;
+width:22px;
+height:22px;
+color:#666;
 }
 
 /* CHECKBOX */
@@ -268,8 +271,48 @@ MBA <span>USP ESALQ</span>
 <label>Senha</label>
 
 <div class="input">
+
 <input type="password" id="senha" placeholder="Senha">
-<span class="eye" id="eyeIcon" onclick="toggleSenha()">👁️</span>
+
+<div class="eye" onclick="toggleSenha()" id="eyeIcon">
+
+<!-- OLHO ABERTO -->
+
+<svg id="eyeOpen" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+
+<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+
+<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+d="M2.458 12C3.732 7.943 7.523 5 12 5
+c4.477 0 8.268 2.943 9.542 7
+-1.274 4.057-5.065 7-9.542 7
+-4.477 0-8.268-2.943-9.542-7z"/>
+
+</svg>
+
+<!-- OLHO FECHADO -->
+
+<svg id="eyeClosed" style="display:none" xmlns="http://www.w3.org/2000/svg"
+fill="none" viewBox="0 0 24 24" stroke="currentColor">
+
+<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+d="M13.875 18.825A10.05 10.05 0 0112 19
+c-4.478 0-8.27-2.944-9.543-7
+a9.956 9.956 0 012.293-3.95"/>
+
+<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+d="M6.223 6.223A9.956 9.956 0 0112 5
+c4.478 0 8.27 2.944 9.543 7
+a9.97 9.97 0 01-4.043 4.568"/>
+
+<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+d="M3 3l18 18"/>
+
+</svg>
+
+</div>
+
 </div>
 
 <div class="remember">
@@ -298,29 +341,32 @@ Todos os direitos reservados – 2026
 </div>
 
 <div>
-Desenvolvido por: <b>Pecege</b>
+Desenvolvido por: <b>Olivieri</b>
 </div>
 
 </div>
 
 <script>
 
-/* MOSTRAR / OCULTAR SENHA COM TROCA DE ÍCONE */
+/* MOSTRAR / OCULTAR SENHA */
 
 function toggleSenha(){
 
-let campo=document.getElementById("senha");
-let icone=document.getElementById("eyeIcon");
+let campo = document.getElementById("senha")
+let eyeOpen = document.getElementById("eyeOpen")
+let eyeClosed = document.getElementById("eyeClosed")
 
-if(campo.type==="password"){
+if(campo.type === "password"){
 
-campo.type="text";
-icone.textContent="🙈";
+campo.type = "text"
+eyeOpen.style.display = "none"
+eyeClosed.style.display = "block"
 
 }else{
 
-campo.type="password";
-icone.textContent="👁️";
+campo.type = "password"
+eyeOpen.style.display = "block"
+eyeClosed.style.display = "none"
 
 }
 
@@ -330,12 +376,12 @@ icone.textContent="👁️";
 
 function toggleLang(){
 
-let menu=document.getElementById("langMenu");
+let menu=document.getElementById("langMenu")
 
-menu.style.display=
-menu.style.display==="flex"
+menu.style.display =
+menu.style.display === "flex"
 ? "none"
-: "flex";
+: "flex"
 
 }
 
