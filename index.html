@@ -8,6 +8,8 @@
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
+<link rel="stylesheet" href="https://samovessoprd.blob.core.windows.net/movesso/dist/components/language-selector/language-selector.css">
+
 <style>
 
 *{
@@ -73,70 +75,6 @@ border-radius:6px;
 cursor:pointer;
 }
 
-/* LANGUAGE SELECTOR */
-
-.language-selector-container{
-position:relative;
-}
-
-.language-trigger{
-background:#f1f1f1;
-border:none;
-border-radius:6px;
-padding:6px 10px;
-cursor:pointer;
-display:flex;
-align-items:center;
-gap:6px;
-}
-
-.language-menu{
-position:absolute;
-top:40px;
-right:0;
-background:white;
-border-radius:8px;
-box-shadow:0 4px 12px rgba(0,0,0,0.1);
-list-style:none;
-width:140px;
-display:none;
-flex-direction:column;
-overflow:hidden;
-}
-
-.language-menu.open{
-display:flex;
-}
-
-.language-option{
-padding:8px 10px;
-cursor:pointer;
-}
-
-.language-option:hover{
-background:#f5f5f5;
-}
-
-.language-option.active{
-background:#f1f1f1;
-}
-
-.optionSelection{
-display:flex;
-align-items:center;
-gap:8px;
-}
-
-.svgIcon img{
-width:18px;
-height:18px;
-}
-
-.optionText{
-font-size:14px;
-color:#333;
-}
-
 /* MAIN */
 
 .main{
@@ -190,6 +128,8 @@ height:22px;
 color:#666;
 }
 
+/* CHECKBOX */
+
 .remember{
 display:flex;
 align-items:center;
@@ -197,6 +137,8 @@ gap:8px;
 margin-bottom:20px;
 font-size:14px;
 }
+
+/* BUTTON */
 
 .submit{
 width:100%;
@@ -213,6 +155,8 @@ cursor:pointer;
 background:#000;
 }
 
+/* LINK */
+
 .forgot{
 text-align:center;
 margin-top:20px;
@@ -220,6 +164,8 @@ font-size:14px;
 color:#444;
 cursor:pointer;
 }
+
+/* FOOTER */
 
 .footer{
 height:60px;
@@ -255,50 +201,50 @@ MBA <span>USP ESALQ</span>
 
 <button class="login-btn">Login</button>
 
-<!-- LANGUAGE SELECTOR -->
+<language-selector></language-selector>
 
 <div class="language-selector-container">
 
-<button class="language-trigger" id="langTrigger">
+<button class="language-trigger" type="button" aria-haspopup="listbox" aria-expanded="false">
 
 <div class="optionSelection">
 <div class="svgIcon">
-<img id="selectedFlag" src="https://samovessoprd.blob.core.windows.net/movesso/dist/assets/svg/lang-portuguese-icon.svg">
+<img src="https://samovessoprd.blob.core.windows.net/movesso/dist/assets/svg/lang-portuguese-icon.svg" alt="pt">
 </div>
-<p class="optionText" id="selectedText">PT | BR</p>
+<p class="optionText">PT | BR</p>
 </div>
 
 </button>
 
-<ul class="language-menu" id="languageMenu">
+<ul class="language-menu" role="listbox">
 
-<li class="language-option active" data-value="pt">
+<li class="language-option active" data-value="pt" role="option">
 
 <div class="optionSelection">
 <div class="svgIcon">
-<img src="https://samovessoprd.blob.core.windows.net/movesso/dist/assets/svg/lang-portuguese-icon.svg">
+<img src="https://samovessoprd.blob.core.windows.net/movesso/dist/assets/svg/lang-portuguese-icon.svg" alt="pt">
 </div>
 <p class="optionText">PT | BR</p>
 </div>
 
 </li>
 
-<li class="language-option" data-value="en">
+<li class="language-option" data-value="en" role="option">
 
 <div class="optionSelection">
 <div class="svgIcon">
-<img src="https://samovessoprd.blob.core.windows.net/movesso/dist/assets/svg/lang-english-icon.svg">
+<img src="https://samovessoprd.blob.core.windows.net/movesso/dist/assets/svg/lang-english-icon.svg" alt="en">
 </div>
 <p class="optionText">EN | US</p>
 </div>
 
 </li>
 
-<li class="language-option" data-value="es">
+<li class="language-option" data-value="es" role="option">
 
 <div class="optionSelection">
 <div class="svgIcon">
-<img src="https://samovessoprd.blob.core.windows.net/movesso/dist/assets/svg/lang-spanish-icon.svg">
+<img src="https://samovessoprd.blob.core.windows.net/movesso/dist/assets/svg/lang-spanish-icon.svg" alt="es">
 </div>
 <p class="optionText">ES | ES</p>
 </div>
@@ -344,7 +290,18 @@ c4.478 0 8.268 2.943 9.542 7
 </svg>
 
 <svg id="eyeClosed" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-<line x1="3" y1="3" x2="21" y2="21" stroke="currentColor" stroke-width="2"/>
+<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+d="M13.875 18.825A10.05 10.05 0 0112 19
+c-4.478 0-8.268-2.943-9.542-7
+a9.956 9.956 0 012.042-3.368"/>
+<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+d="M6.223 6.223A9.956 9.956 0 0112 5
+c4.478 0 8.268 2.943 9.542 7
+a9.97 9.97 0 01-4.132 5.411"/>
+<line x1="3" y1="3" x2="21" y2="21"
+stroke="currentColor"
+stroke-width="2"
+stroke-linecap="round"/>
 </svg>
 
 </div>
@@ -382,64 +339,38 @@ Desenvolvido por: <b>Pecege</b>
 
 <script>
 
-/* SENHA */
-
 function toggleSenha(){
 
 let campo = document.getElementById("senha");
-let open = document.getElementById("eyeOpen");
-let closed = document.getElementById("eyeClosed");
+let eyeOpen = document.getElementById("eyeOpen");
+let eyeClosed = document.getElementById("eyeClosed");
 
 if(campo.type === "password"){
 
-campo.type="text";
-open.style.display="block";
-closed.style.display="none";
+campo.type = "text";
+eyeOpen.style.display = "block";
+eyeClosed.style.display = "none";
 
 }else{
 
-campo.type="password";
-open.style.display="none";
-closed.style.display="block";
+campo.type = "password";
+eyeOpen.style.display = "none";
+eyeClosed.style.display = "block";
 
 }
 
 }
 
-/* LANGUAGE SELECTOR */
+/* MENU IDIOMA */
 
-const trigger = document.getElementById("langTrigger")
-const menu = document.getElementById("languageMenu")
-const options = document.querySelectorAll(".language-option")
+const trigger = document.querySelector(".language-trigger");
+const menu = document.querySelector(".language-menu");
 
-trigger.onclick = () => {
-menu.classList.toggle("open")
-}
+trigger.addEventListener("click", () => {
 
-options.forEach(option=>{
+menu.classList.toggle("open");
 
-option.onclick = ()=>{
-
-options.forEach(o=>o.classList.remove("active"))
-option.classList.add("active")
-
-const flag = option.querySelector("img").src
-const text = option.querySelector(".optionText").innerText
-
-document.getElementById("selectedFlag").src = flag
-document.getElementById("selectedText").innerText = text
-
-menu.classList.remove("open")
-
-}
-
-})
-
-document.addEventListener("click", e=>{
-if(!trigger.contains(e.target) && !menu.contains(e.target)){
-menu.classList.remove("open")
-}
-})
+});
 
 </script>
 
