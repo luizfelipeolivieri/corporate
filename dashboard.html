@@ -647,41 +647,32 @@ return months;
 
 }
 
-</script>
+<!-- SUBSTITUA APENAS O ÚLTIMO SCRIPT PELO ABAIXO -->
 
-<script type="module">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+<script>
 
-/* CONFIG FIREBASE */
+/* ===== SUPABASE ===== */
 
-const firebaseConfig = {
-  apiKey: "AIzaSyBL4Hy0VNHm-GJV0ItAwqJUugetksmvujM",
-  authDomain: "olivieri-site.firebaseapp.com",
-  projectId: "olivieri-site",
-  storageBucket: "olivieri-site.firebasestorage.app",
-  messagingSenderId: "759268911996",
-  appId: "1:759268911996:web:ff78c89893857423d1d2f9",
-  measurementId: "G-N09GMDHLCJ"
-};
+const supabase = window.supabase.createClient(
+  "https://zgstzbthnzrygxgaleqm.supabase.co",
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inpnc3R6YnRobnpyeWd4Z2FsZXFtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQwNDAwOTUsImV4cCI6MjA4OTYxNjA5NX0.VuPCZvb44xx1BtkQYCZqmEMy1WNfnAKf8QPhMLsjWBQ"
+);
 
-/* INICIALIZA FIREBASE */
+/* ===== PROTEÇÃO DE ROTA ===== */
 
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
+async function checkUser(){
 
-/* PROTEÇÃO DE ROTA */
+const { data } = await supabase.auth.getSession();
 
-onAuthStateChanged(auth, (user) => {
-
-if(!user){
-
-window.location.href = "login.html";
+if(!data.session){
+  window.location.href = "login.html";
+}
 
 }
 
-});
+checkUser();
 
 </script>
   
