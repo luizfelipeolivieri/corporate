@@ -275,27 +275,18 @@ Desenvolvido por: <b>Pecege</b>
 </div>
 
 
-<script type="module">
+<!-- SUBSTITUA APENAS O SCRIPT FINAL PELO ABAIXO -->
 
-/* ===== FIREBASE ===== */
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-analytics.js";
-import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+<script>
 
-const firebaseConfig = {
-apiKey: "AIzaSyBL4Hy0VNHm-GJV0ItAwqJUugetksmvujM",
-authDomain: "olivieri-site.firebaseapp.com",
-projectId: "olivieri-site",
-storageBucket: "olivieri-site.firebasestorage.app",
-messagingSenderId: "759268911996",
-appId: "1:759268911996:web:ff78c89893857423d1d2f9",
-measurementId: "G-N09GMDHLCJ"
-};
+/* ===== SUPABASE ===== */
 
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
-const auth = getAuth(app);
+const supabase = window.supabase.createClient(
+  "https://zgstzbthnzrygxgaleqm.supabase.co",
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inpnc3R6YnRobnpyeWd4Z2FsZXFtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQwNDAwOTUsImV4cCI6MjA4OTYxNjA5NX0.VuPCZvb44xx1BtkQYCZqmEMy1WNfnAKf8QPhMLsjWBQ"
+);
 
 /* ===== LOGIN ===== */
 
@@ -304,23 +295,22 @@ document.getElementById("loginBtn").addEventListener("click", async () => {
 const email = document.getElementById("email").value;
 const senha = document.getElementById("senha").value;
 
-try{
+const { data, error } = await supabase.auth.signInWithPassword({
+  email: email,
+  password: senha
+});
 
-await signInWithEmailAndPassword(auth, email, senha);
-
-window.location.href = "dashboard.html";
-
-}catch(error){
-
-alert("Erro ao realizar login: " + error.message);
-
+if(error){
+  alert("Erro no login: " + error.message);
+}else{
+  window.location.href = "dashboard.html";
 }
 
 });
 
-/* ===== TOGGLE SENHA ===== */
+/* ===== TOGGLE SENHA (MANTIDO IGUAL) ===== */
 
-window.toggleSenha = function(){
+function toggleSenha(){
 
 let campo = document.getElementById("senha");
 let eyeOpen = document.getElementById("eyeOpen");
